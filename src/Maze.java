@@ -40,6 +40,7 @@ public class Maze {
 			while (!checkedSide) {
 				int randomNum = rand.nextInt(4);
 				// 0 is up, 1 is right, 2 is down, 3 is left.
+				// This can be modified to add some interesting bias to the generation.
 				
 				switch (randomNum) {
 				case 0:
@@ -84,7 +85,7 @@ public class Maze {
 					break;
 				}
 				
-				if (checkedUp && checkedRight && checkedDown && checkedLeft) {
+				if (!checkedSide && checkedUp && checkedRight && checkedDown && checkedLeft) {
 					currentPath.pop();
 					break;
 				}
