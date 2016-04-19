@@ -1,19 +1,15 @@
 /**
- * 
- */
-
-/**
  * @author Group 2
  *
  */
 public class MazeProgram {
-
-	/**
-	 * @param args
-	 */
+	
 	public static void main(String[] args) {
 
-		System.out.println("Our program does a lot of things.");
+		Maze m = new Maze(20, 15); // Any width and height works, but this makes a pretty decent one.
+		m.generateMapDepthStyle();
+		
+		UI.printMazeASCII(m);
 	}
 
 }
