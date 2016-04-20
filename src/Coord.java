@@ -21,4 +21,22 @@ public class Coord {
 			return false;
 		}
 	}
+	
+	public void move(Direction d) {
+		switch(d) {
+		case UP:
+		default:
+			y -= 1;
+			break;
+		case RIGHT:
+			x += 1;
+			break;
+		case DOWN:
+			y += 1;
+			break;
+		case LEFT:
+			x -= 1;
+			break;
+		}
+	}
 }

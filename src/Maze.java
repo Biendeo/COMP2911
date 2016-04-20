@@ -19,7 +19,14 @@ public class Maze {
 	}
 	
 	public void generateMapDepthStyle() {
-		Random rand = new Random();
+		generateMapDepthStyleProcess(new Random());
+	}
+	
+	public void generateMapDepthStyle(int seed) {
+		generateMapDepthStyleProcess(new Random(seed));
+	}
+	
+	private void generateMapDepthStyleProcess(Random rand) {
 		Stack<Coord> currentPath = new Stack<Coord>();
 		Coord current = start.clone();
 		
@@ -159,5 +166,32 @@ public class Maze {
 	
 	public boolean isConnectedDown(Coord c) {
 		return isConnectedDown(c.x, c.y);
+	}
+	
+	// TODO: Make this the function to use, and the rest are based on this.
+	public boolean isConnected(Coord c, Direction d) {
+		switch(d) {
+		case UP:
+		default:
+			return isConnectedUp(c);
+		case RIGHT:
+			return isConnectedRight(c);
+		case DOWN:
+			return isConnectedDown(c);
+		case LEFT:
+			return isConnectedLeft(c);
+		}
+	}
+	
+	public boolean canMove(Coord c, Direction d) {
+		return isConnected(c, d);
+	}
+	
+	public Coord getStart() {
+		return start.clone();
+	}
+	
+	public Coord getEnd() {
+		return end.clone();
 	}
 }

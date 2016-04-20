@@ -6,7 +6,7 @@ public class MazeProgram {
 	
 	public static void main(String[] args) {
 
-		Maze m = new Maze(60, 2); // Any width and height works, but this makes a pretty decent one.
+		Maze m = new Maze(25, 20); // Any width and height works, but this makes a pretty decent one.
 		m.generateMapDepthStyle();
 		
 		UI.printMazeASCII(m);

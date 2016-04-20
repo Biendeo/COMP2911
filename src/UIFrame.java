@@ -52,7 +52,10 @@ public class UIFrame extends JFrame {
 		
 		Color wall = Color.BLACK;
 		Color space = Color.WHITE;
+		Color start = new Color(200, 200, 255);
+		Color end = new Color(255, 200, 200);
 		
+		// TODO: This needs to be refactored, it's too copy-paste.
 		for (int y = 0; y < m.getHeight(); y++) {
 			for (int x = 0; x < m.getWidth(); x++) {
 				for (int b = 0; b < tileSize; b++) {
@@ -61,38 +64,66 @@ public class UIFrame extends JFrame {
 							image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 						} else if (a < wallSize) {
 							if (m.isConnectedLeft(x, y)) {
-								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
+								if (m.getStart().equals(new Coord(x, y))) {
+									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
+								} else if (m.getEnd().equals(new Coord(x, y))) {
+									image.setRGB(x * tileSize + a, y * tileSize + b, end.getRGB());
+								} else {
+									image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
+								}
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
 						} else if (a >= tileSize - wallSize) {
 							if (m.isConnectedRight(x, y)) {
-								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
+								if (m.getStart().equals(new Coord(x, y))) {
+									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
+								} else if (m.getEnd().equals(new Coord(x, y))) {
+									image.setRGB(x * tileSize + a, y * tileSize + b, end.getRGB());
+								} else {
+									image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
+								}
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
 						} else if (b < wallSize) {
 							if (m.isConnectedUp(x, y)) {
-								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
+								if (m.getStart().equals(new Coord(x, y))) {
+									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
+								} else if (m.getEnd().equals(new Coord(x, y))) {
+									image.setRGB(x * tileSize + a, y * tileSize + b, end.getRGB());
+								} else {
+									image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
+								}
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
 						} else if (b >= tileSize - wallSize) {
 							if (m.isConnectedDown(x, y)) {
-								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
+								if (m.getStart().equals(new Coord(x, y))) {
+									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
+								} else if (m.getEnd().equals(new Coord(x, y))) {
+									image.setRGB(x * tileSize + a, y * tileSize + b, end.getRGB());
+								} else {
+									image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
+								}
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
 						} else {
-							image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
+							if (m.getStart().equals(new Coord(x, y))) {
+								image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
+							} else if (m.getEnd().equals(new Coord(x, y))) {
+								image.setRGB(x * tileSize + a, y * tileSize + b, end.getRGB());
+							} else {
+								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
+							}
 						}
 					}
 				}
 			}
 		}
 		mazeImg = image;
-		System.out.println(mazeImg.getWidth());
-		System.out.println(mazeImg.getHeight());
 		// I need a bit of padding because it overlaps a little.
 		this.setPreferredSize(new Dimension(mazeImg.getWidth() + 16, mazeImg.getHeight() + 39));
 		this.pack();

@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.util.Random;
+
 public class UI {
 	public static void printMazeASCII(Maze m) {
 		
@@ -36,5 +39,10 @@ public class UI {
 			}
 			System.out.println();
 		}
+	}
+	
+	public static Color getRandomColor() {
+		Random rand = new Random();
+		return new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
 	}
 }
