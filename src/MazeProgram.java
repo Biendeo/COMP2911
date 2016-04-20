@@ -1,4 +1,6 @@
 /**
+ * The main execution of the program. It creates a maze and calls basic UI
+ * functions. It should eventually handle input and possible other features.
  * @author Group 2
  *
  */

@@ -1,4 +1,8 @@
 
+/**
+ * A cardinal direction.
+ *
+ */
 public enum Direction {
 	UP,
 	RIGHT,

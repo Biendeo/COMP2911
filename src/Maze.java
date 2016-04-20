@@ -2,37 +2,79 @@ import java.util.Random;
 import java.util.Stack;
 
 // TODO: Formally decide what a maze is, and what it stores.
+/**
+ * A maze class, that stores data about a maze.
+ * Maze generation should only be called once per maze object. Create
+ * a new maze if that is required.
+ * @author Thomas
+ *
+ */
 public class Maze {
+	// The is stored with a 2D array.
 	private MazeGrid[][] maze;
 	private int width;
 	private int height;
+	
+	// These store the entry and exit points on the maze.
 	private Coord start;
 	private Coord end;
 	
+	/**
+	 * Creates a new maze with given size parameters.
+	 * @param width
+	 * How many tiles wide it is.
+	 * @param height
+	 * How many tiles tall it is.
+	 */
 	public Maze(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.maze = new MazeGrid[width][height];
 		// The start is the bottom-left, the end is the top-right.
+		// We can change this at any time.
 		this.start = new Coord(0, height - 1);
 		this.end = new Coord(width - 1, 0);
 	}
 	
+	/**
+	 * Creates a new maze using a randomised depth-first search.
+	 * 
+	 * This method works by creating a tile at the entry point. Then, each
+	 * side is checked in a random order. If the side doesn't exist, then
+	 * it is created and checked next (added to a stack). When a dead-end
+	 * is reached and all the sides are made, then it pops off the stack
+	 * to a point where it can go again. This will fill the entire map area
+	 * with no holes, and every place is connected. However, a preset end
+	 * location may not always be in a dead-end (but sometimes it can).
+	 * 
+	 */
 	public void generateMapDepthStyle() {
 		generateMapDepthStyleProcess(new Random());
 	}
 	
+	/**
+	 * Creates a new maze using a randomised depth-first search.
+	 * @param seed
+	 * A specific seed for the random generation (the same seed will give the
+	 * same results).
+	 */
 	public void generateMapDepthStyle(int seed) {
 		generateMapDepthStyleProcess(new Random(seed));
 	}
 	
+	/**
+	 * The process to creating a maze using a randomised depth-first search.
+	 * @param rand
+	 * The random generator.
+	 */
 	private void generateMapDepthStyleProcess(Random rand) {
 		Stack<Coord> currentPath = new Stack<Coord>();
 		Coord current = start.clone();
 		
 		currentPath.push(current);
 		maze[current.x][current.y] = new MazeGrid();
-			
+		
+		// We run until we've run out of places to check (which should mean we've filled the whole maze).
 		while (!currentPath.isEmpty()) {
 			current = currentPath.peek();
 			
@@ -43,19 +85,27 @@ public class Maze {
 			boolean checkedDown = false;
 			boolean checkedLeft = false;
 			
-			// TODO: 
+			// This inner loop keeps getting random sides until either it's
+			// checked every side, or it's found a side which has an unchecked
+			// tile.
 			while (!checkedSide) {
+				// TODO: Delegate this to a function, and return the enum instead.
 				int randomNum = rand.nextInt(4);
 				// 0 is up, 1 is right, 2 is down, 3 is left.
 				// This can be modified to add some interesting bias to the generation.
 				
 				switch (randomNum) {
 				case 0:
+					// Check if the side is within the maze dimensions, and whether that position doesn't exist already.
 					if (!isOutOfBound(current.x, current.y - 1) && maze[current.x][current.y - 1] == null) {
+						// Add that to the stack (so it's checked next).
 						currentPath.push(new Coord(current.x, current.y - 1));
+						// Create that tile.
 						maze[current.x][current.y - 1] = new MazeGrid();
+						// Connect that tile to the current tile.
 						maze[current.x][current.y].top = true;
 						maze[current.x][current.y - 1].bottom = true;
+						// Mark that we've found a side.
 						checkedSide = true;
 					}
 					checkedUp = true;
@@ -92,6 +142,7 @@ public class Maze {
 					break;
 				}
 				
+				// If every side was checked and no spaces were found, then we pop this off.
 				if (!checkedSide && checkedUp && checkedRight && checkedDown && checkedLeft) {
 					currentPath.pop();
 					break;
@@ -100,6 +151,15 @@ public class Maze {
 		}
 	}
 	
+	/**
+	 * Returns whether the coord is valid in the map (in the boundaries).
+	 * @param x
+	 * The x coordinate.
+	 * @param y
+	 * The y coordinate.
+	 * @return
+	 * Whether it is inside the map boundaries.
+	 */
 	private boolean isOutOfBound(int x, int y) {
 		if (x < 0 || x >= width || y < 0 || y >= height) {
 			return true;
@@ -108,18 +168,45 @@ public class Maze {
 		}
 	}
 	
+	/**
+	 * Returns whether the coord is valid in the map (in the boundaries).
+	 * @param c
+	 * The coordinate.
+	 * @return
+	 * Whether it is inside the map boundaries.
+	 */
 	private boolean isOutOfBound(Coord c) {
 		return isOutOfBound(c.x, c.y);
 	}
 	
+	/**
+	 * Get the width of the maze.
+	 * @return
+	 * The width of the maze.
+	 */
 	public int getWidth() {
 		return width;
 	}
 	
+	/**
+	 * Get the height of the maze.
+	 * @return
+	 * The height of the maze.
+	 */
 	public int getHeight() {
 		return height;
 	}
 	
+	/**
+	 * Returns whether the coord has a connection to the left.
+	 * @deprecated Replaced by {@link #isConnected(Coord, Direction)}
+	 * @param x
+	 * The x coord.
+	 * @param y
+	 * The y coord.
+	 * @return
+	 * Whether that tile has a left connection.
+	 */
 	public boolean isConnectedLeft(int x, int y) {
 		if (!isOutOfBound(x, y)) {
 			return maze[x][y].left;
@@ -127,7 +214,17 @@ public class Maze {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Returns whether the coord has a connection to the top.
+	 * @deprecated Replaced by {@link #isConnected(Coord, Direction)}
+	 * @param x
+	 * The x coord.
+	 * @param y
+	 * The y coord.
+	 * @return
+	 * Whether that tile has a top connection.
+	 */
 	public boolean isConnectedUp(int x, int y) {
 		if (!isOutOfBound(x, y)) {
 			return maze[x][y].top;
@@ -135,7 +232,17 @@ public class Maze {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Returns whether the coord has a connection to the right.
+	 * @deprecated Replaced by {@link #isConnected(Coord, Direction)}
+	 * @param x
+	 * The x coord.
+	 * @param y
+	 * The y coord.
+	 * @return
+	 * Whether that tile has a right connection.
+	 */
 	public boolean isConnectedRight(int x, int y) {
 		if (!isOutOfBound(x, y)) {
 			return maze[x][y].right;
@@ -143,7 +250,17 @@ public class Maze {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Returns whether the coord has a connection to the bottom.
+	 * @deprecated Replaced by {@link #isConnected(Coord, Direction)}
+	 * @param x
+	 * The x coord.
+	 * @param y
+	 * The y coord.
+	 * @return
+	 * Whether that tile has a bottom connection.
+	 */
 	public boolean isConnectedDown(int x, int y) {
 		if (!isOutOfBound(x, y)) {
 			return maze[x][y].bottom;
@@ -151,24 +268,68 @@ public class Maze {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Returns whether the coord has a connection to the left.
+	 * @deprecated Replaced by {@link #isConnected(Coord, Direction)}
+	 * @param c
+	 * The coordinate in question
+	 * @return
+	 * Whether that tile has a left connection.
+	 */
 	public boolean isConnectedLeft(Coord c) {
 		return isConnectedLeft(c.x, c.y);
 	}
-	
+
+
+	/**
+	 * Returns whether the coord has a connection to the top.
+	 * @deprecated Replaced by {@link #isConnected(Coord, Direction)}
+	 * @param c
+	 * The coordinate in question
+	 * @return
+	 * Whether that tile has a top connection.
+	 */
 	public boolean isConnectedUp(Coord c) {
 		return isConnectedUp(c.x, c.y);
 	}
-	
+
+
+	/**
+	 * Returns whether the coord has a connection to the right.
+	 * @deprecated Replaced by {@link #isConnected(Coord, Direction)}
+	 * @param c
+	 * The coordinate in question
+	 * @return
+	 * Whether that tile has a right connection.
+	 */
 	public boolean isConnectedRight(Coord c) {
 		return isConnectedRight(c.x, c.y);
 	}
-	
+
+
+	/**
+	 * Returns whether the coord has a connection to the bottom.
+	 * @deprecated Replaced by {@link #isConnected(Coord, Direction)}
+	 * @param c
+	 * The coordinate in question.
+	 * @return
+	 * Whether that tile has a bottom connection.
+	 */
 	public boolean isConnectedDown(Coord c) {
 		return isConnectedDown(c.x, c.y);
 	}
 	
 	// TODO: Make this the function to use, and the rest are based on this.
+	/**
+	 * Returns whether the coord has a connection in that direction.
+	 * @param c
+	 * The coordinate in question.
+	 * @param d
+	 * The direction to move in.
+	 * @return
+	 * Whether the coord has a connection in that direction.
+	 */
 	public boolean isConnected(Coord c, Direction d) {
 		switch(d) {
 		case UP:
@@ -183,14 +344,27 @@ public class Maze {
 		}
 	}
 	
+	/**
+	 * Same as {@link #isConnected(Coord, Direction)}
+	 */
 	public boolean canMove(Coord c, Direction d) {
 		return isConnected(c, d);
 	}
 	
+	/**
+	 * Returns the start coordinate (read-only).
+	 * @return
+	 * The start coordinate.
+	 */
 	public Coord getStart() {
 		return start.clone();
 	}
 	
+	/**
+	 * Returns the end coordinate (read-only).
+	 * @return
+	 * The end coordinate.
+	 */
 	public Coord getEnd() {
 		return end.clone();
 	}

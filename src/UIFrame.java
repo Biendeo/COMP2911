@@ -11,38 +11,46 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Dimension;
 
+/**
+ * Provides a graphical UI for the maze.
+ *
+ */
 public class UIFrame extends JFrame {
-
-	private static final long serialVersionUID = -5356384863762278628L;
-	// TODO: Clean up the contentPane business.
-	private JPanel contentPane;
 	
-	// My actual UI stuff.
-	BufferedImage mazeImg;
-
+	// This exists purely for the JFrame.
+	private static final long serialVersionUID = -5356384863762278628L;
+	
+	// The maze image.
+	private BufferedImage mazeImg;
+	
+	/**
+	 * Creates a UIFrame with some basic properties. This also includes a paint
+	 * function that gets called when repaint() is called.
+	 */
 	public UIFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 320, 240);
-		//contentPane = new JPanel();
 		this.add(new JComponent(){
-			
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = -89098975220986245L;
 
 			@Override
+			/**
+			 * Draws the screen.
+			 */
 			public void paintComponent(Graphics g) {
 				if (mazeImg != null) {
+					// Currently all that is draw is the maze background.
 					g.drawImage(mazeImg, 0, 0, null);
 				}
 			}
 		});
-		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//contentPane.setLayout(new BorderLayout(0, 0));
-		//setContentPane(contentPane);
 	}
-
+	
+	/**
+	 * Draws a given maze to the UIFrame, and repaints the frame at the end.
+	 * @param m
+	 * The maze to be drawn.
+	 */
 	public void drawMazeSwingOne(Maze m) {
 		final int tileSize = 16;
 		final int wallSize = 3;
@@ -56,13 +64,15 @@ public class UIFrame extends JFrame {
 		Color end = new Color(255, 200, 200);
 		
 		// TODO: This needs to be refactored, it's too copy-paste.
+		// x and y are the map co-ordinates, a and b are the current tile pixel position.
 		for (int y = 0; y < m.getHeight(); y++) {
 			for (int x = 0; x < m.getWidth(); x++) {
 				for (int b = 0; b < tileSize; b++) {
 					for (int a = 0; a < tileSize; a++) {
+						// If in the corners of a tile.
 						if ((a < wallSize || a >= tileSize - wallSize) && (b < wallSize || b >= tileSize - wallSize)) {
 							image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
-						} else if (a < wallSize) {
+						} else if (a < wallSize) { // If on the left side.
 							if (m.isConnectedLeft(x, y)) {
 								if (m.getStart().equals(new Coord(x, y))) {
 									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
@@ -74,7 +84,7 @@ public class UIFrame extends JFrame {
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
-						} else if (a >= tileSize - wallSize) {
+						} else if (a >= tileSize - wallSize) { // If on the right side.
 							if (m.isConnectedRight(x, y)) {
 								if (m.getStart().equals(new Coord(x, y))) {
 									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
@@ -86,7 +96,7 @@ public class UIFrame extends JFrame {
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
-						} else if (b < wallSize) {
+						} else if (b < wallSize) { // If on the top side.
 							if (m.isConnectedUp(x, y)) {
 								if (m.getStart().equals(new Coord(x, y))) {
 									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
@@ -98,7 +108,7 @@ public class UIFrame extends JFrame {
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
-						} else if (b >= tileSize - wallSize) {
+						} else if (b >= tileSize - wallSize) { // If on the bottom side.
 							if (m.isConnectedDown(x, y)) {
 								if (m.getStart().equals(new Coord(x, y))) {
 									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
@@ -110,7 +120,7 @@ public class UIFrame extends JFrame {
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
-						} else {
+						} else { // In the centre.
 							if (m.getStart().equals(new Coord(x, y))) {
 								image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
 							} else if (m.getEnd().equals(new Coord(x, y))) {
