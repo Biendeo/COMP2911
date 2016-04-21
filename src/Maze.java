@@ -6,7 +6,6 @@ import java.util.Stack;
  * A maze class, that stores data about a maze.
  * Maze generation should only be called once per maze object. Create
  * a new maze if that is required.
- * @author Thomas
  *
  */
 public class Maze {

@@ -1,2 +1,4 @@
 *.VC.db
 /bin/
+output.txt
+/doc
