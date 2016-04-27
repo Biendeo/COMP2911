@@ -53,7 +53,7 @@ public class UIFrame extends JFrame {
 	 */
 	public void drawMazeSwingOne(Maze m) {
 		final int tileSize = 16;
-		final int wallSize = 3;
+		final int wallSize = 4;
 		
 		setBounds(100, 100, tileSize * m.getWidth(), tileSize * m.getHeight());
 		BufferedImage image = new BufferedImage(tileSize * m.getWidth(), tileSize * m.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -74,49 +74,25 @@ public class UIFrame extends JFrame {
 							image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 						} else if (a < wallSize) { // If on the left side.
 							if (m.isConnectedLeft(x, y)) {
-								if (m.getStart().equals(new Coord(x, y))) {
-									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
-								} else if (m.getEnd().equals(new Coord(x, y))) {
-									image.setRGB(x * tileSize + a, y * tileSize + b, end.getRGB());
-								} else {
-									image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
-								}
+								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
 						} else if (a >= tileSize - wallSize) { // If on the right side.
 							if (m.isConnectedRight(x, y)) {
-								if (m.getStart().equals(new Coord(x, y))) {
-									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
-								} else if (m.getEnd().equals(new Coord(x, y))) {
-									image.setRGB(x * tileSize + a, y * tileSize + b, end.getRGB());
-								} else {
-									image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
-								}
+								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
 						} else if (b < wallSize) { // If on the top side.
 							if (m.isConnectedUp(x, y)) {
-								if (m.getStart().equals(new Coord(x, y))) {
-									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
-								} else if (m.getEnd().equals(new Coord(x, y))) {
-									image.setRGB(x * tileSize + a, y * tileSize + b, end.getRGB());
-								} else {
-									image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
-								}
+								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
 						} else if (b >= tileSize - wallSize) { // If on the bottom side.
 							if (m.isConnectedDown(x, y)) {
-								if (m.getStart().equals(new Coord(x, y))) {
-									image.setRGB(x * tileSize + a, y * tileSize + b, start.getRGB());	
-								} else if (m.getEnd().equals(new Coord(x, y))) {
-									image.setRGB(x * tileSize + a, y * tileSize + b, end.getRGB());
-								} else {
-									image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
-								}
+								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
