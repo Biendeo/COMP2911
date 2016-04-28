@@ -1,6 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -61,6 +63,8 @@ public class UIFrame extends JFrame {
 				}
 			}
 		});
+		
+		this.addKeyListener(new UIKeyGetter(this));
 	}
 	
 	/**
@@ -181,4 +185,13 @@ public class UIFrame extends JFrame {
 		return true;
 	}
 
+	/**
+	 * Makes a list of all the players.
+	 * @return
+	 * A list of all the players.
+	 */
+	// TODO: Decide which class manages players.
+	public Player[] getPlayers() {
+		return players.toArray(new Player[players.size()]);
+	}
 }
