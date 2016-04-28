@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -23,11 +24,22 @@ public class UIFrame extends JFrame {
 	// The maze image.
 	private BufferedImage mazeImg;
 	
+	// The players that exist in this maze.
+	private ArrayList<Player> players;
+	
+	// A parallel array of the images these player have.
+	// TODO: An idea, maybe have the images in the player object (although this
+	// would break having the UI and the maze game separate).
+	private ArrayList<BufferedImage> playerImages;
+	
 	/**
 	 * Creates a UIFrame with some basic properties. This also includes a paint
 	 * function that gets called when repaint() is called.
 	 */
 	public UIFrame() {
+		players = new ArrayList<Player>();
+		playerImages = new ArrayList<BufferedImage>();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 320, 240);
 		this.add(new JComponent(){
@@ -41,6 +53,11 @@ public class UIFrame extends JFrame {
 				if (mazeImg != null) {
 					// Currently all that is draw is the maze background.
 					g.drawImage(mazeImg, 0, 0, null);
+				}
+				
+				for (int i = 0; i < players.size(); i++) {
+					// TODO: Get the 16 out and replace it with a general constant tileSize.
+					g.drawImage(playerImages.get(i), 16 * players.get(i).getPos().x, 16 * players.get(i).getPos().y, null);
 				}
 			}
 		});
@@ -60,7 +77,7 @@ public class UIFrame extends JFrame {
 		setBounds(100, 100, tileSize * m.getWidth(), tileSize * m.getHeight());
 		BufferedImage image = new BufferedImage(tileSize * m.getWidth(), tileSize * m.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		
-		// Modify rhese to your liking.
+		// Modify these to your liking.
 		Color wall = Color.BLACK;
 		Color space = Color.WHITE;
 		Color start = new Color(200, 200, 255);
@@ -117,6 +134,51 @@ public class UIFrame extends JFrame {
 		this.setPreferredSize(new Dimension(mazeImg.getWidth() + 16, mazeImg.getHeight() + 39));
 		this.pack();
 		this.repaint();
+	}
+	
+	/**
+	 * Creates a player image for the game.
+	 * @param p
+	 * The player in question.
+	 */
+	private BufferedImage createPlayerImage(Player p) {
+		// TODO: Have this be the same variable across the whole panel.
+		final int tileSize = 16;
+		
+		Color playerColor = p.getColor();
+		BufferedImage image = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_INT_ARGB);
+		
+		// For now we make a basic 8x8 square.
+		// TODO: Make a better shape (a circle would stand out).
+		for (int y = 0; y < tileSize; y++) {
+			for (int x = 0; x < tileSize; x++) {
+				if (y < 4 || y >= 12 || x < 4 || x >= 12) {
+					// Outside the square is transparent.
+					image.setRGB(x, y, new Color(0, 0, 0, 0).getRGB());
+				} else {
+					image.setRGB(x, y, playerColor.getRGB());
+				}
+			}
+		}
+
+		return image;
+	}
+	
+	/**
+	 * Adds a player to the frame to handle drawing it.
+	 * @param p
+	 * The player in question.
+	 * @return
+	 * Whether this action was successful.
+	 */
+	public boolean addPlayer(Player p) {
+		if (p == null) {
+			return false;
+		}
+		
+		players.add(p);
+		playerImages.add(createPlayerImage(p));
+		return true;
 	}
 
 }

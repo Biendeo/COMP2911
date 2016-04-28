@@ -7,6 +7,8 @@ import java.awt.Color;
 public class Player {
 	private Maze m;
 	private Coord pos;
+	// TODO: Color should be replaced by image. If no set image is given, the
+	// UI will create an image.
 	private Color color;
 	private int id;
 	

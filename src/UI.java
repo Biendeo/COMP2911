@@ -66,6 +66,7 @@ public class UI {
 	 */
 	public static Color getRandomColor() {
 		Random rand = new Random();
+		// TODO: This can give really bad colours sometimes (close to white for example). Make it create interesting colours (or just force set primary colours).
 		return new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
 	}
 }

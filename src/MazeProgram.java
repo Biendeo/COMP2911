@@ -17,6 +17,11 @@ public class MazeProgram {
 		
 		theFrame.drawMazeSwingOne(m);
 		
+		// If multiplayer is used, this should be an ArrayList.
+		Player p = new Player(m, m.getStart());
+		
+		theFrame.addPlayer(p);
+		
 		theFrame.setVisible(true);
 	}
 
