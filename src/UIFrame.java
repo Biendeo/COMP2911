@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -38,6 +39,7 @@ public class UIFrame extends JFrame {
 	 * Creates a UIFrame with some basic properties. This also includes a paint
 	 * function that gets called when repaint() is called.
 	 */
+	// TODO: Change the arguments so it handles the "game" as opposed to the maze itself.
 	public UIFrame() {
 		players = new ArrayList<Player>();
 		playerImages = new ArrayList<BufferedImage>();

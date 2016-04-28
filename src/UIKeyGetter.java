@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 public class UIKeyGetter implements KeyListener {
 	
 	// TODO: Formalise how this works.
-	UIFrame frame;
+	private UIFrame frame;
 	
 	/**
 	 * Creates a new key getter.

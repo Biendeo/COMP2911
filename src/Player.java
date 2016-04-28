@@ -1,5 +1,7 @@
 import java.awt.Color;
 
+import javax.swing.JOptionPane;
+
 /**
  * The player class, which has details about the player objects themselves.
  *
@@ -82,6 +84,10 @@ public class Player {
 	public boolean move(Direction d) {
 		if (m.canMove(pos, d)) {
 			pos.move(d);
+			// TODO: Handle this outside of the player.
+			if (pos.equals(m.getEnd())) {
+				JOptionPane.showMessageDialog(null, "You won! You're awesome!", "Winner winner chicken dinner", JOptionPane.PLAIN_MESSAGE);
+			}
 			return true;
 		} else {
 			return false;
