@@ -52,12 +52,15 @@ public class UIFrame extends JFrame {
 	 * The maze to be drawn.
 	 */
 	public void drawMazeSwingOne(Maze m) {
+		// Modify these two values to your liking.
+		// These may be moved out to be parameters.
 		final int tileSize = 16;
-		final int wallSize = 4;
+		final int wallSize = 1;
 		
 		setBounds(100, 100, tileSize * m.getWidth(), tileSize * m.getHeight());
 		BufferedImage image = new BufferedImage(tileSize * m.getWidth(), tileSize * m.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		
+		// Modify rhese to your liking.
 		Color wall = Color.BLACK;
 		Color space = Color.WHITE;
 		Color start = new Color(200, 200, 255);
@@ -73,25 +76,25 @@ public class UIFrame extends JFrame {
 						if ((a < wallSize || a >= tileSize - wallSize) && (b < wallSize || b >= tileSize - wallSize)) {
 							image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 						} else if (a < wallSize) { // If on the left side.
-							if (m.isConnectedLeft(x, y)) {
+							if (m.isConnected(x,  y, Direction.LEFT)) {
 								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
 						} else if (a >= tileSize - wallSize) { // If on the right side.
-							if (m.isConnectedRight(x, y)) {
+							if (m.isConnected(x, y, Direction.RIGHT)) {
 								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
 						} else if (b < wallSize) { // If on the top side.
-							if (m.isConnectedUp(x, y)) {
+							if (m.isConnected(x, y, Direction.UP)) {
 								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());
 							}
 						} else if (b >= tileSize - wallSize) { // If on the bottom side.
-							if (m.isConnectedDown(x, y)) {
+							if (m.isConnected(x, y, Direction.DOWN)) {
 								image.setRGB(x * tileSize + a, y * tileSize + b, space.getRGB());
 							} else {
 								image.setRGB(x * tileSize + a, y * tileSize + b, wall.getRGB());

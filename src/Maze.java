@@ -319,7 +319,6 @@ public class Maze {
 		return isConnectedDown(c.x, c.y);
 	}
 	
-	// TODO: Make this the function to use, and the rest are based on this.
 	/**
 	 * Returns whether the coord has a connection in that direction.
 	 * @param c
@@ -330,17 +329,35 @@ public class Maze {
 	 * Whether the coord has a connection in that direction.
 	 */
 	public boolean isConnected(Coord c, Direction d) {
+		if (isOutOfBound(c)) {
+			return false;
+		}
 		switch(d) {
 		case UP:
 		default:
-			return isConnectedUp(c);
+			return maze[c.x][c.y].top;
 		case RIGHT:
-			return isConnectedRight(c);
+			return maze[c.x][c.y].right;
 		case DOWN:
-			return isConnectedDown(c);
+			return maze[c.x][c.y].bottom;
 		case LEFT:
-			return isConnectedLeft(c);
+			return maze[c.x][c.y].left;
 		}
+	}
+	
+	/**
+	 * Returns whether the coord has a connection in that direction.
+	 * @param x
+	 * The x-coordinate in question.
+	 * @param y
+	 * The y-coordinate in question.
+	 * @param d
+	 * The direction to move in.
+	 * @return
+	 * Whether the coord has a connection in that direction.
+	 */
+	public boolean isConnected(int x, int y, Direction d) {
+		return isConnected(new Coord(x, y), d);
 	}
 	
 	/**

@@ -35,7 +35,7 @@ public class UI {
 			// connection to the right. This will always draw the right wall.
 			for (int x = 0; x < m.getWidth(); x++) {
 				System.out.print(space);
-				if (m.isConnectedRight(x, y)) {
+				if (m.isConnected(x, y, Direction.RIGHT)) {
 					System.out.print(space);
 				} else {
 					System.out.print(wall);
@@ -48,7 +48,7 @@ public class UI {
 			// Finally, each space's down connection is printed, followed by
 			// a wall.
 			for (int x = 0; x < m.getWidth(); x++) {
-				if (m.isConnectedDown(x, y)) {
+				if (m.isConnected(x, y, Direction.DOWN)) {
 					System.out.print(space);
 				} else {
 					System.out.print(wall);
