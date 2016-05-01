@@ -1,0 +1,28 @@
+<project>
+
+	<target name="clean">
+		<delete dir="bin"/>
+	</target>
+
+	<target name="compile">
+		<mkdir dir="src"/>
+		<javac srcdir="src" destdir="bin"/>
+	</target>
+
+	<target name="jar">
+		<mkdir dir="bin"/>
+		<jar destfile="bin/MazeProgram.jar" basedir="src">
+		<fileset dir="src">
+			<include name="*.*"/>
+		</fileset>
+			<manifest>
+				<attribute name="Main-Class" value="MazeProgram"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="run">
+		<java jar="bin/MazeProgram.jar" fork="true"/>
+	</target>
+
+</project>
