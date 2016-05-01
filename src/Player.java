@@ -93,4 +93,22 @@ public class Player {
 			return false;
 		}
 	}
+	
+	/**
+	 * Sets the player's position manually.
+	 * @param c
+	 * The coordinate to move them to.
+	 */
+	public void setPos(Coord c) {
+		pos = c.clone();
+	}
+	
+	/**
+	 * Sets the player's maze.
+	 * @param m
+	 * The maze that the player is in.
+	 */
+	public void setMaze(Maze m) {
+		this.m = m;
+	}
 }

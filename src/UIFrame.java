@@ -18,9 +18,11 @@ public class UIFrame extends JFrame {
 	
 	// The maze image.
 	private BufferedImage mazeImg;
-	
-	// The players that exist in this maze.
-	private ArrayList<Player> players;
+
+	// The mazeGame to be used.
+	// TODO: Try to have it so the game is passed to the drawing, not existing
+	// in it.
+	private MazeGame game;
 	
 	// A parallel array of the images these player have.
 	// TODO: An idea, maybe have the images in the player object (although this
@@ -31,10 +33,17 @@ public class UIFrame extends JFrame {
 	 * Creates a UIFrame with some basic properties. This also includes a paint
 	 * function that gets called when repaint() is called.
 	 */
-	// TODO: Change the arguments so it handles the "game" as opposed to the maze itself.
-	public UIFrame() {
-		players = new ArrayList<Player>();
+	public UIFrame(MazeGame game) {
 		playerImages = new ArrayList<BufferedImage>();
+		
+		this.game = game;
+		
+		Player[] players = game.getPlayers();
+		
+		// This needs to be much nicer.
+		for (int i = 0; i < players.length; i++) {
+			playerImages.add(createPlayerImage(players[i]));
+		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 320, 240);
@@ -47,13 +56,14 @@ public class UIFrame extends JFrame {
 			 */
 			public void paintComponent(Graphics g) {
 				if (mazeImg != null) {
-					// Currently all that is draw is the maze background.
 					g.drawImage(mazeImg, 0, 0, null);
 				}
 				
-				for (int i = 0; i < players.size(); i++) {
+				Player[] players = game.getPlayers();
+				
+				for (int i = 0; i < players.length; i++) {
 					// TODO: Get the 16 out and replace it with a general constant tileSize.
-					g.drawImage(playerImages.get(i), 16 * players.get(i).getPos().x, 16 * players.get(i).getPos().y, null);
+					g.drawImage(playerImages.get(i), 16 * players[i].getPos().x, 16 * players[i].getPos().y, null);
 				}
 			}
 		});
@@ -62,15 +72,15 @@ public class UIFrame extends JFrame {
 	}
 	
 	/**
-	 * Draws a given maze to the UIFrame, and repaints the frame at the end.
-	 * @param m
-	 * The maze to be drawn.
+	 * Draws the current game's maze.
 	 */
-	public void drawMazeSwingOne(Maze m) {
+	public void drawMazeSwingOne() {
 		// Modify these two values to your liking.
 		// These may be moved out to be parameters.
 		final int tileSize = 16;
 		final int wallSize = 1;
+		
+		Maze m = game.getMaze();
 		
 		setBounds(100, 100, tileSize * m.getWidth(), tileSize * m.getHeight());
 		BufferedImage image = new BufferedImage(tileSize * m.getWidth(), tileSize * m.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -164,6 +174,7 @@ public class UIFrame extends JFrame {
 	
 	/**
 	 * Adds a player to the frame to handle drawing it.
+	 * @deprecated Replaced by MazeGame.addPlayer(Player)
 	 * @param p
 	 * The player in question.
 	 * @return
@@ -174,7 +185,7 @@ public class UIFrame extends JFrame {
 			return false;
 		}
 		
-		players.add(p);
+		game.addPlayer(p);
 		playerImages.add(createPlayerImage(p));
 		return true;
 	}
@@ -186,6 +197,6 @@ public class UIFrame extends JFrame {
 	 */
 	// TODO: Decide which class manages players.
 	public Player[] getPlayers() {
-		return players.toArray(new Player[players.size()]);
+		return game.getPlayers();
 	}
 }

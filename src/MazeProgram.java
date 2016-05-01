@@ -8,19 +8,14 @@ public class MazeProgram {
 	
 	public static void main(String[] args) {
 
-		Maze m = new Maze(25, 20); // Any width and height works, but this makes a pretty decent one.
-		m.generateMapDepthStyle();
+		MazeGame g = new MazeGame();
+		g.addPlayer();
 		
-		UI.printMazeASCII(m);
+		UI.printMazeASCII(g.getMaze());
 		
-		UIFrame theFrame = new UIFrame();
+		UIFrame theFrame = new UIFrame(g);
 		
-		theFrame.drawMazeSwingOne(m);
-		
-		// If multiplayer is used, this should be an ArrayList.
-		Player p = new Player(m, m.getStart());
-		
-		theFrame.addPlayer(p);
+		theFrame.drawMazeSwingOne();
 		
 		theFrame.setVisible(true);
 	}
