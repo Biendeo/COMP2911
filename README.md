@@ -1,5 +1,6 @@
 ## COMP2911 Project
 [![Build Status](https://travis-ci.com/Biendeo/COMP2911.svg?token=EeyAA3rVcyEqY7VkJcYt&branch=master)](https://travis-ci.com/Biendeo/COMP2911)
+
 This is our project for 2911. Make sure you check the issues for things you need to do, or things you want done.
 
 ### Downloading the project
