@@ -33,10 +33,10 @@ public class UIFrame extends JFrame {
 	 * Creates a UIFrame with some basic properties. This also includes a paint
 	 * function that gets called when repaint() is called.
 	 */
-	public UIFrame(MazeGame game) {
+	public UIFrame(MazeGame gameArg) {
 		playerImages = new ArrayList<BufferedImage>();
 		
-		this.game = game;
+		this.game = gameArg;
 		
 		Player[] players = game.getPlayers();
 		
