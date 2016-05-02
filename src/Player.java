@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JOptionPane;
 
@@ -12,6 +13,7 @@ public class Player {
 	// TODO: Color should be replaced by image. If no set image is given, the
 	// UI will create an image.
 	private Color color;
+	private BufferedImage img;
 	private int id;
 	
 	private static int nextId = 1;
@@ -28,6 +30,7 @@ public class Player {
 	public Player(Maze m, Coord pos, Color color) {
 		this.m = m;
 		this.pos = pos;
+		this.img = generateImage(color, 16);
 		this.color = color;
 		this.id = nextId++;
 	}
@@ -40,10 +43,7 @@ public class Player {
 	 * Where it is.
 	 */
 	public Player(Maze m, Coord pos) {
-		this.m = m;
-		this.pos = pos;
-		this.color = UI.getRandomColor();
-		this.id = nextId++;
+		this(m, pos, UI.getRandomColor());
 	}
 	
 	/**
@@ -54,14 +54,14 @@ public class Player {
 	public Coord getPos() {
 		return pos.clone();
 	}
-	
+
 	/**
-	 * Get the color of the player (read-only).
+	 * Returns the player image.
 	 * @return
-	 * The color of the player.
+	 * The player image.
 	 */
-	public Color getColor() {
-		return new Color(color.getRGB());
+	public BufferedImage getImg() {
+		return img;
 	}
 	
 	/**
@@ -110,5 +110,24 @@ public class Player {
 	 */
 	public void setMaze(Maze m) {
 		this.m = m;
+	}
+	
+	private BufferedImage generateImage(Color playerColor, int tileSize) {
+		BufferedImage image = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_INT_ARGB);
+		
+		// For now we make a basic 8x8 square.
+		// TODO: Make a better shape (a circle would stand out).
+		for (int y = 0; y < tileSize; y++) {
+			for (int x = 0; x < tileSize; x++) {
+				if (y < 4 || y >= 12 || x < 4 || x >= 12) {
+					// Outside the square is transparent.
+					image.setRGB(x, y, new Color(0, 0, 0, 0).getRGB());
+				} else {
+					image.setRGB(x, y, playerColor.getRGB());
+				}
+			}
+		}
+
+		return image;
 	}
 }

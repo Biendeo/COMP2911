@@ -27,27 +27,13 @@ public class UIFrame extends JFrame {
 	// The size of tiles used in the program (both width and height).
 	private int tileSize;
 	
-	// A parallel array of the images these player have.
-	// TODO: An idea, maybe have the images in the player object (although this
-	// would break having the UI and the maze game separate).
-	private ArrayList<BufferedImage> playerImages;
-	
 	/**
 	 * Creates a UIFrame with some basic properties. This also includes a paint
 	 * function that gets called when repaint() is called.
 	 */
 	public UIFrame(MazeGame gameArg) {
-		playerImages = new ArrayList<BufferedImage>();
-		tileSize = 16;
-		
+		this.tileSize = 16;
 		this.game = gameArg;
-		
-		Player[] players = game.getPlayers();
-		
-		// This needs to be much nicer.
-		for (int i = 0; i < players.length; i++) {
-			playerImages.add(createPlayerImage(players[i]));
-		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 320, 240);
@@ -67,7 +53,7 @@ public class UIFrame extends JFrame {
 				
 				for (int i = 0; i < players.length; i++) {
 					// TODO: Get the 16 out and replace it with a general constant tileSize.
-					g.drawImage(playerImages.get(i), tileSize * players[i].getPos().x, tileSize * players[i].getPos().y, null);
+					g.drawImage(players[i].getImg(), tileSize * players[i].getPos().x, tileSize * players[i].getPos().y, null);
 				}
 			}
 		});
@@ -144,31 +130,6 @@ public class UIFrame extends JFrame {
 		this.setPreferredSize(new Dimension(mazeImg.getWidth() + 16, mazeImg.getHeight() + 39));
 		this.pack();
 		this.repaint();
-	}
-	
-	/**
-	 * Creates a player image for the game.
-	 * @param p
-	 * The player in question.
-	 */
-	private BufferedImage createPlayerImage(Player p) {
-		Color playerColor = p.getColor();
-		BufferedImage image = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_INT_ARGB);
-		
-		// For now we make a basic 8x8 square.
-		// TODO: Make a better shape (a circle would stand out).
-		for (int y = 0; y < tileSize; y++) {
-			for (int x = 0; x < tileSize; x++) {
-				if (y < 4 || y >= 12 || x < 4 || x >= 12) {
-					// Outside the square is transparent.
-					image.setRGB(x, y, new Color(0, 0, 0, 0).getRGB());
-				} else {
-					image.setRGB(x, y, playerColor.getRGB());
-				}
-			}
-		}
-
-		return image;
 	}
 	
 	/**
