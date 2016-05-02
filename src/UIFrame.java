@@ -24,6 +24,9 @@ public class UIFrame extends JFrame {
 	// in it.
 	private MazeGame game;
 	
+	// The size of tiles used in the program (both width and height).
+	private int tileSize;
+	
 	// A parallel array of the images these player have.
 	// TODO: An idea, maybe have the images in the player object (although this
 	// would break having the UI and the maze game separate).
@@ -35,6 +38,7 @@ public class UIFrame extends JFrame {
 	 */
 	public UIFrame(MazeGame gameArg) {
 		playerImages = new ArrayList<BufferedImage>();
+		tileSize = 16;
 		
 		this.game = gameArg;
 		
@@ -63,7 +67,7 @@ public class UIFrame extends JFrame {
 				
 				for (int i = 0; i < players.length; i++) {
 					// TODO: Get the 16 out and replace it with a general constant tileSize.
-					g.drawImage(playerImages.get(i), 16 * players[i].getPos().x, 16 * players[i].getPos().y, null);
+					g.drawImage(playerImages.get(i), tileSize * players[i].getPos().x, tileSize * players[i].getPos().y, null);
 				}
 			}
 		});
@@ -75,9 +79,7 @@ public class UIFrame extends JFrame {
 	 * Draws the current game's maze.
 	 */
 	public void drawMazeSwingOne() {
-		// Modify these two values to your liking.
-		// These may be moved out to be parameters.
-		final int tileSize = 16;
+		// Modify this value to your liking.
 		final int wallSize = 1;
 		
 		Maze m = game.getMaze();
@@ -150,9 +152,6 @@ public class UIFrame extends JFrame {
 	 * The player in question.
 	 */
 	private BufferedImage createPlayerImage(Player p) {
-		// TODO: Have this be the same variable across the whole panel.
-		final int tileSize = 16;
-		
 		Color playerColor = p.getColor();
 		BufferedImage image = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_INT_ARGB);
 		
@@ -172,24 +171,6 @@ public class UIFrame extends JFrame {
 		return image;
 	}
 	
-	/**
-	 * Adds a player to the frame to handle drawing it.
-	 * @deprecated Replaced by MazeGame.addPlayer(Player)
-	 * @param p
-	 * The player in question.
-	 * @return
-	 * Whether this action was successful.
-	 */
-	public boolean addPlayer(Player p) {
-		if (p == null) {
-			return false;
-		}
-		
-		game.addPlayer(p);
-		playerImages.add(createPlayerImage(p));
-		return true;
-	}
-
 	/**
 	 * Makes a list of all the players.
 	 * @return
