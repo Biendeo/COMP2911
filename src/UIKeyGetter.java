@@ -7,16 +7,15 @@ import java.awt.event.KeyListener;
  */
 public class UIKeyGetter implements KeyListener {
 	
-	// TODO: Formalise how this works.
-	private UIFrame frame;
+	private MazeProgram p;
 	
 	/**
 	 * Creates a new key getter.
 	 * @param frame
 	 * The frame that holds this (so input is focused).
 	 */
-	public UIKeyGetter(UIFrame frame) {
-		this.frame = frame;
+	public UIKeyGetter(MazeProgram p) {
+		this.p = p;
 	}
 
 	@Override
@@ -40,24 +39,7 @@ public class UIKeyGetter implements KeyListener {
 	 * Handle when a key has been "typed".
 	 */
 	public void keyTyped(KeyEvent e) {
-		Player[] players = frame.getPlayers();
-		switch (e.getKeyChar()) {
-		case 'a':
-			players[0].move(Direction.LEFT);
-			break;
-		case 's':
-			players[0].move(Direction.DOWN);
-			break;
-		case 'd':
-			players[0].move(Direction.RIGHT);
-			break;
-		case 'w':
-			players[0].move(Direction.UP);
-			break;
-		}
-		// TODO: Should the key getter call the redraw?
-		frame.pack();
-		frame.repaint();
+		p.keyPress(e);
 	}
 
 }

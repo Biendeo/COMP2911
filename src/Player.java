@@ -10,9 +10,6 @@ import javax.swing.JOptionPane;
 public class Player {
 	private Maze m;
 	private Coord pos;
-	// TODO: Color should be replaced by image. If no set image is given, the
-	// UI will create an image.
-	private Color color;
 	private BufferedImage img;
 	private int id;
 	
@@ -31,7 +28,6 @@ public class Player {
 		this.m = m;
 		this.pos = pos;
 		this.img = generateImage(color, 16);
-		this.color = color;
 		this.id = nextId++;
 	}
 	

@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -37,7 +36,7 @@ public class UIFrame extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 320, 240);
-		this.add(new JComponent(){
+		this.add(new JComponent() {
 			private static final long serialVersionUID = -89098975220986245L;
 
 			@Override
@@ -57,8 +56,6 @@ public class UIFrame extends JFrame {
 				}
 			}
 		});
-		
-		this.addKeyListener(new UIKeyGetter(this));
 	}
 	
 	/**
