@@ -89,12 +89,12 @@ public class Maze {
 			// tile.
 			while (!checkedSide) {
 				// TODO: Delegate this to a function, and return the enum instead.
-				int randomNum = rand.nextInt(4);
+				Direction randomDirection = getRandomDirection(rand);
 				// 0 is up, 1 is right, 2 is down, 3 is left.
 				// This can be modified to add some interesting bias to the generation.
 				
-				switch (randomNum) {
-				case 0:
+				switch (randomDirection) {
+				case UP:
 					// Check if the side is within the maze dimensions, and whether that position doesn't exist already.
 					if (!isOutOfBound(current.x, current.y - 1) && maze[current.x][current.y - 1] == null) {
 						// Add that to the stack (so it's checked next).
@@ -109,7 +109,7 @@ public class Maze {
 					}
 					checkedUp = true;
 					break;
-				case 1:
+				case RIGHT:
 					if (!isOutOfBound(current.x + 1, current.y) && maze[current.x + 1][current.y] == null) {
 						currentPath.push(new Coord(current.x + 1, current.y));
 						maze[current.x + 1][current.y] = new MazeGrid();
@@ -119,7 +119,7 @@ public class Maze {
 					}
 					checkedRight = true;
 					break;
-				case 2:
+				case DOWN:
 					if (!isOutOfBound(current.x, current.y + 1) && maze[current.x][current.y + 1] == null) {
 						currentPath.push(new Coord(current.x, current.y + 1));
 						maze[current.x][current.y + 1] = new MazeGrid();
@@ -129,7 +129,7 @@ public class Maze {
 					}
 					checkedDown = true;
 					break;
-				case 3:
+				case LEFT:
 					if (!isOutOfBound(current.x - 1, current.y) && maze[current.x - 1][current.y] == null) {
 						currentPath.push(new Coord(current.x - 1, current.y));
 						maze[current.x - 1][current.y] = new MazeGrid();
@@ -260,5 +260,28 @@ public class Maze {
 	 */
 	public Coord getEnd() {
 		return end.clone();
+	}
+	
+	/**
+	 * Gets a random direction based on a random generator.
+	 * @param r
+	 * The random generator.
+	 * @return
+	 * The direction decided.
+	 */
+	// TODO: Add a way to add bias.
+	public Direction getRandomDirection(Random r) {
+		int randomInt = r.nextInt(4);
+		switch(randomInt) {
+		case 0:
+		default:
+			return Direction.UP;
+		case 1:
+			return Direction.RIGHT;
+		case 2:
+			return Direction.DOWN;
+		case 3:
+			return Direction.LEFT;
+		}
 	}
 }
