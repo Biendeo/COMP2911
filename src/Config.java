@@ -170,7 +170,7 @@ public class Config implements Serializable {
 	 * Loads a config from the config location.
 	 */
 	// TODO: Figure out how to not have this exception.
-	public void loadConfig() throws ClassNotFoundException {
+	public void loadConfig() {
 		if (doesConfigExist()) {
 			try {
 				FileInputStream configIn = new FileInputStream(configLocation + configFileName);
@@ -178,7 +178,7 @@ public class Config implements Serializable {
 				copyConfig((Config)in.readObject());
 				in.close();
 				configIn.close();
-			} catch (IOException i) {
+			} catch (IOException | ClassNotFoundException i) {
 				System.err.println("loadConfig() couldn't read the file.");
 			}
 		}
@@ -210,33 +210,37 @@ public class Config implements Serializable {
 	 */
 	// TODO: Use the UI to do this.
 	// TODO: Figure out how to not have this exception.
-	public void editConfig() throws IOException {
+	public void editConfig() {
 		// TODO: Get this to work via a function similar to getch() rather than just line by line input.
-		System.in.skip(System.in.available());
-		System.out.println("Player 1 Up: ");
-		player1Up = (char)System.in.read();
-		System.in.skip(System.in.available());
-		System.out.println("Player 1 Right: ");
-		player1Right = (char)System.in.read();
-		System.in.skip(System.in.available());
-		System.out.println("Player 1 Down: ");
-		player1Down = (char)System.in.read();
-		System.in.skip(System.in.available());
-		System.out.println("Player 1 Left: ");
-		player1Left = (char)System.in.read();
-		System.in.skip(System.in.available());
-		System.out.println("Player 2 Up: ");
-		player2Up = (char)System.in.read();
-		System.in.skip(System.in.available());
-		System.out.println("Player 2 Right: ");
-		player2Right = (char)System.in.read();
-		System.in.skip(System.in.available());
-		System.out.println("Player 2 Down: ");
-		player2Down = (char)System.in.read();
-		System.in.skip(System.in.available());
-		System.out.println("Player 2 Left: ");
-		player2Left = (char)System.in.read();
-		System.in.skip(System.in.available());
+		try {
+			System.in.skip(System.in.available());
+			System.out.println("Player 1 Up: ");
+			player1Up = (char)System.in.read();
+			System.in.skip(System.in.available());
+			System.out.println("Player 1 Right: ");
+			player1Right = (char)System.in.read();
+			System.in.skip(System.in.available());
+			System.out.println("Player 1 Down: ");
+			player1Down = (char)System.in.read();
+			System.in.skip(System.in.available());
+			System.out.println("Player 1 Left: ");
+			player1Left = (char)System.in.read();
+			System.in.skip(System.in.available());
+			System.out.println("Player 2 Up: ");
+			player2Up = (char)System.in.read();
+			System.in.skip(System.in.available());
+			System.out.println("Player 2 Right: ");
+			player2Right = (char)System.in.read();
+			System.in.skip(System.in.available());
+			System.out.println("Player 2 Down: ");
+			player2Down = (char)System.in.read();
+			System.in.skip(System.in.available());
+			System.out.println("Player 2 Left: ");
+			player2Left = (char)System.in.read();
+			System.in.skip(System.in.available());
+		} catch (IOException e) {
+			
+		}
 	}
 	
 	/**

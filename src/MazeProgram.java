@@ -15,11 +15,7 @@ public class MazeProgram {
 	
 	public MazeProgram() {
 		cfg = new Config();
-		try {
-			cfg.loadConfig();
-		} catch (ClassNotFoundException e) {
-			
-		}
+		cfg.loadConfig();
 		// g will be null initially.
 		// frame will be null initially.
 		
@@ -43,17 +39,10 @@ public class MazeProgram {
 	
 	public void parseInputs(String[] args) {
 		for (String arg : args) {
-			System.out.println(arg);
-			System.out.println(arg.length());
 			if (arg.equals("-cfg")) {
-				System.out.println(arg);
-				try {
-					cfg.loadConfig();
-					cfg.editConfig();
-					cfg.saveConfig();
-				} catch (ClassNotFoundException | IOException e) {
-					e.printStackTrace();
-				}
+				cfg.loadConfig();
+				cfg.editConfig();
+				cfg.saveConfig();
 			}
 		}
 	}
