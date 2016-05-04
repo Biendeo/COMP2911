@@ -1,5 +1,4 @@
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 
 /**
  * The main execution of the program. It creates a maze and calls basic UI

@@ -1,6 +1,9 @@
 *.VC.db
 /bin/
 output.txt
-/doc
-/jar
-/cfg
+/doc/
+/jar/
+/cfg/
+/.classpath
+/.project
+/.idea/
