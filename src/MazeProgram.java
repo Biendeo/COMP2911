@@ -1,3 +1,4 @@
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -17,7 +18,8 @@ public class MazeProgram {
 	
 	private Timer refresh;
 	
-	private static int refreshRate = 60;
+	// If anyone complains about this line, just replace it with 60.
+	private static int refreshRate = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0].getDisplayMode().getRefreshRate();
 	private static int refreshTime = (int)((float)1000 / refreshRate);
 	
 	public MazeProgram() {
