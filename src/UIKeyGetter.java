@@ -11,8 +11,8 @@ public class UIKeyGetter implements KeyListener {
 	
 	/**
 	 * Creates a new key getter.
-	 * @param frame
-	 * The frame that holds this (so input is focused).
+	 * @param p
+	 * The main maze program.
 	 */
 	public UIKeyGetter(MazeProgram p) {
 		this.p = p;
