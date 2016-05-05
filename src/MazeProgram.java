@@ -1,4 +1,7 @@
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+
+import javax.swing.Timer;
 
 /**
  * The main execution of the program. It creates a maze and calls basic UI
@@ -12,13 +15,22 @@ public class MazeProgram {
 	private UIFrame frame;
 	private UIKeyGetter keyGet;
 	
+	private Timer refresh;
+	
+	private static int refreshRate = 60;
+	private static int refreshTime = (int)((float)1000 / refreshRate);
+	
 	public MazeProgram() {
 		cfg = new Config();
 		cfg.loadConfig();
 		// g will be null initially.
 		// frame will be null initially.
 		
+		
 		keyGet = new UIKeyGetter(this);
+
+		refresh = new Timer(refreshTime, keyGet);
+		refresh.start();
 	}
 	
 	public void run() {
@@ -72,6 +84,21 @@ public class MazeProgram {
 		}
 		frame.pack();
 		frame.repaint();
+	}
+	
+	/**
+	 * Gets called once a frame update.
+	 * @param e
+	 * The ActionEvent involved with the update.
+	 */
+	public void updateFrame(ActionEvent e) {
+		for (Player pl : g.getPlayers()) {
+			pl.addMilliseconds(refreshTime);
+		}
+		
+		// This just exists to test the time system.
+		int milliseconds = g.getPlayers()[0].getMillisecondsTaken();
+		System.out.format("Current time: %02d:%02d:%03d\n", milliseconds / 60000, milliseconds / 1000 % 60, milliseconds % 1000);
 	}
 	
 	public static void main(String[] args) {

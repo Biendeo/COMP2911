@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
 /**
  * Provides a graphical UI for the maze.

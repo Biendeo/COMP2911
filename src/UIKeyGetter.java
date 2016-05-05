@@ -1,3 +1,5 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -5,7 +7,7 @@ import java.awt.event.KeyListener;
  * Handles key presses and input.
  *
  */
-public class UIKeyGetter implements KeyListener {
+public class UIKeyGetter implements KeyListener, ActionListener {
 	
 	private MazeProgram p;
 	
@@ -40,6 +42,14 @@ public class UIKeyGetter implements KeyListener {
 	 */
 	public void keyTyped(KeyEvent e) {
 		p.keyPress(e);
+	}
+
+	@Override
+	/**
+	 * Handles refresh updates.
+	 */
+	public void actionPerformed(ActionEvent e) {
+		p.updateFrame(e);
 	}
 
 }
