@@ -13,6 +13,9 @@ public class Player {
 	private BufferedImage img;
 	private int id;
 	
+	private int totalMoves;
+	private int millisecondsTaken;
+	
 	private static int nextId = 1;
 	
 	/**
@@ -29,6 +32,8 @@ public class Player {
 		this.pos = pos;
 		this.img = generateImage(color, 16);
 		this.id = nextId++;
+		this.totalMoves = 0;
+		this.millisecondsTaken = 0;
 	}
 	
 	/**
@@ -70,6 +75,35 @@ public class Player {
 	}
 	
 	/**
+	 * Gets the total moves taken by this player.
+	 * @return
+	 * The total moves taken by this player.
+	 */
+	public int getTotalMoves() {
+		return totalMoves;
+	}
+	
+	/**
+	 * Gets the total time taken by this player.
+	 * @return
+	 * The total time taken by this player.
+	 */
+	public int getMillisecondsTaken() {
+		return millisecondsTaken;
+	}
+	
+	/**
+	 * Adds a given milliseconds to the player.
+	 * @param ms
+	 * The milliseconds added.
+	 * @return
+	 * The new total milliseconds.
+	 */
+	public int addMilliseconds(int ms) {
+		return (millisecondsTaken += ms);
+	}
+	
+	/**
 	 * Moves the player in a direction. Nothing happens if the player is unable
 	 * to move in that direction.
 	 * @param d
@@ -84,6 +118,7 @@ public class Player {
 			if (pos.equals(m.getEnd())) {
 				JOptionPane.showMessageDialog(null, "You won! You're awesome!", "Winner winner chicken dinner", JOptionPane.PLAIN_MESSAGE);
 			}
+			totalMoves++;
 			return true;
 		} else {
 			return false;
