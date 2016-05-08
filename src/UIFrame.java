@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.SpringLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -64,8 +66,8 @@ public class UIFrame extends JFrame {
 		rightPanel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, rightPanel, 10, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, rightPanel, 6, SpringLayout.EAST, leftPanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, rightPanel, 0, SpringLayout.SOUTH, leftPanel);
-		springLayout.putConstraint(SpringLayout.EAST, rightPanel, 264, SpringLayout.EAST, leftPanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, rightPanel, -10, SpringLayout.SOUTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, rightPanel, -10, SpringLayout.EAST, getContentPane());
 		getContentPane().add(rightPanel);
 		rightPanel.setLayout(new GridLayout(8, 1, 0, 0));
 		
@@ -84,6 +86,7 @@ public class UIFrame extends JFrame {
 		rightPanel.add(new JPanel());
 		rightPanel.add(new JPanel());
 		rightPanel.add(new JPanel());
+		rightPanel.add(new JPanel());
 		
 		buttonPanel = new JPanel();
 		rightPanel.add(buttonPanel);
@@ -94,7 +97,10 @@ public class UIFrame extends JFrame {
 		buttonPanel.add(quitButton);
 		quitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				System.exit(0);
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?", "Quit?", JOptionPane.YES_NO_OPTION);
+				if (dialogResult == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
 			}
 		});
 		
@@ -107,6 +113,9 @@ public class UIFrame extends JFrame {
 		sl_leftPanel.putConstraint(SpringLayout.SOUTH, mazeView, 391, SpringLayout.NORTH, leftPanel);
 		sl_leftPanel.putConstraint(SpringLayout.EAST, mazeView, 500, SpringLayout.WEST, leftPanel);
 		leftPanel.add(mazeView);
+
+		//leftPanel.setBackground(new Color(50, 200, 50));
+		//rightPanel.setBackground(new Color(200, 200, 50));
 	}
 	
 	/**
