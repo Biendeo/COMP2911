@@ -1,11 +1,17 @@
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.Timer;
+import javax.swing.SpringLayout;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.FlowLayout;
 
 /**
  * Provides a graphical UI for the maze.
@@ -27,6 +33,14 @@ public class UIFrame extends JFrame {
 	// The size of tiles used in the program (both width and height).
 	private int tileSize;
 	
+	private JPanel leftPanel;
+	private JPanel rightPanel;
+	private JLabel timeLabel;
+	private JLabel moveLabel;
+	private UIImageComponent mazeView;
+	private JPanel buttonPanel;
+	private JButton quitButton;
+	
 	/**
 	 * Creates a UIFrame with some basic properties. This also includes a paint
 	 * function that gets called when repaint() is called.
@@ -36,27 +50,63 @@ public class UIFrame extends JFrame {
 		this.game = gameArg;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 320, 240);
-		this.add(new JComponent() {
-			private static final long serialVersionUID = -89098975220986245L;
-
-			@Override
-			/**
-			 * Draws the screen.
-			 */
-			public void paintComponent(Graphics g) {
-				if (mazeImg != null) {
-					g.drawImage(mazeImg, 0, 0, null);
-				}
-				
-				Player[] players = game.getPlayers();
-				
-				for (int i = 0; i < players.length; i++) {
-					// TODO: Get the 16 out and replace it with a general constant tileSize.
-					g.drawImage(players[i].getImg(), tileSize * players[i].getPos().x, tileSize * players[i].getPos().y, null);
-				}
+		setBounds(100, 100, 800, 450);
+		SpringLayout springLayout = new SpringLayout();
+		getContentPane().setLayout(springLayout);
+		
+		leftPanel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, leftPanel, 10, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, leftPanel, 10, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, leftPanel, 401, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, leftPanel, 510, SpringLayout.WEST, getContentPane());
+		getContentPane().add(leftPanel);
+		
+		rightPanel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, rightPanel, 10, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, rightPanel, 6, SpringLayout.EAST, leftPanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, rightPanel, 0, SpringLayout.SOUTH, leftPanel);
+		springLayout.putConstraint(SpringLayout.EAST, rightPanel, 264, SpringLayout.EAST, leftPanel);
+		getContentPane().add(rightPanel);
+		rightPanel.setLayout(new GridLayout(8, 1, 0, 0));
+		
+		timeLabel = new JLabel("Time Text");
+		timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		rightPanel.add(timeLabel);
+		setTimeText("00:00:000");
+		
+		moveLabel = new JLabel("Move Text");
+		moveLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		rightPanel.add(moveLabel);
+		setMoveText("0 moves");
+		
+		// Dummy panels.
+		rightPanel.add(new JPanel());
+		rightPanel.add(new JPanel());
+		rightPanel.add(new JPanel());
+		rightPanel.add(new JPanel());
+		
+		buttonPanel = new JPanel();
+		rightPanel.add(buttonPanel);
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		quitButton = new JButton("Quit");
+		quitButton.setToolTipText("Quits the maze. (RIGHT NOW IT QUITS THE PROGRAM)");
+		buttonPanel.add(quitButton);
+		quitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.exit(0);
 			}
 		});
+		
+		SpringLayout sl_leftPanel = new SpringLayout();
+		leftPanel.setLayout(sl_leftPanel);
+		
+		mazeView = new UIImageComponent(mazeImg, game);
+		sl_leftPanel.putConstraint(SpringLayout.NORTH, mazeView, 0, SpringLayout.NORTH, leftPanel);
+		sl_leftPanel.putConstraint(SpringLayout.WEST, mazeView, 0, SpringLayout.WEST, leftPanel);
+		sl_leftPanel.putConstraint(SpringLayout.SOUTH, mazeView, 391, SpringLayout.NORTH, leftPanel);
+		sl_leftPanel.putConstraint(SpringLayout.EAST, mazeView, 500, SpringLayout.WEST, leftPanel);
+		leftPanel.add(mazeView);
 	}
 	
 	/**
@@ -124,10 +174,11 @@ public class UIFrame extends JFrame {
 			}
 		}
 		mazeImg = image;
+		mazeView.setMazeImg(mazeImg);
 		// I need a bit of padding because it overlaps a little.
-		this.setPreferredSize(new Dimension(mazeImg.getWidth() + 16, mazeImg.getHeight() + 39));
-		this.pack();
-		this.repaint();
+		//panel.setPreferredSize(new Dimension(mazeImg.getWidth() + 16, mazeImg.getHeight() + 39));
+		this.setSize(mazeImg.getWidth() + 16 + 250, mazeImg.getHeight() + 39 + 20);
+		//this.repaint();
 	}
 	
 	/**
@@ -138,5 +189,33 @@ public class UIFrame extends JFrame {
 	// TODO: Decide which class manages players.
 	public Player[] getPlayers() {
 		return game.getPlayers();
+	}
+	
+	@Override
+	public void pack() {
+		//super.pack();
+		this.setSize(mazeImg.getWidth() + 16 + 250, mazeImg.getHeight() + 39 + 20);
+	}
+
+	/**
+	 * Sets the label text for time.
+	 * @param timeText
+	 * The string to show.
+	 */
+	public void setTimeText(String timeText) {
+		if (this.timeLabel != null) {
+			this.timeLabel.setText(timeText);
+		}
+	}
+	
+	/**
+	 * Sets the label text for total moves.
+	 * @param moveText
+	 * The string to show.
+	 */
+	public void setMoveText(String moveText) {
+		if (this.moveLabel != null) {
+			this.moveLabel.setText(moveText);
+		}
 	}
 }

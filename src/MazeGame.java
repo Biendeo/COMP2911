@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class MazeGame {
 	private Maze m;
 	private ArrayList<Player> players;
+	private boolean isPlaying;
+	
 	// Other game related stuff.
 	
 	/**
@@ -12,6 +14,7 @@ public class MazeGame {
 		m = new Maze(25, 20);
 		m.generateMapDepthStyle();
 		players = new ArrayList<Player>();
+		isPlaying = false;
 	}
 	
 	/**
@@ -45,11 +48,59 @@ public class MazeGame {
 	}
 	
 	/**
+	 * Returns whether the game is still playing, or whether it has ended.
+	 * @return
+	 * True if the game is playing, or false if it has ended.
+	 */
+	public boolean isPlaying() {
+		return isPlaying;
+	}
+	
+	/**
+	 * Sets the game's playing state.
+	 * @param playing
+	 * The game's playing state.
+	 * @return
+	 * The value passed in.
+	 */
+	public boolean setPlaying(boolean playing) {
+		return isPlaying = playing;
+	}
+	
+	/**
 	 * Returns all players in the game.
 	 * @return
 	 * An array of all players in the game.
 	 */
 	public Player[] getPlayers() {
 		return players.toArray(new Player[players.size()]);
+	}
+	
+	/**
+	 * Returns the number of players that are sitting at the goal.
+	 * @return
+	 * The number of players that are sitting at the goal.
+	 */
+	public int getPlayersAtGoal() {
+		int goals = 0;
+		for (Player p : players) {
+			if (p.getPos().equals(m.getEnd())) {
+				goals++;
+			}
+		}
+		return goals;
+	}
+	
+	/**
+	 * Returns true if every player is at the goal.
+	 * @return
+	 * Whether every player is at the goal.
+	 */
+	public boolean isEveryoneAtGoal() {
+		if (getPlayersAtGoal() == players.size()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

@@ -1,8 +1,6 @@
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JOptionPane;
-
 /**
  * The player class, which has details about the player objects themselves.
  *
@@ -114,10 +112,6 @@ public class Player {
 	public boolean move(Direction d) {
 		if (m.canMove(pos, d)) {
 			pos.move(d);
-			// TODO: Handle this outside of the player.
-			if (pos.equals(m.getEnd())) {
-				JOptionPane.showMessageDialog(null, "You won! You're awesome!", "Winner winner chicken dinner", JOptionPane.PLAIN_MESSAGE);
-			}
 			totalMoves++;
 			return true;
 		} else {
@@ -143,6 +137,15 @@ public class Player {
 		this.m = m;
 	}
 	
+	/**
+	 * Creates a default player image based on a color and size.
+	 * @param playerColor
+	 * The player's color.
+	 * @param tileSize
+	 * The width and height of the image.
+	 * @return
+	 * The made image.
+	 */
 	private BufferedImage generateImage(Color playerColor, int tileSize) {
 		BufferedImage image = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_INT_ARGB);
 		
