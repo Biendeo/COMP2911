@@ -59,13 +59,13 @@ public class UIFrame extends JFrame {
 		leftPanel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, leftPanel, 10, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, leftPanel, 10, SpringLayout.WEST, getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, leftPanel, 401, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, leftPanel, 510, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, leftPanel, -10, SpringLayout.SOUTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, leftPanel, -220, SpringLayout.EAST, getContentPane());
 		getContentPane().add(leftPanel);
 		
 		rightPanel = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, rightPanel, 10, SpringLayout.NORTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, rightPanel, 6, SpringLayout.EAST, leftPanel);
+		springLayout.putConstraint(SpringLayout.WEST, rightPanel, -210, SpringLayout.EAST, getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, rightPanel, -10, SpringLayout.SOUTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, rightPanel, -10, SpringLayout.EAST, getContentPane());
 		getContentPane().add(rightPanel);
@@ -110,8 +110,8 @@ public class UIFrame extends JFrame {
 		mazeView = new UIImageComponent(mazeImg, game);
 		sl_leftPanel.putConstraint(SpringLayout.NORTH, mazeView, 0, SpringLayout.NORTH, leftPanel);
 		sl_leftPanel.putConstraint(SpringLayout.WEST, mazeView, 0, SpringLayout.WEST, leftPanel);
-		sl_leftPanel.putConstraint(SpringLayout.SOUTH, mazeView, 391, SpringLayout.NORTH, leftPanel);
-		sl_leftPanel.putConstraint(SpringLayout.EAST, mazeView, 500, SpringLayout.WEST, leftPanel);
+		sl_leftPanel.putConstraint(SpringLayout.SOUTH, mazeView, 0, SpringLayout.SOUTH, leftPanel);
+		sl_leftPanel.putConstraint(SpringLayout.EAST, mazeView, 0, SpringLayout.EAST, leftPanel);
 		leftPanel.add(mazeView);
 
 		//leftPanel.setBackground(new Color(50, 200, 50));
@@ -183,10 +183,10 @@ public class UIFrame extends JFrame {
 			}
 		}
 		mazeImg = image;
+		this.setSize(mazeImg.getWidth() + 16 + 250, mazeImg.getHeight() + 39 + 20);
 		mazeView.setMazeImg(mazeImg);
 		// I need a bit of padding because it overlaps a little.
 		//panel.setPreferredSize(new Dimension(mazeImg.getWidth() + 16, mazeImg.getHeight() + 39));
-		this.setSize(mazeImg.getWidth() + 16 + 250, mazeImg.getHeight() + 39 + 20);
 		//this.repaint();
 	}
 	

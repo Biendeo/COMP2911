@@ -11,13 +11,18 @@ public class UIImageComponent extends JComponent {
 	private int tileSize;
 	
 	public UIImageComponent(BufferedImage mazeImg, MazeGame g) {
-		this.mazeImg = mazeImg;
+		setMazeImg(mazeImg);
 		this.game = g;
 		tileSize = 16;
 	}
 	
 	public void setMazeImg(BufferedImage mazeImg) {
 		this.mazeImg = mazeImg;
+		
+		if (mazeImg != null) {
+			this.getParent().setSize(mazeImg.getWidth(), mazeImg.getHeight());
+			this.setSize(mazeImg.getWidth(), mazeImg.getHeight());
+		}
 	}
 
 	@Override
@@ -34,11 +39,6 @@ public class UIImageComponent extends JComponent {
 			for (int i = 0; i < players.length; i++) {
 				g.drawImage(players[i].getImg(), tileSize * players[i].getPos().x, tileSize * players[i].getPos().y, null);
 			}
-		}
-		
-		if (mazeImg != null) {
-			this.getParent().setSize(mazeImg.getWidth(), mazeImg.getHeight());
-			this.setSize(mazeImg.getWidth(), mazeImg.getHeight());
 		}
 	}
 	
