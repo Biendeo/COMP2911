@@ -24,6 +24,10 @@ public class UIImageComponent extends JComponent {
 			this.setSize(mazeImg.getWidth(), mazeImg.getHeight());
 		}
 	}
+	
+	public void setGame(MazeGame g) {
+		this.game = g;
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {

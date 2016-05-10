@@ -43,23 +43,37 @@ public class MazeProgram {
 	 * The program's main execution.
 	 */
 	public void run() {
-		g = new MazeGame();
-		g.addPlayer();
-
-		UI.printMazeASCII(g.getMaze());
-		
-		g.setPlaying(true);
-		
-		frame = new UIFrame(g);
+		frame = new UIFrame(this);
 		
 		frame.addKeyListener(keyGet);
-		
-		frame.drawMazeSwingOne();
 		
 		frame.pack();
 		
 		frame.setVisible(true);
 		frame.setFocusable(true);
+	}
+	
+	public void instantAction() {
+		g = new MazeGame();
+		g.addPlayer();
+		
+		frame.setGame(g);
+		
+		UI.printMazeASCII(g.getMaze());
+		
+		g.setPlaying(true);
+		
+		frame.drawMazeSwingOne();
+		
+		frame.setMoveText("0 moves");
+		
+		frame.switchPanel("mazeViewPanel");
+		
+	}
+	
+	public void exitMazeGame() {
+		frame.setGame(null);
+		frame.switchPanel("mainMenuPanel");
 	}
 	
 	/**
@@ -131,16 +145,18 @@ public class MazeProgram {
 	 * The ActionEvent involved with the update.
 	 */
 	public void updateFrame(ActionEvent e) {
-		if (g.isPlaying()) {
-			for (Player pl : g.getPlayers()) {
-				pl.addMilliseconds(refreshTime);
-			}
-			
-			// This just exists to test the time system.
-			int milliseconds = g.getPlayers()[0].getMillisecondsTaken();
-			
-			if (frame != null) {
-				frame.setTimeText(String.format("%02d:%02d:%03d", milliseconds / 60000, milliseconds / 1000 % 60, milliseconds % 1000));
+		if (g != null) {
+			if (g.isPlaying()) {
+				for (Player pl : g.getPlayers()) {
+					pl.addMilliseconds(refreshTime);
+				}
+				
+				// This just exists to test the time system.
+				int milliseconds = g.getPlayers()[0].getMillisecondsTaken();
+				
+				if (frame != null) {
+					frame.setTimeText(String.format("%02d:%02d:%03d", milliseconds / 60000, milliseconds / 1000 % 60, milliseconds % 1000));
+				}
 			}
 		}
 	}
