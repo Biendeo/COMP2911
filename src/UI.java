@@ -457,7 +457,12 @@ public class UI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int width = Integer.parseInt(textField.getText());
 				int height = Integer.parseInt(textField_1.getText());
-				long seed = Long.parseLong(customSeedField.getText());
+				long seed = 0;
+				if (customSeedField.getText().equals("")) {
+					seed = 0;
+				} else {
+					seed = Long.parseLong(customSeedField.getText());
+				}
 				int players = 0;
 				if (radioButton.isSelected()) {
 					players = 1;
