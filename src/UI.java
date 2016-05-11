@@ -77,6 +77,8 @@ public class UI extends JFrame {
 	private JRadioButton rdbtnMedium;
 	private JRadioButton rdbtnHard;
 	private JRadioButton rdbtnCustom;
+	private JRadioButton radioButton;
+	private JRadioButton radioButton_1;
 	
 	/**
 	 * Prints the map to the console using a specific character for walls and spaces.
@@ -366,12 +368,12 @@ public class UI extends JFrame {
 		
 		ButtonGroup customGamePlayerButtonGroup = new ButtonGroup();
 		
-		JRadioButton radioButton = new JRadioButton("1");
+		radioButton = new JRadioButton("1");
 		radioButton.setSelected(true);
 		customGameSetupPlayerPanel.add(radioButton);
 		customGamePlayerButtonGroup.add(radioButton);
 		
-		JRadioButton radioButton_1 = new JRadioButton("2");
+		radioButton_1 = new JRadioButton("2");
 		customGameSetupPlayerPanel.add(radioButton_1);
 		customGamePlayerButtonGroup.add(radioButton_1);
 		
