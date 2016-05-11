@@ -290,6 +290,11 @@ public class Maze {
 		}
 	}
 	
+	/**
+	 * Returns the seed of the maze.
+	 * @return
+	 * The seed of the maze.
+	 */
 	public long getSeed() {
 		return seed;
 	}

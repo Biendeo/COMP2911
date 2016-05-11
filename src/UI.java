@@ -36,15 +36,15 @@ public class UI extends JFrame {
 	private BufferedImage mazeImg;
 
 	// The mazeGame to be used.
-	// TODO: Try to have it so the game is passed to the drawing, not existing
-	// in it.
 	private MazeGame game;
 	
+	// The mazeProgram itself.
 	private MazeProgram program;
 	
 	// The size of tiles used in the program (both width and height).
 	private int tileSize;
 	
+	// A tonne of JComponents for the UI. They're all named appropriately.
 	private JPanel mazeViewLeftPanel;
 	private JPanel mazeViewRightPanel;
 	private JLabel timeLabel;
@@ -83,71 +83,9 @@ public class UI extends JFrame {
 	private JRadioButton customGameSetupPlayers2Radio;
 	
 	/**
-	 * Prints the map to the console using a specific character for walls and spaces.
-	 * It draws walls as their own spots in the grid.
-	 * @param m
-	 * The maze to be drawn.
-	 */
-	public static void printMazeASCII(Maze m) {
-		
-		// You can easily modify the appearance here.
-		final char wallChar = '#';
-		final char spaceChar = '.';
-		final String wall = Character.toString(wallChar);
-		final String space = Character.toString(spaceChar);
-		
-		// Firstly, the top wall is printed.
-		for (int i = 0; i < m.getWidth() * 2 + 1; i++) {
-			System.out.print(wall);
-		}
-		
-		System.out.println();
-			
-		// For each y row, we have two loops.
-		for (int y = 0; y < m.getHeight(); y++) {
-			// Left wall is printed.
-			System.out.print(wall);
-			// Then, each space is printed, followed by whether it has a
-			// connection to the right. This will always draw the right wall.
-			for (int x = 0; x < m.getWidth(); x++) {
-				System.out.print(space);
-				if (m.isConnected(x, y, Direction.RIGHT)) {
-					System.out.print(space);
-				} else {
-					System.out.print(wall);
-				}
-			}
-			System.out.println();
-			
-			// Another left wall is printed.
-			System.out.print(wall);
-			// Finally, each space's down connection is printed, followed by
-			// a wall.
-			for (int x = 0; x < m.getWidth(); x++) {
-				if (m.isConnected(x, y, Direction.DOWN)) {
-					System.out.print(space);
-				} else {
-					System.out.print(wall);
-				}
-				System.out.print(wall);
-			}
-			System.out.println();
-		}
-	}
-	
-	/**
-	 * Creates a random RGB colour.
-	 * @return
-	 * The colour generated.
-	 */
-	public static Color getRandomColor() {
-		Random rand = new Random();
-		// TODO: This can give really bad colours sometimes (close to white for example). Make it create interesting colours (or just force set primary colours).
-		return new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
-	}
-	
-	/**
 	 * Creates a UI frame with some basic properties.
+	 * @param mazeProgram
+	 * The mazeProgram that runs this.
 	 */
 	public UI(MazeProgram mazeProgram) {
 		this.tileSize = 16;
@@ -488,6 +426,7 @@ public class UI extends JFrame {
 			}
 		});
 		
+		// Finally, the program should start with the main menu.
 		switchPanel("mainMenuPanel");
 	}
 	
@@ -590,21 +529,42 @@ public class UI extends JFrame {
 		}
 	}
 	
+	/**
+	 * Sets the label text for the game's seed.
+	 * @param seedText
+	 * The string to show.
+	 */
 	public void setSeedText(String seedText){
 		if (this.seedLabel != null) {
 			this.seedLabel.setText(seedText);
 		}
 	}
 	
+	/**
+	 * Switches the main panel to the one with a given name.
+	 * @param panelName
+	 * The name of the panel.
+	 */
 	public void switchPanel(String panelName) {
 		mainPanelCardLayout.show(mainPanel, panelName);
 	}
 	
+	/**
+	 * Stores a given maze in the UI for easy reference.
+	 * It also gives it to the mazeViewImageComponent.
+	 * @param g
+	 * The game in question (can be null).
+	 */
 	public void setGame(MazeGame g) {
 		this.game = g;
 		mazeViewImageComponent.setGame(g);;
 	}
 	
+	/**
+	 * Hides the maze screen and pauses the game.
+	 * @param willBePaused
+	 * Whether the game should be paused or not.
+	 */
 	public void showPause(boolean willBePaused) {
 		if (willBePaused) {
 			mazeViewImageComponent.setEnabled(false);
@@ -617,5 +577,69 @@ public class UI extends JFrame {
 			mazeViewPauseLabel.setEnabled(false);
 			mazeViewPauseLabel.setVisible(false);
 		}
+	}
+
+	/**
+	 * Prints the map to the console using a specific character for walls and spaces.
+	 * It draws walls as their own spots in the grid.
+	 * @param m
+	 * The maze to be drawn.
+	 */
+	public static void printMazeASCII(Maze m) {
+		
+		// You can easily modify the appearance here.
+		final char wallChar = '#';
+		final char spaceChar = '.';
+		final String wall = Character.toString(wallChar);
+		final String space = Character.toString(spaceChar);
+		
+		// Firstly, the top wall is printed.
+		for (int i = 0; i < m.getWidth() * 2 + 1; i++) {
+			System.out.print(wall);
+		}
+		
+		System.out.println();
+			
+		// For each y row, we have two loops.
+		for (int y = 0; y < m.getHeight(); y++) {
+			// Left wall is printed.
+			System.out.print(wall);
+			// Then, each space is printed, followed by whether it has a
+			// connection to the right. This will always draw the right wall.
+			for (int x = 0; x < m.getWidth(); x++) {
+				System.out.print(space);
+				if (m.isConnected(x, y, Direction.RIGHT)) {
+					System.out.print(space);
+				} else {
+					System.out.print(wall);
+				}
+			}
+			System.out.println();
+			
+			// Another left wall is printed.
+			System.out.print(wall);
+			// Finally, each space's down connection is printed, followed by
+			// a wall.
+			for (int x = 0; x < m.getWidth(); x++) {
+				if (m.isConnected(x, y, Direction.DOWN)) {
+					System.out.print(space);
+				} else {
+					System.out.print(wall);
+				}
+				System.out.print(wall);
+			}
+			System.out.println();
+		}
+	}
+	
+	/**
+	 * Creates a random RGB colour.
+	 * @return
+	 * The colour generated.
+	 */
+	public static Color getRandomColor() {
+		Random rand = new Random();
+		// TODO: This can give really bad colours sometimes (close to white for example). Make it create interesting colours (or just force set primary colours).
+		return new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
 	}
 }

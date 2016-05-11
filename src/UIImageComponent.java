@@ -10,16 +10,33 @@ public class UIImageComponent extends JComponent {
 	
 	private int tileSize;
 	
+	/**
+	 * Creates a new UIIageComponent with the rendered maze image and the game.
+	 * @param mazeImg
+	 * The maze image.
+	 * @param g
+	 * The game.
+	 */
 	public UIImageComponent(BufferedImage mazeImg, MazeGame g) {
 		setMazeImg(mazeImg);
-		this.game = g;
+		setGame(g);
 		tileSize = 16;
 	}
 	
+	/**
+	 * Sets the maze image.
+	 * @param mazeImg
+	 * The maze image.
+	 */
 	public void setMazeImg(BufferedImage mazeImg) {
 		this.mazeImg = mazeImg;
 	}
 	
+	/**
+	 * Sets the game.
+	 * @param g
+	 * The game.
+	 */
 	public void setGame(MazeGame g) {
 		this.game = g;
 	}

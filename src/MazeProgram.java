@@ -19,7 +19,7 @@ public class MazeProgram {
 	
 	private Timer refresh;
 	
-	// If anyone complains about this line, just replace it with 60.
+	// If anyone complains about this line, just replace it with 60 (CSE computers are 50).
 	private static int refreshRate = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0].getDisplayMode().getRefreshRate();
 	private static int refreshTime = (int)((float)1000 / refreshRate);
 	
@@ -51,28 +51,16 @@ public class MazeProgram {
 		frame.setFocusable(true);
 	}
 	
+	/**
+	 * Starts a new game with default parameters.
+	 */
 	public void instantAction() {
-		g = new MazeGame();
-		g.addPlayer();
-		
-		frame.setGame(g);
-		
-		UI.printMazeASCII(g.getMaze());
-		
-		g.setPlaying(true);
-		
-		frame.drawMazeSwingOne();
-		
-		frame.showPause(false);
-		
-		frame.setMoveText("0 moves");
-		
-		frame.setSeedText("Seed: " + Long.toString(g.getSeed()));
-		
-		frame.switchPanel("mazeViewPanel");
-		
+		customGameSetup(25, 20, 0, 1);
 	}
 	
+	/**
+	 * Tells the frame to exit the game.
+	 */
 	public void exitMazeGame() {
 		frame.setGame(null);
 		frame.switchPanel("mainMenuPanel");
@@ -163,6 +151,9 @@ public class MazeProgram {
 		}
 	}
 	
+	/**
+	 * Toggles pausing the game.
+	 */
 	public void togglePauseGame() {
 		if (g != null) {
 			if (g.isPlaying()) {
@@ -177,8 +168,18 @@ public class MazeProgram {
 		}
 	}
 	
+	/**
+	 * Sets up a custom game with some parameters.
+	 * @param width
+	 * The width of the maze.
+	 * @param height
+	 * The height of the maze.
+	 * @param seed
+	 * The seed to be used (0 picks a random one).
+	 * @param players
+	 * The number of players.
+	 */
 	public void customGameSetup(int width, int height, long seed, int players) {
-		// TODO: This is copy-pasta, we need to clean this up.
 		g = new MazeGame(width, height, seed);
 		
 		for (int i = 0; i < players; i++) {

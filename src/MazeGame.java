@@ -14,6 +14,15 @@ public class MazeGame {
 		this(25, 20, 0);
 	}
 	
+	/**
+	 * Creates a maze game with given conditions.
+	 * @param width
+	 * The width of the maze.
+	 * @param height
+	 * The height of the maze.
+	 * @param seed
+	 * The seed of the maze (0 is random).
+	 */
 	public MazeGame(int width, int height, long seed) {
 		m = new Maze(width, height);
 		if (seed == 0) {
@@ -113,6 +122,11 @@ public class MazeGame {
 		}
 	}
 	
+	/**
+	 * Returns the seed of the game.
+	 * @return
+	 * The seed of the game.
+	 */
 	public long getSeed() {
 		return m.getSeed();
 	}
