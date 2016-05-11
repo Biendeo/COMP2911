@@ -129,9 +129,9 @@ public class UI extends JFrame {
 	/**
 	 * Creates a UI frame with some basic properties.
 	 */
-	public UI(MazeProgram program) {
+	public UI(MazeProgram mazeProgram) {
 		this.tileSize = 16;
-		this.program = program;
+		this.program = mazeProgram;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 450);
