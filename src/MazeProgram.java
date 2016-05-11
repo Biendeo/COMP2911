@@ -14,7 +14,7 @@ import javax.swing.Timer;
 public class MazeProgram {
 	private Config cfg;
 	private MazeGame g;
-	private UIFrame frame;
+	private UI frame;
 	private UIKeyGetter keyGet;
 	
 	private Timer refresh;
@@ -43,7 +43,7 @@ public class MazeProgram {
 	 * The program's main execution.
 	 */
 	public void run() {
-		frame = new UIFrame(this);
+		frame = new UI(this);
 		
 		frame.addKeyListener(keyGet);
 		
