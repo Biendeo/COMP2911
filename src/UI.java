@@ -79,6 +79,7 @@ public class UI extends JFrame {
 	private JRadioButton rdbtnCustom;
 	private JRadioButton radioButton;
 	private JRadioButton radioButton_1;
+	private JLabel seedLabel;
 	
 	/**
 	 * Prints the map to the console using a specific character for walls and spaces.
@@ -155,6 +156,7 @@ public class UI extends JFrame {
 		setBounds(100, 100, 800, 450);
 		setTimeText("00:00:000");
 		setMoveText("0 moves");
+		setSeedText("00000000");
 		getContentPane().setLayout(new CardLayout(0, 0));
 		
 		mainPanel = new JPanel();
@@ -211,8 +213,12 @@ public class UI extends JFrame {
 		moveLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		rightPanel.add(moveLabel);
 		
+		seedLabel = new JLabel("Seed Text");
+		seedLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		rightPanel.add(seedLabel);
+		
 		// Dummy panels.
-		rightPanel.add(new JPanel());
+		//rightPanel.add(new JPanel());
 		rightPanel.add(new JPanel());
 		rightPanel.add(new JPanel());
 		rightPanel.add(new JPanel());
@@ -593,6 +599,12 @@ public class UI extends JFrame {
 	public void setMoveText(String moveText) {
 		if (this.moveLabel != null) {
 			this.moveLabel.setText(moveText);
+		}
+	}
+	
+	public void setSeedText(String seedText){
+		if (this.seedLabel != null) {
+			this.seedLabel.setText(seedText);
 		}
 	}
 	
