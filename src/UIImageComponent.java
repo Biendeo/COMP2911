@@ -18,11 +18,6 @@ public class UIImageComponent extends JComponent {
 	
 	public void setMazeImg(BufferedImage mazeImg) {
 		this.mazeImg = mazeImg;
-		
-		if (mazeImg != null) {
-			this.getParent().setSize(mazeImg.getWidth(), mazeImg.getHeight());
-			this.setSize(mazeImg.getWidth(), mazeImg.getHeight());
-		}
 	}
 	
 	public void setGame(MazeGame g) {
@@ -32,16 +27,39 @@ public class UIImageComponent extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if (mazeImg != null) {
-			g.drawImage(mazeImg, 0, 0, null);
-		}
-		
-		Player[] players;
-		
-		if (game != null) {
-			players = game.getPlayers();
+		if (mazeImg != null && game != null) {
+			Player[] players = game.getPlayers();
+			int panelWidth = getWidth();
+			int panelHeight = getHeight();
+			int imageWidth = mazeImg.getWidth();
+			int imageHeight = mazeImg.getHeight();
+			int decidedX = 0;
+			int decidedY = 0;
+			
+			if (panelWidth > imageWidth) {
+				decidedX = (panelWidth - imageWidth) / 2;
+			} else if (players[0].getPos().x * tileSize < panelWidth / 2) {
+				decidedX = 0;
+			} else if (players[0].getPos().x * tileSize >= imageWidth - (panelWidth / 2)) {
+				decidedX = panelWidth - imageWidth;
+			} else {
+				decidedX = panelWidth / 2 - players[0].getPos().x * tileSize;
+			}
+			
+			if (panelHeight > imageHeight) {
+				decidedY = (panelHeight - imageHeight) / 2;
+			} else if (players[0].getPos().y * tileSize < panelHeight / 2) {
+				decidedY = 0;
+			} else if (players[0].getPos().y * tileSize >= imageHeight - (panelHeight / 2)) {
+				decidedY = panelHeight - imageHeight;
+			} else {
+				decidedY = panelHeight / 2 - players[0].getPos().y * tileSize;
+			}
+			
+			g.drawImage(mazeImg, decidedX, decidedY, null);
+
 			for (int i = 0; i < players.length; i++) {
-				g.drawImage(players[i].getImg(), tileSize * players[i].getPos().x, tileSize * players[i].getPos().y, null);
+				g.drawImage(players[i].getImg(), tileSize * players[i].getPos().x + decidedX, tileSize * players[i].getPos().y + decidedY, null);
 			}
 		}
 	}

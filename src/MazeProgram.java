@@ -47,8 +47,6 @@ public class MazeProgram {
 		
 		frame.addKeyListener(keyGet);
 		
-		frame.pack();
-		
 		frame.setVisible(true);
 		frame.setFocusable(true);
 	}

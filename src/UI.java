@@ -494,7 +494,6 @@ public class UI extends JFrame {
 		
 		Maze m = game.getMaze();
 		
-		setBounds(100, 100, tileSize * m.getWidth(), tileSize * m.getHeight());
 		BufferedImage image = new BufferedImage(tileSize * m.getWidth(), tileSize * m.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		
 		// Modify these to your liking.
@@ -550,11 +549,7 @@ public class UI extends JFrame {
 			}
 		}
 		mazeImg = image;
-		this.setSize(mazeImg.getWidth() + 16 + 250, mazeImg.getHeight() + 39 + 20);
 		mazeViewImageComponent.setMazeImg(mazeImg);
-		// I need a bit of padding because it overlaps a little.
-		//panel.setPreferredSize(new Dimension(mazeImg.getWidth() + 16, mazeImg.getHeight() + 39));
-		//this.repaint();
 	}
 	
 	/**
@@ -565,14 +560,6 @@ public class UI extends JFrame {
 	// TODO: Decide which class manages players.
 	public Player[] getPlayers() {
 		return game.getPlayers();
-	}
-	
-	@Override
-	public void pack() {
-		//super.pack();
-		if (mazeImg != null) {
-			this.setSize(mazeImg.getWidth() + 16 + 250, mazeImg.getHeight() + 39 + 20);
-		}
 	}
 
 	/**
