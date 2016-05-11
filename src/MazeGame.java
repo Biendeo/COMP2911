@@ -112,4 +112,8 @@ public class MazeGame {
 			return false;
 		}
 	}
+	
+	public long getSeed() {
+		return m.getSeed();
+	}
 }

@@ -18,6 +18,8 @@ public class Maze {
 	private Coord start;
 	private Coord end;
 	
+	private long seed;
+	
 	/**
 	 * Creates a new maze with given size parameters.
 	 * @param width
@@ -33,6 +35,7 @@ public class Maze {
 		// We can change this at any time.
 		this.start = new Coord(0, height - 1);
 		this.end = new Coord(width - 1, 0);
+		this.seed = 0;
 	}
 	
 	/**
@@ -48,7 +51,8 @@ public class Maze {
 	 * 
 	 */
 	public void generateMapDepthStyle() {
-		generateMapDepthStyleProcess(new Random());
+		seed = new Random().nextLong();
+		generateMapDepthStyleProcess(new Random(seed));
 	}
 	
 	/**
@@ -58,6 +62,7 @@ public class Maze {
 	 * same results).
 	 */
 	public void generateMapDepthStyle(long seed) {
+		this.seed = seed;
 		generateMapDepthStyleProcess(new Random(seed));
 	}
 	
@@ -283,5 +288,9 @@ public class Maze {
 		case 3:
 			return Direction.LEFT;
 		}
+	}
+	
+	public long getSeed() {
+		return seed;
 	}
 }

@@ -47,8 +47,6 @@ public class MazeProgram {
 		
 		frame.addKeyListener(keyGet);
 		
-		frame.pack();
-		
 		frame.setVisible(true);
 		frame.setFocusable(true);
 	}
@@ -65,7 +63,11 @@ public class MazeProgram {
 		
 		frame.drawMazeSwingOne();
 		
+		frame.showPause(false);
+		
 		frame.setMoveText("0 moves");
+		
+		frame.setSeedText("Seed: " + Long.toString(g.getSeed()));
 		
 		frame.switchPanel("mazeViewPanel");
 		
@@ -191,7 +193,11 @@ public class MazeProgram {
 		
 		frame.drawMazeSwingOne();
 		
+		frame.showPause(false);
+		
 		frame.setMoveText("0 moves");
+		
+		frame.setSeedText("Seed: " + Long.toString(g.getSeed()));
 		
 		frame.switchPanel("mazeViewPanel");
 	}

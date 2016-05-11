@@ -1,5 +1,6 @@
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Random;
 
 import java.awt.image.BufferedImage;
@@ -44,42 +45,42 @@ public class UI extends JFrame {
 	// The size of tiles used in the program (both width and height).
 	private int tileSize;
 	
-	private JPanel leftPanel;
-	private JPanel rightPanel;
+	private JPanel mazeViewLeftPanel;
+	private JPanel mazeViewRightPanel;
 	private JLabel timeLabel;
 	private JLabel moveLabel;
-	private UIImageComponent mazeView;
-	private JPanel buttonPanel;
-	private JButton quitButton;
+	private UIImageComponent mazeViewImageComponent;
+	private JPanel mazeViewButtonPanel;
+	private JButton mazeViewQuitButton;
 	private JPanel mainMenuPanel;
 	private JPanel mainMenuContentPanel;
-	private JButton btnExit;
+	private JButton mainMenuExitButton;
 	private JPanel mainPanel;
 	private JPanel mazeViewPanel;
-	private JButton btnSettings;
-	private JButton btnNewMaze;
-	private JButton btnInstantAction;
+	private JButton mainMenuUserSettingsButton;
+	private JButton mainMenuCustomGameButton;
+	private JButton mainMenuInstantActionButton;
 	private JPanel mainMenuButtonPanelCentral;
 	private JLabel mainMenuTitleLabel;
 	private JPanel mainMenuButtonPanel;
 	private CardLayout mainPanelCardLayout;
 	private JLabel mazeViewPauseLabel;
 	private JPanel customGameSetupPanel;
-	private JTextField customSeedField;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JLabel lblSize;
+	private JTextField customGameSetupSeedField;
+	private JTextField customGameSetupSizeXField;
+	private JTextField customGameSetupSizeYField;
+	private JLabel customGameSetupSizeLabel;
 	private JPanel customGameSetupPlayerPanel;
 	private JPanel customGameSetupDefaultPanel;
 	private JPanel customGameSetupButtonPanel;
-	private JLabel lblDifficulty;
-	private JRadioButton rdbtnEasy;
-	private JRadioButton rdbtnMedium;
-	private JRadioButton rdbtnHard;
-	private JRadioButton rdbtnCustom;
-	private JRadioButton radioButton;
-	private JRadioButton radioButton_1;
 	private JLabel seedLabel;
+	private JLabel customGameSetupDifficultyLabel;
+	private JRadioButton customGameSetupDifficultyEasyRadio;
+	private JRadioButton customGameSetupDifficultyMediumRadio;
+	private JRadioButton customGameSetupDifficultyHardRadio;
+	private JRadioButton customGameSetupDiffcultyCustomRadio;
+	private JRadioButton customGameSetupPlayers1Radio;
+	private JRadioButton customGameSetupPlayers2Radio;
 	
 	/**
 	 * Prints the map to the console using a specific character for walls and spaces.
@@ -154,6 +155,7 @@ public class UI extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 450);
+		setMinimumSize(new Dimension(480, 360));
 		setTimeText("00:00:000");
 		setMoveText("0 moves");
 		setSeedText("00000000");
@@ -169,78 +171,78 @@ public class UI extends JFrame {
 		SpringLayout sl_mazeViewPanel = new SpringLayout();
 		mazeViewPanel.setLayout(sl_mazeViewPanel);
 		
-		leftPanel = new JPanel();
-		sl_mazeViewPanel.putConstraint(SpringLayout.NORTH, leftPanel, 10, SpringLayout.NORTH, mazeViewPanel);
-		sl_mazeViewPanel.putConstraint(SpringLayout.WEST, leftPanel, 10, SpringLayout.WEST, mazeViewPanel);
-		sl_mazeViewPanel.putConstraint(SpringLayout.SOUTH, leftPanel, -10, SpringLayout.SOUTH, mazeViewPanel);
-		mazeViewPanel.add(leftPanel);
+		mazeViewLeftPanel = new JPanel();
+		sl_mazeViewPanel.putConstraint(SpringLayout.NORTH, mazeViewLeftPanel, 10, SpringLayout.NORTH, mazeViewPanel);
+		sl_mazeViewPanel.putConstraint(SpringLayout.WEST, mazeViewLeftPanel, 10, SpringLayout.WEST, mazeViewPanel);
+		sl_mazeViewPanel.putConstraint(SpringLayout.SOUTH, mazeViewLeftPanel, -10, SpringLayout.SOUTH, mazeViewPanel);
+		mazeViewPanel.add(mazeViewLeftPanel);
 		
-		SpringLayout sl_leftPanel = new SpringLayout();
-		leftPanel.setLayout(sl_leftPanel);
+		SpringLayout sl_mazeViewLeftPanel = new SpringLayout();
+		mazeViewLeftPanel.setLayout(sl_mazeViewLeftPanel);
 		
-		mazeView = new UIImageComponent(mazeImg, game);
-		sl_leftPanel.putConstraint(SpringLayout.NORTH, mazeView, 0, SpringLayout.NORTH, leftPanel);
-		sl_leftPanel.putConstraint(SpringLayout.WEST, mazeView, 0, SpringLayout.WEST, leftPanel);
-		sl_leftPanel.putConstraint(SpringLayout.SOUTH, mazeView, 0, SpringLayout.SOUTH, leftPanel);
-		sl_leftPanel.putConstraint(SpringLayout.EAST, mazeView, 0, SpringLayout.EAST, leftPanel);
-		leftPanel.add(mazeView);
+		mazeViewImageComponent = new UIImageComponent(mazeImg, game);
+		sl_mazeViewLeftPanel.putConstraint(SpringLayout.NORTH, mazeViewImageComponent, 0, SpringLayout.NORTH, mazeViewLeftPanel);
+		sl_mazeViewLeftPanel.putConstraint(SpringLayout.WEST, mazeViewImageComponent, 0, SpringLayout.WEST, mazeViewLeftPanel);
+		sl_mazeViewLeftPanel.putConstraint(SpringLayout.SOUTH, mazeViewImageComponent, 0, SpringLayout.SOUTH, mazeViewLeftPanel);
+		sl_mazeViewLeftPanel.putConstraint(SpringLayout.EAST, mazeViewImageComponent, 0, SpringLayout.EAST, mazeViewLeftPanel);
+		mazeViewLeftPanel.add(mazeViewImageComponent);
 		
-		rightPanel = new JPanel();
-		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, leftPanel, -10, SpringLayout.WEST, rightPanel);
+		mazeViewRightPanel = new JPanel();
+		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, mazeViewRightPanel, -10, SpringLayout.EAST, mazeViewPanel);
+		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, mazeViewLeftPanel, -10, SpringLayout.WEST, mazeViewRightPanel);
 		
 		mazeViewPauseLabel = new JLabel("Paused");
 		mazeViewPauseLabel.setEnabled(false);
 		mazeViewPauseLabel.setVisible(false);
 		mazeViewPauseLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		sl_leftPanel.putConstraint(SpringLayout.NORTH, mazeViewPauseLabel, 0, SpringLayout.NORTH, leftPanel);
-		sl_leftPanel.putConstraint(SpringLayout.WEST, mazeViewPauseLabel, 0, SpringLayout.WEST, leftPanel);
-		sl_leftPanel.putConstraint(SpringLayout.SOUTH, mazeViewPauseLabel, 0, SpringLayout.SOUTH, leftPanel);
-		sl_leftPanel.putConstraint(SpringLayout.EAST, mazeViewPauseLabel, 0, SpringLayout.EAST, leftPanel);
+		sl_mazeViewLeftPanel.putConstraint(SpringLayout.NORTH, mazeViewPauseLabel, 0, SpringLayout.NORTH, mazeViewLeftPanel);
+		sl_mazeViewLeftPanel.putConstraint(SpringLayout.WEST, mazeViewPauseLabel, 0, SpringLayout.WEST, mazeViewLeftPanel);
+		sl_mazeViewLeftPanel.putConstraint(SpringLayout.SOUTH, mazeViewPauseLabel, 0, SpringLayout.SOUTH, mazeViewLeftPanel);
+		sl_mazeViewLeftPanel.putConstraint(SpringLayout.EAST, mazeViewPauseLabel, 0, SpringLayout.EAST, mazeViewLeftPanel);
 		mazeViewPauseLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		leftPanel.add(mazeViewPauseLabel);
-		sl_mazeViewPanel.putConstraint(SpringLayout.NORTH, rightPanel, 10, SpringLayout.NORTH, mazeViewPanel);
-		sl_mazeViewPanel.putConstraint(SpringLayout.WEST, rightPanel, -210, SpringLayout.EAST, mazeViewPanel);
-		sl_mazeViewPanel.putConstraint(SpringLayout.SOUTH, rightPanel, -10, SpringLayout.SOUTH, mazeViewPanel);
-		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, rightPanel, 10, SpringLayout.EAST, mazeViewPanel);
-		mazeViewPanel.add(rightPanel);
-		rightPanel.setLayout(new GridLayout(8, 1, 0, 0));
+		mazeViewLeftPanel.add(mazeViewPauseLabel);
+		sl_mazeViewPanel.putConstraint(SpringLayout.NORTH, mazeViewRightPanel, 10, SpringLayout.NORTH, mazeViewPanel);
+		sl_mazeViewPanel.putConstraint(SpringLayout.WEST, mazeViewRightPanel, -210, SpringLayout.EAST, mazeViewPanel);
+		sl_mazeViewPanel.putConstraint(SpringLayout.SOUTH, mazeViewRightPanel, -10, SpringLayout.SOUTH, mazeViewPanel);
+		mazeViewPanel.add(mazeViewRightPanel);
+		mazeViewRightPanel.setLayout(new GridLayout(8, 1, 0, 0));
 		
 		timeLabel = new JLabel("Time Text");
 		timeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		rightPanel.add(timeLabel);
+		mazeViewRightPanel.add(timeLabel);
 		
 		moveLabel = new JLabel("Move Text");
 		moveLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		rightPanel.add(moveLabel);
+		mazeViewRightPanel.add(moveLabel);
+		
+		// Dummy panels.
+		mazeViewRightPanel.add(new JPanel());
+		mazeViewRightPanel.add(new JPanel());
+		mazeViewRightPanel.add(new JPanel());
+		mazeViewRightPanel.add(new JPanel());
 		
 		seedLabel = new JLabel("Seed Text");
 		seedLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		rightPanel.add(seedLabel);
+		mazeViewRightPanel.add(seedLabel);
 		
-		// Dummy panels.
-		//rightPanel.add(new JPanel());
-		rightPanel.add(new JPanel());
-		rightPanel.add(new JPanel());
-		rightPanel.add(new JPanel());
-		rightPanel.add(new JPanel());
+		mazeViewButtonPanel = new JPanel();
+		mazeViewRightPanel.add(mazeViewButtonPanel);
+		mazeViewButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		buttonPanel = new JPanel();
-		rightPanel.add(buttonPanel);
-		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JButton btnPause = new JButton("Pause");
-		buttonPanel.add(btnPause);
-		btnPause.addActionListener(new ActionListener() {
+		JButton mazeViewPauseButton = new JButton("Pause");
+		mazeViewPauseButton.setToolTipText("Pauses or unpauses the game. No cheating!");
+		mazeViewButtonPanel.add(mazeViewPauseButton);
+		mazeViewPauseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				program.togglePauseGame();
 			}
 		});
 		
-		quitButton = new JButton("Quit");
-		quitButton.setToolTipText("Quits the maze. (RIGHT NOW IT QUITS THE PROGRAM)");
-		buttonPanel.add(quitButton);
+		mazeViewQuitButton = new JButton("Quit");
+		mazeViewQuitButton.setToolTipText("Quits back to the main menu.");
+		mazeViewButtonPanel.add(mazeViewQuitButton);
 		
-		quitButton.addActionListener(new ActionListener() {
+		mazeViewQuitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?", "Quit?", JOptionPane.YES_NO_OPTION);
 				if (dialogResult == JOptionPane.YES_OPTION) {
@@ -275,27 +277,27 @@ public class UI extends JFrame {
 		mainMenuButtonPanel.add(mainMenuButtonPanelCentral);
 		mainMenuButtonPanelCentral.setLayout(new GridLayout(4, 1, 0, 0));
 		
-		btnInstantAction = new JButton("Instant Action");
-		mainMenuButtonPanelCentral.add(btnInstantAction);
-		btnInstantAction.addActionListener(new ActionListener() {
+		mainMenuInstantActionButton = new JButton("Instant Action");
+		mainMenuButtonPanelCentral.add(mainMenuInstantActionButton);
+		mainMenuInstantActionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				program.instantAction();
 			}
 		});
 		
-		btnNewMaze = new JButton("Custom Game");
-		mainMenuButtonPanelCentral.add(btnNewMaze);
-		btnNewMaze.addActionListener(new ActionListener() {
+		mainMenuCustomGameButton = new JButton("Custom Game");
+		mainMenuButtonPanelCentral.add(mainMenuCustomGameButton);
+		mainMenuCustomGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel("customGameSetupPanel");
 			}
 		});
 		
-		btnSettings = new JButton("User Settings");
-		mainMenuButtonPanelCentral.add(btnSettings);
+		mainMenuUserSettingsButton = new JButton("User Settings");
+		mainMenuButtonPanelCentral.add(mainMenuUserSettingsButton);
 		
-		btnExit = new JButton("Exit");
-		mainMenuButtonPanelCentral.add(btnExit);
+		mainMenuExitButton = new JButton("Exit");
+		mainMenuButtonPanelCentral.add(mainMenuExitButton);
 		
 		mainMenuTitleLabel = new JLabel("Maze Game");
 		sl_mainMenuContentPanel.putConstraint(SpringLayout.NORTH, mainMenuTitleLabel, 0, SpringLayout.NORTH, mainMenuContentPanel);
@@ -311,7 +313,7 @@ public class UI extends JFrame {
 		sl_mazeViewPanel.putConstraint(SpringLayout.SOUTH, mainMenuPanel, 0, SpringLayout.SOUTH, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, mainMenuPanel, 0, SpringLayout.EAST, mazeViewPanel);
 		
-		btnExit.addActionListener(new ActionListener() {
+		mainMenuExitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				System.exit(0);
 			}
@@ -329,12 +331,12 @@ public class UI extends JFrame {
 		customGameSetupPanel.add(customGameSetupSeedPanel);
 		customGameSetupSeedPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblSeed = new JLabel("Seed:");
-		customGameSetupSeedPanel.add(lblSeed);
+		JLabel customGameSetupSeedLabel = new JLabel("Seed:");
+		customGameSetupSeedPanel.add(customGameSetupSeedLabel);
 		
-		customSeedField = new JTextField();
-		customGameSetupSeedPanel.add(customSeedField);
-		customSeedField.setColumns(10);
+		customGameSetupSeedField = new JTextField();
+		customGameSetupSeedPanel.add(customGameSetupSeedField);
+		customGameSetupSeedField.setColumns(10);
 		
 		JPanel customGameSetupSizePanel = new JPanel();
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupSeedPanel, 10, SpringLayout.SOUTH, customGameSetupSizePanel);
@@ -344,23 +346,23 @@ public class UI extends JFrame {
 		customGameSetupPanel.add(customGameSetupSizePanel);
 		customGameSetupSizePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		lblSize = new JLabel("Size:");
-		customGameSetupSizePanel.add(lblSize);
+		customGameSetupSizeLabel = new JLabel("Size:");
+		customGameSetupSizePanel.add(customGameSetupSizeLabel);
 		
-		textField = new JTextField();
-		textField.setEnabled(false);
-		textField.setText("10");
-		customGameSetupSizePanel.add(textField);
-		textField.setColumns(5);
+		customGameSetupSizeXField = new JTextField();
+		customGameSetupSizeXField.setEnabled(false);
+		customGameSetupSizeXField.setText("10");
+		customGameSetupSizePanel.add(customGameSetupSizeXField);
+		customGameSetupSizeXField.setColumns(5);
 		
-		JLabel lblBy = new JLabel("by");
-		customGameSetupSizePanel.add(lblBy);
+		JLabel customGameSetupSizeByLabel = new JLabel("by");
+		customGameSetupSizePanel.add(customGameSetupSizeByLabel);
 		
-		textField_1 = new JTextField();
-		textField_1.setEnabled(false);
-		textField_1.setText("10");
-		customGameSetupSizePanel.add(textField_1);
-		textField_1.setColumns(5);
+		customGameSetupSizeYField = new JTextField();
+		customGameSetupSizeYField.setEnabled(false);
+		customGameSetupSizeYField.setText("10");
+		customGameSetupSizePanel.add(customGameSetupSizeYField);
+		customGameSetupSizeYField.setColumns(5);
 		
 		customGameSetupPlayerPanel = new JPanel();
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupPlayerPanel, 10, SpringLayout.SOUTH, customGameSetupSeedPanel);
@@ -369,19 +371,19 @@ public class UI extends JFrame {
 		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupPlayerPanel, -10, SpringLayout.EAST, customGameSetupPanel);
 		customGameSetupPanel.add(customGameSetupPlayerPanel);
 		
-		JLabel lblPlayers = new JLabel("Players:");
-		customGameSetupPlayerPanel.add(lblPlayers);
+		JLabel customGameSetupPlayersLabel = new JLabel("Players:");
+		customGameSetupPlayerPanel.add(customGameSetupPlayersLabel);
 		
 		ButtonGroup customGamePlayerButtonGroup = new ButtonGroup();
 		
-		radioButton = new JRadioButton("1");
-		radioButton.setSelected(true);
-		customGameSetupPlayerPanel.add(radioButton);
-		customGamePlayerButtonGroup.add(radioButton);
+		customGameSetupPlayers1Radio = new JRadioButton("1");
+		customGameSetupPlayers1Radio.setSelected(true);
+		customGameSetupPlayerPanel.add(customGameSetupPlayers1Radio);
+		customGamePlayerButtonGroup.add(customGameSetupPlayers1Radio);
 		
-		radioButton_1 = new JRadioButton("2");
-		customGameSetupPlayerPanel.add(radioButton_1);
-		customGamePlayerButtonGroup.add(radioButton_1);
+		customGameSetupPlayers2Radio = new JRadioButton("2");
+		customGameSetupPlayerPanel.add(customGameSetupPlayers2Radio);
+		customGamePlayerButtonGroup.add(customGameSetupPlayers2Radio);
 		
 		customGameSetupDefaultPanel = new JPanel();
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupSizePanel, 10, SpringLayout.SOUTH, customGameSetupDefaultPanel);
@@ -392,55 +394,55 @@ public class UI extends JFrame {
 		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupDefaultPanel, -10, SpringLayout.EAST, customGameSetupPanel);
 		customGameSetupPanel.add(customGameSetupDefaultPanel);
 		
-		lblDifficulty = new JLabel("Difficulty:");
-		customGameSetupDefaultPanel.add(lblDifficulty);
+		customGameSetupDifficultyLabel = new JLabel("Difficulty:");
+		customGameSetupDefaultPanel.add(customGameSetupDifficultyLabel);
 		
 		ButtonGroup customGameDifficultyGroup = new ButtonGroup();
 		
-		rdbtnEasy = new JRadioButton("Easy");
-		rdbtnEasy.setSelected(true);
-		customGameSetupDefaultPanel.add(rdbtnEasy);
-		customGameDifficultyGroup.add(rdbtnEasy);
-		rdbtnEasy.addActionListener(new ActionListener() {
+		customGameSetupDifficultyEasyRadio = new JRadioButton("Easy");
+		customGameSetupDifficultyEasyRadio.setSelected(true);
+		customGameSetupDefaultPanel.add(customGameSetupDifficultyEasyRadio);
+		customGameDifficultyGroup.add(customGameSetupDifficultyEasyRadio);
+		customGameSetupDifficultyEasyRadio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField.setText("10");
-				textField.setEnabled(false);
-				textField_1.setText("10");
-				textField_1.setEnabled(false);
+				customGameSetupSizeXField.setText("10");
+				customGameSetupSizeXField.setEnabled(false);
+				customGameSetupSizeYField.setText("10");
+				customGameSetupSizeYField.setEnabled(false);
 			}
 		});
 		
-		rdbtnMedium = new JRadioButton("Medium");
-		customGameSetupDefaultPanel.add(rdbtnMedium);
-		customGameDifficultyGroup.add(rdbtnMedium);
-		rdbtnMedium.addActionListener(new ActionListener() {
+		customGameSetupDifficultyMediumRadio = new JRadioButton("Medium");
+		customGameSetupDefaultPanel.add(customGameSetupDifficultyMediumRadio);
+		customGameDifficultyGroup.add(customGameSetupDifficultyMediumRadio);
+		customGameSetupDifficultyMediumRadio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField.setText("25");
-				textField.setEnabled(false);
-				textField_1.setText("20");
-				textField_1.setEnabled(false);
+				customGameSetupSizeXField.setText("25");
+				customGameSetupSizeXField.setEnabled(false);
+				customGameSetupSizeYField.setText("20");
+				customGameSetupSizeYField.setEnabled(false);
 			}
 		});
 		
-		rdbtnHard = new JRadioButton("Hard");
-		customGameSetupDefaultPanel.add(rdbtnHard);
-		customGameDifficultyGroup.add(rdbtnHard);
-		rdbtnHard.addActionListener(new ActionListener() {
+		customGameSetupDifficultyHardRadio = new JRadioButton("Hard");
+		customGameSetupDefaultPanel.add(customGameSetupDifficultyHardRadio);
+		customGameDifficultyGroup.add(customGameSetupDifficultyHardRadio);
+		customGameSetupDifficultyHardRadio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField.setText("40");
-				textField.setEnabled(false);
-				textField_1.setText("30");
-				textField_1.setEnabled(false);
+				customGameSetupSizeXField.setText("40");
+				customGameSetupSizeXField.setEnabled(false);
+				customGameSetupSizeYField.setText("30");
+				customGameSetupSizeYField.setEnabled(false);
 			}
 		});
 		
-		rdbtnCustom = new JRadioButton("Custom");
-		customGameSetupDefaultPanel.add(rdbtnCustom);
-		customGameDifficultyGroup.add(rdbtnCustom);
-		rdbtnCustom.addActionListener(new ActionListener() {
+		customGameSetupDiffcultyCustomRadio = new JRadioButton("Custom");
+		customGameSetupDefaultPanel.add(customGameSetupDiffcultyCustomRadio);
+		customGameDifficultyGroup.add(customGameSetupDiffcultyCustomRadio);
+		customGameSetupDiffcultyCustomRadio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField.setEnabled(true);
-				textField_1.setEnabled(true);
+				customGameSetupSizeXField.setEnabled(true);
+				customGameSetupSizeYField.setEnabled(true);
 			}
 		});
 		
@@ -451,41 +453,40 @@ public class UI extends JFrame {
 		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupButtonPanel, -10, SpringLayout.EAST, customGameSetupPanel);
 		customGameSetupPanel.add(customGameSetupButtonPanel);
 		
-		JButton btnBack = new JButton("Back");
-		customGameSetupButtonPanel.add(btnBack);
-		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, btnBack, -79, SpringLayout.SOUTH, customGameSetupPanel);
-		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, btnBack, 0, SpringLayout.WEST, customGameSetupSeedPanel);
+		JButton customGameSetupBackButton = new JButton("Back");
+		customGameSetupButtonPanel.add(customGameSetupBackButton);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupBackButton, -79, SpringLayout.SOUTH, customGameSetupPanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupBackButton, 0, SpringLayout.WEST, customGameSetupSeedPanel);
 		
-		JButton btnPlay = new JButton("Play");
-		customGameSetupButtonPanel.add(btnPlay);
-		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, btnPlay, 0, SpringLayout.EAST, customGameSetupSeedPanel);
-		btnPlay.addActionListener(new ActionListener() {
+		JButton customGameSetupPlayButton = new JButton("Play");
+		customGameSetupButtonPanel.add(customGameSetupPlayButton);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupPlayButton, 0, SpringLayout.EAST, customGameSetupSeedPanel);
+		customGameSetupPlayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int width = Integer.parseInt(textField.getText());
-				int height = Integer.parseInt(textField_1.getText());
+				int width = Integer.parseInt(customGameSetupSizeXField.getText());
+				int height = Integer.parseInt(customGameSetupSizeYField.getText());
 				long seed = 0;
-				if (customSeedField.getText().equals("")) {
+				if (customGameSetupSeedField.getText().equals("")) {
 					seed = 0;
 				} else {
-					seed = Long.parseLong(customSeedField.getText());
+					seed = Long.parseLong(customGameSetupSeedField.getText());
 				}
 				int players = 0;
-				if (radioButton.isSelected()) {
+				if (customGameSetupPlayers1Radio.isSelected()) {
 					players = 1;
-				} else if (radioButton_1.isSelected()) {
+				} else if (customGameSetupPlayers2Radio.isSelected()) {
 					players = 2;
 				}
 				program.customGameSetup(width, height, seed, players);
 			}
 		});
 		
-		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, btnPlay, 0, SpringLayout.NORTH, btnBack);
-		btnBack.addActionListener(new ActionListener() {
+		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupPlayButton, 0, SpringLayout.NORTH, customGameSetupBackButton);
+		customGameSetupBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel("mainMenuPanel");
 			}
 		});
-		
 		
 		switchPanel("mainMenuPanel");
 	}
@@ -499,7 +500,6 @@ public class UI extends JFrame {
 		
 		Maze m = game.getMaze();
 		
-		setBounds(100, 100, tileSize * m.getWidth(), tileSize * m.getHeight());
 		BufferedImage image = new BufferedImage(tileSize * m.getWidth(), tileSize * m.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		
 		// Modify these to your liking.
@@ -555,11 +555,7 @@ public class UI extends JFrame {
 			}
 		}
 		mazeImg = image;
-		this.setSize(mazeImg.getWidth() + 16 + 250, mazeImg.getHeight() + 39 + 20);
-		mazeView.setMazeImg(mazeImg);
-		// I need a bit of padding because it overlaps a little.
-		//panel.setPreferredSize(new Dimension(mazeImg.getWidth() + 16, mazeImg.getHeight() + 39));
-		//this.repaint();
+		mazeViewImageComponent.setMazeImg(mazeImg);
 	}
 	
 	/**
@@ -570,14 +566,6 @@ public class UI extends JFrame {
 	// TODO: Decide which class manages players.
 	public Player[] getPlayers() {
 		return game.getPlayers();
-	}
-	
-	@Override
-	public void pack() {
-		//super.pack();
-		if (mazeImg != null) {
-			this.setSize(mazeImg.getWidth() + 16 + 250, mazeImg.getHeight() + 39 + 20);
-		}
 	}
 
 	/**
@@ -614,18 +602,18 @@ public class UI extends JFrame {
 	
 	public void setGame(MazeGame g) {
 		this.game = g;
-		mazeView.setGame(g);;
+		mazeViewImageComponent.setGame(g);;
 	}
 	
 	public void showPause(boolean willBePaused) {
 		if (willBePaused) {
-			mazeView.setEnabled(false);
-			mazeView.setVisible(false);
+			mazeViewImageComponent.setEnabled(false);
+			mazeViewImageComponent.setVisible(false);
 			mazeViewPauseLabel.setEnabled(true);
 			mazeViewPauseLabel.setVisible(true);
 		} else {
-			mazeView.setEnabled(true);
-			mazeView.setVisible(true);
+			mazeViewImageComponent.setEnabled(true);
+			mazeViewImageComponent.setVisible(true);
 			mazeViewPauseLabel.setEnabled(false);
 			mazeViewPauseLabel.setVisible(false);
 		}
