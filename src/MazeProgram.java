@@ -67,6 +67,8 @@ public class MazeProgram {
 		
 		frame.setMoveText("0 moves");
 		
+		frame.setSeedText("Seed: " + Long.toString(g.getSeed()));
+		
 		frame.switchPanel("mazeViewPanel");
 		
 	}
@@ -194,6 +196,8 @@ public class MazeProgram {
 		frame.showPause(false);
 		
 		frame.setMoveText("0 moves");
+		
+		frame.setSeedText("Seed: " + Long.toString(g.getSeed()));
 		
 		frame.switchPanel("mazeViewPanel");
 	}

@@ -17,7 +17,8 @@ public class MazeGame {
 	public MazeGame(int width, int height, long seed) {
 		m = new Maze(width, height);
 		if (seed == 0) {
-			m.generateMapDepthStyle();
+			seed = System.currentTimeMillis();
+			m.generateMapDepthStyle(seed);
 		} else {
 			m.generateMapDepthStyle(seed);
 		}
@@ -110,5 +111,9 @@ public class MazeGame {
 		} else {
 			return false;
 		}
+	}
+	
+	public long getSeed() {
+		return m.getSeed();
 	}
 }

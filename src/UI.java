@@ -73,6 +73,7 @@ public class UI extends JFrame {
 	private JPanel customGameSetupPlayerPanel;
 	private JPanel customGameSetupDefaultPanel;
 	private JPanel customGameSetupButtonPanel;
+	private JLabel seedLabel;
 	private JLabel customGameSetupDifficultyLabel;
 	private JRadioButton customGameSetupDifficultyEasyRadio;
 	private JRadioButton customGameSetupDifficultyMediumRadio;
@@ -157,6 +158,7 @@ public class UI extends JFrame {
 		setMinimumSize(new Dimension(480, 360));
 		setTimeText("00:00:000");
 		setMoveText("0 moves");
+		setSeedText("00000000");
 		getContentPane().setLayout(new CardLayout(0, 0));
 		
 		mainPanel = new JPanel();
@@ -186,6 +188,7 @@ public class UI extends JFrame {
 		mazeViewLeftPanel.add(mazeViewImageComponent);
 		
 		mazeViewRightPanel = new JPanel();
+		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, mazeViewRightPanel, -10, SpringLayout.EAST, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, mazeViewLeftPanel, -10, SpringLayout.WEST, mazeViewRightPanel);
 		
 		mazeViewPauseLabel = new JLabel("Paused");
@@ -201,7 +204,6 @@ public class UI extends JFrame {
 		sl_mazeViewPanel.putConstraint(SpringLayout.NORTH, mazeViewRightPanel, 10, SpringLayout.NORTH, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.WEST, mazeViewRightPanel, -210, SpringLayout.EAST, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.SOUTH, mazeViewRightPanel, -10, SpringLayout.SOUTH, mazeViewPanel);
-		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, mazeViewRightPanel, 10, SpringLayout.EAST, mazeViewPanel);
 		mazeViewPanel.add(mazeViewRightPanel);
 		mazeViewRightPanel.setLayout(new GridLayout(8, 1, 0, 0));
 		
@@ -218,7 +220,10 @@ public class UI extends JFrame {
 		mazeViewRightPanel.add(new JPanel());
 		mazeViewRightPanel.add(new JPanel());
 		mazeViewRightPanel.add(new JPanel());
-		mazeViewRightPanel.add(new JPanel());
+		
+		seedLabel = new JLabel("Seed Text");
+		seedLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		mazeViewRightPanel.add(seedLabel);
 		
 		mazeViewButtonPanel = new JPanel();
 		mazeViewRightPanel.add(mazeViewButtonPanel);
@@ -483,7 +488,6 @@ public class UI extends JFrame {
 			}
 		});
 		
-		
 		switchPanel("mainMenuPanel");
 	}
 	
@@ -583,6 +587,12 @@ public class UI extends JFrame {
 	public void setMoveText(String moveText) {
 		if (this.moveLabel != null) {
 			this.moveLabel.setText(moveText);
+		}
+	}
+	
+	public void setSeedText(String seedText){
+		if (this.seedLabel != null) {
+			this.seedLabel.setText(seedText);
 		}
 	}
 	
