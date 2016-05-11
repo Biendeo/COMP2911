@@ -63,6 +63,8 @@ public class MazeProgram {
 		
 		frame.drawMazeSwingOne();
 		
+		frame.showPause(false);
+		
 		frame.setMoveText("0 moves");
 		
 		frame.switchPanel("mazeViewPanel");
@@ -188,6 +190,8 @@ public class MazeProgram {
 		g.setPlaying(true);
 		
 		frame.drawMazeSwingOne();
+		
+		frame.showPause(false);
 		
 		frame.setMoveText("0 moves");
 		

@@ -1,5 +1,6 @@
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Random;
 
 import java.awt.image.BufferedImage;
@@ -153,6 +154,7 @@ public class UI extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 450);
+		setMinimumSize(new Dimension(480, 360));
 		setTimeText("00:00:000");
 		setMoveText("0 moves");
 		getContentPane().setLayout(new CardLayout(0, 0));
