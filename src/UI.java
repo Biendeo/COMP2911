@@ -429,11 +429,11 @@ public class UI extends JFrame {
 	public void showPause(boolean willBePaused) {
 		if (willBePaused) {
 			mazeView.setEnabled(false);
-			mazeView.hide();
+			mazeView.setVisible(false);
 			mazeViewPauseLabel.setEnabled(true);
 		} else {
 			mazeView.setEnabled(true);
-			mazeView.show();
+			mazeView.setVisible(true);
 			mazeViewPauseLabel.setEnabled(false);
 		}
 	}
