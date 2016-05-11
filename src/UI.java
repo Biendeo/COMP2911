@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 /**
  * Provides static functions to drawing mazes to the console.
@@ -61,6 +62,7 @@ public class UI extends JFrame {
 	private JLabel mainMenuTitleLabel;
 	private JPanel mainMenuButtonPanel;
 	private CardLayout mainPanelCardLayout;
+	private JLabel mazeViewPauseLabel;
 	
 	/**
 	 * Prints the map to the console using a specific character for walls and spaces.
@@ -167,6 +169,16 @@ public class UI extends JFrame {
 		
 		rightPanel = new JPanel();
 		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, leftPanel, -10, SpringLayout.WEST, rightPanel);
+		
+		mazeViewPauseLabel = new JLabel("Paused");
+		mazeViewPauseLabel.setEnabled(false);
+		mazeViewPauseLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		sl_leftPanel.putConstraint(SpringLayout.NORTH, mazeViewPauseLabel, 0, SpringLayout.NORTH, leftPanel);
+		sl_leftPanel.putConstraint(SpringLayout.WEST, mazeViewPauseLabel, 0, SpringLayout.WEST, leftPanel);
+		sl_leftPanel.putConstraint(SpringLayout.SOUTH, mazeViewPauseLabel, 0, SpringLayout.SOUTH, leftPanel);
+		sl_leftPanel.putConstraint(SpringLayout.EAST, mazeViewPauseLabel, 0, SpringLayout.EAST, leftPanel);
+		mazeViewPauseLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		leftPanel.add(mazeViewPauseLabel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.NORTH, rightPanel, 10, SpringLayout.NORTH, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.WEST, rightPanel, -210, SpringLayout.EAST, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.SOUTH, rightPanel, -10, SpringLayout.SOUTH, mazeViewPanel);
@@ -193,9 +205,26 @@ public class UI extends JFrame {
 		rightPanel.add(buttonPanel);
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
+		JButton btnPause = new JButton("Pause");
+		buttonPanel.add(btnPause);
+		btnPause.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				program.togglePauseGame();
+			}
+		});
+		
 		quitButton = new JButton("Quit");
 		quitButton.setToolTipText("Quits the maze. (RIGHT NOW IT QUITS THE PROGRAM)");
 		buttonPanel.add(quitButton);
+		
+		quitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?", "Quit?", JOptionPane.YES_NO_OPTION);
+				if (dialogResult == JOptionPane.YES_OPTION) {
+					program.exitMazeGame();
+				}
+			}
+		});
 		
 		mainMenuPanel = new JPanel();
 		mainPanel.add(mainMenuPanel, "mainMenuPanel");
@@ -250,27 +279,18 @@ public class UI extends JFrame {
 		mainMenuButtonPanel.add(mainMenuButtonPanelDummy2);
 		
 		mainMenuTitleLabel = new JLabel("Maze Game");
+		sl_mainMenuContentPanel.putConstraint(SpringLayout.NORTH, mainMenuTitleLabel, 0, SpringLayout.NORTH, mainMenuContentPanel);
+		sl_mainMenuContentPanel.putConstraint(SpringLayout.WEST, mainMenuTitleLabel, 0, SpringLayout.WEST, mainMenuContentPanel);
+		sl_mainMenuContentPanel.putConstraint(SpringLayout.SOUTH, mainMenuTitleLabel, 0, SpringLayout.NORTH, mainMenuButtonPanel);
+		sl_mainMenuContentPanel.putConstraint(SpringLayout.EAST, mainMenuTitleLabel, 0, SpringLayout.EAST, mainMenuContentPanel);
+		mainMenuTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		mainMenuTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		sl_mainMenuContentPanel.putConstraint(SpringLayout.NORTH, mainMenuTitleLabel, 75, SpringLayout.NORTH, mainMenuContentPanel);
-		sl_mainMenuContentPanel.putConstraint(SpringLayout.WEST, mainMenuTitleLabel, 165, SpringLayout.WEST, mainMenuContentPanel);
-		sl_mainMenuContentPanel.putConstraint(SpringLayout.SOUTH, mainMenuTitleLabel, -80, SpringLayout.NORTH, mainMenuButtonPanel);
-		sl_mainMenuContentPanel.putConstraint(SpringLayout.EAST, mainMenuTitleLabel, -165, SpringLayout.EAST, mainMenuContentPanel);
 		//mainMenuTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		mainMenuContentPanel.add(mainMenuTitleLabel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.NORTH, mainMenuPanel, 0, SpringLayout.NORTH, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.WEST, mainMenuPanel, 0, SpringLayout.WEST, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.SOUTH, mainMenuPanel, 0, SpringLayout.SOUTH, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, mainMenuPanel, 0, SpringLayout.EAST, mazeViewPanel);
-
-		quitButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit?", "Quit?", JOptionPane.YES_NO_OPTION);
-				if (dialogResult == JOptionPane.YES_OPTION) {
-					program.exitMazeGame();
-				}
-			}
-			
-		});
 		
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -404,5 +424,17 @@ public class UI extends JFrame {
 	public void setGame(MazeGame g) {
 		this.game = g;
 		mazeView.setGame(g);;
+	}
+	
+	public void showPause(boolean willBePaused) {
+		if (willBePaused) {
+			mazeView.setEnabled(false);
+			mazeView.hide();
+			mazeViewPauseLabel.setEnabled(true);
+		} else {
+			mazeView.setEnabled(true);
+			mazeView.show();
+			mazeViewPauseLabel.setEnabled(false);
+		}
 	}
 }

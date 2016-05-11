@@ -161,6 +161,20 @@ public class MazeProgram {
 		}
 	}
 	
+	public void togglePauseGame() {
+		if (g != null) {
+			if (g.isPlaying()) {
+				g.setPlaying(false);
+				frame.showPause(true);
+			} else {
+				if (!g.isEveryoneAtGoal()) {
+					g.setPlaying(true);
+					frame.showPause(false);
+				}
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 		MazeProgram p = new MazeProgram();
 		p.parseInputs(args);
