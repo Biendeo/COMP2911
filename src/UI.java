@@ -340,10 +340,17 @@ public class UI extends JFrame {
 		customGameSetupSizePanel.add(lblSize);
 		
 		textField = new JTextField();
+		textField.setEnabled(false);
+		textField.setText("10");
 		customGameSetupSizePanel.add(textField);
 		textField.setColumns(5);
 		
+		JLabel lblBy = new JLabel("by");
+		customGameSetupSizePanel.add(lblBy);
+		
 		textField_1 = new JTextField();
+		textField_1.setEnabled(false);
+		textField_1.setText("10");
 		customGameSetupSizePanel.add(textField_1);
 		textField_1.setColumns(5);
 		
@@ -383,20 +390,51 @@ public class UI extends JFrame {
 		ButtonGroup customGameDifficultyGroup = new ButtonGroup();
 		
 		rdbtnEasy = new JRadioButton("Easy");
+		rdbtnEasy.setSelected(true);
 		customGameSetupDefaultPanel.add(rdbtnEasy);
 		customGameDifficultyGroup.add(rdbtnEasy);
+		rdbtnEasy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField.setText("10");
+				textField.setEnabled(false);
+				textField_1.setText("10");
+				textField_1.setEnabled(false);
+			}
+		});
 		
 		rdbtnMedium = new JRadioButton("Medium");
 		customGameSetupDefaultPanel.add(rdbtnMedium);
 		customGameDifficultyGroup.add(rdbtnMedium);
+		rdbtnMedium.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField.setText("25");
+				textField.setEnabled(false);
+				textField_1.setText("20");
+				textField_1.setEnabled(false);
+			}
+		});
 		
 		rdbtnHard = new JRadioButton("Hard");
 		customGameSetupDefaultPanel.add(rdbtnHard);
 		customGameDifficultyGroup.add(rdbtnHard);
+		rdbtnHard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField.setText("40");
+				textField.setEnabled(false);
+				textField_1.setText("30");
+				textField_1.setEnabled(false);
+			}
+		});
 		
 		rdbtnCustom = new JRadioButton("Custom");
 		customGameSetupDefaultPanel.add(rdbtnCustom);
 		customGameDifficultyGroup.add(rdbtnCustom);
+		rdbtnCustom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField.setEnabled(true);
+				textField_1.setEnabled(true);
+			}
+		});
 		
 		customGameSetupButtonPanel = new JPanel();
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupButtonPanel, -50, SpringLayout.SOUTH, customGameSetupPanel);
