@@ -453,9 +453,19 @@ public class UI extends JFrame {
 		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, btnPlay, 0, SpringLayout.EAST, customGameSetupSeedPanel);
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				program.instantAction();
+				int width = Integer.parseInt(textField.getText());
+				int height = Integer.parseInt(textField_1.getText());
+				long seed = Long.parseLong(customSeedField.getText());
+				int players = 0;
+				if (radioButton.isSelected()) {
+					players = 1;
+				} else if (radioButton_1.isSelected()) {
+					players = 2;
+				}
+				program.customGameSetup(width, height, seed, players);
 			}
 		});
+		
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, btnPlay, 0, SpringLayout.NORTH, btnBack);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

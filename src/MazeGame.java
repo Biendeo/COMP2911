@@ -11,8 +11,16 @@ public class MazeGame {
 	 * Creates a maze game with some default conditions.
 	 */
 	public MazeGame() {
-		m = new Maze(25, 20);
-		m.generateMapDepthStyle();
+		this(25, 20, 0);
+	}
+	
+	public MazeGame(int width, int height, long seed) {
+		m = new Maze(width, height);
+		if (seed == 0) {
+			m.generateMapDepthStyle();
+		} else {
+			m.generateMapDepthStyle(seed);
+		}
 		players = new ArrayList<Player>();
 		isPlaying = false;
 	}

@@ -57,7 +57,7 @@ public class Maze {
 	 * A specific seed for the random generation (the same seed will give the
 	 * same results).
 	 */
-	public void generateMapDepthStyle(int seed) {
+	public void generateMapDepthStyle(long seed) {
 		generateMapDepthStyleProcess(new Random(seed));
 	}
 	

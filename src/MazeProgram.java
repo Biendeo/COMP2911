@@ -175,6 +175,27 @@ public class MazeProgram {
 		}
 	}
 	
+	public void customGameSetup(int width, int height, long seed, int players) {
+		// TODO: This is copy-pasta, we need to clean this up.
+		g = new MazeGame(width, height, seed);
+		
+		for (int i = 0; i < players; i++) {
+			g.addPlayer();
+		}
+		
+		frame.setGame(g);
+		
+		UI.printMazeASCII(g.getMaze());
+		
+		g.setPlaying(true);
+		
+		frame.drawMazeSwingOne();
+		
+		frame.setMoveText("0 moves");
+		
+		frame.switchPanel("mazeViewPanel");
+	}
+	
 	public static void main(String[] args) {
 		MazeProgram p = new MazeProgram();
 		p.parseInputs(args);
