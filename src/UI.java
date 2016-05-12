@@ -426,6 +426,8 @@ public class UI extends JFrame {
 			}
 		});
 		
+		mainMenuUserSettingsButton.setEnabled(false);
+		
 		// Finally, the program should start with the main menu.
 		switchPanel("mainMenuPanel");
 	}
