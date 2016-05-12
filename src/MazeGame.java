@@ -26,8 +26,7 @@ public class MazeGame {
 	public MazeGame(int width, int height, long seed) {
 		m = new Maze(width, height);
 		if (seed == 0) {
-			seed = System.currentTimeMillis();
-			m.generateMapDepthStyle(seed);
+			m.generateMapDepthStyle();
 		} else {
 			m.generateMapDepthStyle(seed);
 		}
