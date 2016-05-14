@@ -828,6 +828,8 @@ public class UI extends JFrame {
 	}
 	
 	private void changeKeyBinding(Config.ControlCode keyBinding, int previousKey) {
+		final Config.ControlCode finalKeyBinding = keyBinding;
+		
 		switchPanel("changeKeyBindingPanel");
 		
 		changeKeyBindingChangeLabel.setText("Change key: " + program.keyToString(keyBinding));
@@ -840,8 +842,8 @@ public class UI extends JFrame {
 
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() != KeyEvent.VK_ESCAPE) {
-					program.changeKeyBinding(keyBinding, e.getKeyCode());
-					switch (keyBinding) {
+					program.changeKeyBinding(finalKeyBinding, e.getKeyCode());
+					switch (finalKeyBinding) {
 					case PLAYER1UP:
 						userSettingsPlayer1UpButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
 						break;

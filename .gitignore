@@ -4,6 +4,7 @@ output.txt
 /doc/
 /jar/
 /cfg/
+/dat/
 /.classpath
 /.project
 /.idea/
