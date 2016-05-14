@@ -45,7 +45,7 @@ public class MazeProgram {
 	 * The program's main execution.
 	 */
 	public void run() {
-		frame = new UI(this);
+		frame = new UI(this, cfg);
 		
 		frame.addKeyListener(keyGet);
 		
@@ -208,42 +208,6 @@ public class MazeProgram {
 		frame.setSeedText("Seed: " + Long.toString(g.getSeed()));
 		
 		frame.switchPanel("mazeViewPanel");
-	}
-	
-	public void changeKeyBinding(Config.ControlCode keyBinding, int keyCode) {
-		cfg.setKeyBinding(keyBinding, keyCode);
-	}
-	
-	public int getKeyBinding(Config.ControlCode keyName) {
-		return cfg.getKeyBinding(keyName);
-	}
-	
-	public String keyToString(Config.ControlCode keyBinding) {
-		return cfg.keyToString(keyBinding);
-	}
-	
-	public BufferedImage getPlayer1Image() {
-		return cfg.getPlayer1Image();
-	}
-	
-	public void setPlayer1Image(BufferedImage image) {
-		cfg.setPlayer1Image(image);
-	}
-	
-	public BufferedImage getPlayer2Image() {
-		return cfg.getPlayer2Image();
-	}
-	
-	public void setPlayer2Image(BufferedImage image) {
-		cfg.setPlayer2Image(image);
-	}
-	
-	public void setRandomPlayer1Image() {
-		cfg.setRandomPlayer1Image();
-	}
-	
-	public void setRandomPlayer2Image() {
-		cfg.setRandomPlayer2Image();
 	}
 	
 	public static void main(String[] args) {

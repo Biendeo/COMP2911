@@ -51,6 +51,9 @@ public class UI extends JFrame {
 	// The mazeProgram itself.
 	private MazeProgram program;
 	
+	// The config for controls and user preferences.
+	private Config config;
+	
 	// The size of tiles used in the program (both width and height).
 	private int tileSize;
 	
@@ -120,9 +123,10 @@ public class UI extends JFrame {
 	 * @param mazeProgram
 	 * The mazeProgram that runs this.
 	 */
-	public UI(MazeProgram mazeProgram) {
+	public UI(MazeProgram mazeProgram, Config config) {
 		this.tileSize = 16;
 		this.program = mazeProgram;
+		this.config = config;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 450);
@@ -475,10 +479,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer1UpButton = new JButton("Player1Up");
 		userSettingsPlayer1Panel.add(userSettingsPlayer1UpButton);
-		userSettingsPlayer1UpButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER1UP)));
+		userSettingsPlayer1UpButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER1UP)));
 		userSettingsPlayer1UpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER1UP, program.getKeyBinding(Config.ControlCode.PLAYER1UP));
+				changeKeyBinding(Config.ControlCode.PLAYER1UP, config.getKeyBinding(Config.ControlCode.PLAYER1UP));
 			}
 		});
 		
@@ -487,10 +491,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer1LeftButton = new JButton("Player1Left");
 		userSettingsPlayer1Panel.add(userSettingsPlayer1LeftButton);
-		userSettingsPlayer1LeftButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER1LEFT)));
+		userSettingsPlayer1LeftButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER1LEFT)));
 		userSettingsPlayer1LeftButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER1LEFT, program.getKeyBinding(Config.ControlCode.PLAYER1LEFT));
+				changeKeyBinding(Config.ControlCode.PLAYER1LEFT, config.getKeyBinding(Config.ControlCode.PLAYER1LEFT));
 			}
 		});
 		
@@ -499,10 +503,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer1DownButton = new JButton("Player1Down");
 		userSettingsPlayer1Panel.add(userSettingsPlayer1DownButton);
-		userSettingsPlayer1DownButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER1DOWN)));
+		userSettingsPlayer1DownButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER1DOWN)));
 		userSettingsPlayer1DownButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER1DOWN, program.getKeyBinding(Config.ControlCode.PLAYER1DOWN));
+				changeKeyBinding(Config.ControlCode.PLAYER1DOWN, config.getKeyBinding(Config.ControlCode.PLAYER1DOWN));
 			}
 		});
 		
@@ -511,10 +515,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer1RightButton = new JButton("Player1Right");
 		userSettingsPlayer1Panel.add(userSettingsPlayer1RightButton);
-		userSettingsPlayer1RightButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER1RIGHT)));
+		userSettingsPlayer1RightButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER1RIGHT)));
 		userSettingsPlayer1RightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER1RIGHT, program.getKeyBinding(Config.ControlCode.PLAYER1RIGHT));
+				changeKeyBinding(Config.ControlCode.PLAYER1RIGHT, config.getKeyBinding(Config.ControlCode.PLAYER1RIGHT));
 			}
 		});
 		
@@ -536,7 +540,7 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer1Image = new JComponent() {
 			protected void paintComponent(Graphics g) {
-				g.drawImage(program.getPlayer1Image(), 0, 0, null);
+				g.drawImage(config.getPlayer1Image(), 0, 0, null);
 			}
 		};
 		userSettingsPlayer1Image.setPreferredSize(new Dimension(14, 14));
@@ -549,7 +553,7 @@ public class UI extends JFrame {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.showOpenDialog(null);
 				try {
-					program.setPlayer1Image(ImageIO.read(fileChooser.getSelectedFile()));
+					config.setPlayer1Image(ImageIO.read(fileChooser.getSelectedFile()));
 				} catch (IOException e1) {
 					
 				}
@@ -563,7 +567,7 @@ public class UI extends JFrame {
 		userSettingsPanel.add(userSettingsPlayer2Panel);
 		userSettingsPlayer1ImageRandomiseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				program.setRandomPlayer1Image();
+				config.setRandomPlayer1Image();
 				userSettingsPlayer1Image.repaint();
 			}
 		});
@@ -576,10 +580,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer2UpButton = new JButton("Player2Up");
 		userSettingsPlayer2Panel.add(userSettingsPlayer2UpButton);
-		userSettingsPlayer2UpButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER2UP)));
+		userSettingsPlayer2UpButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER2UP)));
 		userSettingsPlayer2UpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER2UP, program.getKeyBinding(Config.ControlCode.PLAYER2UP));
+				changeKeyBinding(Config.ControlCode.PLAYER2UP, config.getKeyBinding(Config.ControlCode.PLAYER2UP));
 			}
 		});
 		
@@ -588,10 +592,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer2LeftButton = new JButton("Player2Left");
 		userSettingsPlayer2Panel.add(userSettingsPlayer2LeftButton);
-		userSettingsPlayer2LeftButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER2LEFT)));
+		userSettingsPlayer2LeftButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER2LEFT)));
 		userSettingsPlayer2LeftButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER2LEFT, program.getKeyBinding(Config.ControlCode.PLAYER2LEFT));
+				changeKeyBinding(Config.ControlCode.PLAYER2LEFT, config.getKeyBinding(Config.ControlCode.PLAYER2LEFT));
 			}
 		});
 		
@@ -600,10 +604,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer2DownButton = new JButton("Player2Down");
 		userSettingsPlayer2Panel.add(userSettingsPlayer2DownButton);
-		userSettingsPlayer2DownButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER2DOWN)));
+		userSettingsPlayer2DownButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER2DOWN)));
 		userSettingsPlayer2DownButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER2DOWN, program.getKeyBinding(Config.ControlCode.PLAYER2DOWN));
+				changeKeyBinding(Config.ControlCode.PLAYER2DOWN, config.getKeyBinding(Config.ControlCode.PLAYER2DOWN));
 			}
 		});
 		
@@ -612,10 +616,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer2RightButton = new JButton("Player2Right");
 		userSettingsPlayer2Panel.add(userSettingsPlayer2RightButton);
-		userSettingsPlayer2RightButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER2RIGHT)));
+		userSettingsPlayer2RightButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER2RIGHT)));
 		userSettingsPlayer2RightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER2RIGHT, program.getKeyBinding(Config.ControlCode.PLAYER2RIGHT));
+				changeKeyBinding(Config.ControlCode.PLAYER2RIGHT, config.getKeyBinding(Config.ControlCode.PLAYER2RIGHT));
 			}
 		});
 		
@@ -632,7 +636,7 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer2Image = new JComponent() {
 			protected void paintComponent(Graphics g) {
-				g.drawImage(program.getPlayer2Image(), 0, 0, null);
+				g.drawImage(config.getPlayer2Image(), 0, 0, null);
 			}
 		};
 		userSettingsPlayer2Image.setPreferredSize(new Dimension(14, 14));
@@ -645,7 +649,7 @@ public class UI extends JFrame {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.showOpenDialog(null);
 				try {
-					program.setPlayer2Image(ImageIO.read(fileChooser.getSelectedFile()));
+					config.setPlayer2Image(ImageIO.read(fileChooser.getSelectedFile()));
 				} catch (IOException e1) {
 					
 				}
@@ -657,7 +661,7 @@ public class UI extends JFrame {
 		userSettingsPlayer2ImagePanel.add(userSettingsPlayer2ImageRandomiseButton);
 		userSettingsPlayer2ImageRandomiseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				program.setRandomPlayer2Image();
+				config.setRandomPlayer2Image();
 				userSettingsPlayer2Image.repaint();
 			}
 		});
@@ -934,7 +938,7 @@ public class UI extends JFrame {
 		
 		switchPanel("changeKeyBindingPanel");
 		
-		changeKeyBindingChangeLabel.setText("Change key: " + program.keyToString(keyBinding));
+		changeKeyBindingChangeLabel.setText("Change key: " + config.keyToString(keyBinding));
 		changeKeyBindingPreviousLabel.setText("Previous: " + KeyEvent.getKeyText(previousKey));
 		
 		changeKeyBindingPanel.grabFocus();
@@ -944,7 +948,7 @@ public class UI extends JFrame {
 
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() != KeyEvent.VK_ESCAPE) {
-					program.changeKeyBinding(finalKeyBinding, e.getKeyCode());
+					config.setKeyBinding(finalKeyBinding, e.getKeyCode());
 					switch (finalKeyBinding) {
 					case PLAYER1UP:
 						userSettingsPlayer1UpButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
