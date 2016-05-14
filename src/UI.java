@@ -123,10 +123,11 @@ public class UI extends JFrame {
 	 * @param mazeProgram
 	 * The mazeProgram that runs this.
 	 */
-	public UI(MazeProgram mazeProgram, Config config) {
+	@SuppressWarnings("serial")
+	public UI(MazeProgram mazeProgram, Config cfg) {
 		this.tileSize = 16;
 		this.program = mazeProgram;
-		this.config = config;
+		this.config = cfg;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 450);
