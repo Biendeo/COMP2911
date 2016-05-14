@@ -110,6 +110,10 @@ public class UI extends JFrame {
 	private JComponent userSettingsPlayer1Image;
 	private JButton userSettingsPlayer1ImageChooseButton;
 	private JButton userSettingsPlayer1ImageRandomiseButton;
+	private JPanel userSettingsPlayer2ImagePanel;
+	private JComponent userSettingsPlayer2Image;
+	private JButton userSettingsPlayer2ImageChooseButton;
+	private JButton userSettingsPlayer2ImageRandomiseButton;
 	
 	/**
 	 * Creates a UI frame with some basic properties.
@@ -612,6 +616,49 @@ public class UI extends JFrame {
 		userSettingsPlayer2RightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changeKeyBinding(Config.ControlCode.PLAYER2RIGHT, program.getKeyBinding(Config.ControlCode.PLAYER2RIGHT));
+			}
+		});
+		
+		userSettingsPlayer2ImagePanel = new JPanel();
+		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsPlayer2ImagePanel, 10, SpringLayout.SOUTH, userSettingsPlayer2Panel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsPlayer2ImagePanel, 10, SpringLayout.WEST, userSettingsPanel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer2ImagePanel, 50, SpringLayout.SOUTH, userSettingsPlayer2Panel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.EAST, userSettingsPlayer2ImagePanel, -10, SpringLayout.EAST, userSettingsPanel);
+		userSettingsPanel.add(userSettingsPlayer2ImagePanel);
+		userSettingsPlayer2ImagePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel userSettingsPlayer2ImageLabel = new JLabel("Player 2 - Image:");
+		userSettingsPlayer2ImagePanel.add(userSettingsPlayer2ImageLabel);
+		
+		userSettingsPlayer2Image = new JComponent() {
+			protected void paintComponent(Graphics g) {
+				g.drawImage(program.getPlayer2Image(), 0, 0, null);
+			}
+		};
+		userSettingsPlayer2Image.setPreferredSize(new Dimension(14, 14));
+		userSettingsPlayer2ImagePanel.add(userSettingsPlayer2Image);
+		
+		userSettingsPlayer2ImageChooseButton = new JButton("Choose");
+		userSettingsPlayer2ImagePanel.add(userSettingsPlayer2ImageChooseButton);
+		userSettingsPlayer2ImageChooseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.showOpenDialog(null);
+				try {
+					program.setPlayer2Image(ImageIO.read(fileChooser.getSelectedFile()));
+				} catch (IOException e1) {
+					
+				}
+				userSettingsPlayer2Image.repaint();
+			}
+		});
+		
+		userSettingsPlayer2ImageRandomiseButton = new JButton("Randomise");
+		userSettingsPlayer2ImagePanel.add(userSettingsPlayer2ImageRandomiseButton);
+		userSettingsPlayer2ImageRandomiseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				program.setRandomPlayer2Image();
+				userSettingsPlayer2Image.repaint();
 			}
 		});
 		

@@ -186,9 +186,12 @@ public class MazeProgram {
 		
 		for (int i = 0; i < players; i++) {
 			g.addPlayer();
+			if (i == 0) {
+				g.getPlayers()[0].setImg(cfg.getPlayer1Image());
+			} else if (i == 1) {
+				g.getPlayers()[1].setImg(cfg.getPlayer2Image());
+			}
 		}
-		
-		g.getPlayers()[0].setImg(cfg.getPlayer1Image());
 		
 		frame.setGame(g);
 		
