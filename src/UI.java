@@ -856,12 +856,21 @@ public class UI extends JFrame {
 					case PLAYER1LEFT:
 						userSettingsPlayer1LeftButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
 						break;
-					// Add player 2 stuff.
+					case PLAYER2UP:
+						userSettingsPlayer2UpButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
+						break;
+					case PLAYER2RIGHT:
+						userSettingsPlayer2RightButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
+						break;
+					case PLAYER2DOWN:
+						userSettingsPlayer2DownButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
+						break;
+					case PLAYER2LEFT:
+						userSettingsPlayer2LeftButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
+						break;
 					default:
 					}
 				}
-				
-				System.out.println(e.getKeyCode());
 				
 				switchPanel("userSettingsPanel");
 				changeKeyBindingPanel.removeKeyListener(this);
