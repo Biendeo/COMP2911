@@ -1,6 +1,8 @@
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -186,6 +188,8 @@ public class MazeProgram {
 			g.addPlayer();
 		}
 		
+		g.getPlayers()[0].setImg(cfg.getPlayer1Image());
+		
 		frame.setGame(g);
 		
 		UI.printMazeASCII(g.getMaze());
@@ -213,6 +217,30 @@ public class MazeProgram {
 	
 	public String keyToString(Config.ControlCode keyBinding) {
 		return cfg.keyToString(keyBinding);
+	}
+	
+	public BufferedImage getPlayer1Image() {
+		return cfg.getPlayer1Image();
+	}
+	
+	public void setPlayer1Image(BufferedImage image) {
+		cfg.setPlayer1Image(image);
+	}
+	
+	public BufferedImage getPlayer2Image() {
+		return cfg.getPlayer2Image();
+	}
+	
+	public void setPlayer2Image(BufferedImage image) {
+		cfg.setPlayer2Image(image);
+	}
+	
+	public void setRandomPlayer1Image() {
+		cfg.setRandomPlayer1Image();
+	}
+	
+	public void setRandomPlayer2Image() {
+		cfg.setRandomPlayer2Image();
 	}
 	
 	public static void main(String[] args) {

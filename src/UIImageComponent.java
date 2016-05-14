@@ -76,7 +76,7 @@ public class UIImageComponent extends JComponent {
 			g.drawImage(mazeImg, decidedX, decidedY, null);
 
 			for (int i = 0; i < players.length; i++) {
-				g.drawImage(players[i].getImg(), tileSize * players[i].getPos().x + decidedX, tileSize * players[i].getPos().y + decidedY, null);
+				g.drawImage(players[i].getImg(), tileSize * players[i].getPos().x + decidedX + 1, tileSize * players[i].getPos().y + decidedY + 1, null);
 			}
 		}
 	}

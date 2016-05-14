@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,6 +10,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Random;
+
+import javax.swing.ImageIcon;
 
 /**
  * A config object that stores all data that will be saved between sessions.
@@ -27,8 +33,8 @@ public class Config implements Serializable {
 	private int player2Down;
 	private int player2Left;
 	
-	private BufferedImage player1Image;
-	private BufferedImage player2Image;
+	private ImageIcon player1Image;
+	private ImageIcon player2Image;
 	
 	public enum ControlCode {
 		NONE,
@@ -55,6 +61,8 @@ public class Config implements Serializable {
 		player2Right = KeyEvent.VK_D;
 		player2Down = KeyEvent.VK_S;
 		player2Left = KeyEvent.VK_A;
+		player1Image = new ImageIcon(generateImage(16));
+		player2Image = new ImageIcon(generateImage(16));
 	}
 	
 	// TODO: Formalise these automatic comments.
@@ -70,6 +78,7 @@ public class Config implements Serializable {
 	 */
 	public void setPlayer1Up(int player1Up) {
 		this.player1Up = player1Up;
+		saveConfig();
 	}
 
 	/**
@@ -84,6 +93,7 @@ public class Config implements Serializable {
 	 */
 	public void setPlayer1Right(int player1Right) {
 		this.player1Right = player1Right;
+		saveConfig();
 	}
 
 	/**
@@ -98,6 +108,7 @@ public class Config implements Serializable {
 	 */
 	public void setPlayer1Down(int player1Down) {
 		this.player1Down = player1Down;
+		saveConfig();
 	}
 
 	/**
@@ -112,6 +123,7 @@ public class Config implements Serializable {
 	 */
 	public void setPlayer1Left(int player1Left) {
 		this.player1Left = player1Left;
+		saveConfig();
 	}
 
 	/**
@@ -126,6 +138,7 @@ public class Config implements Serializable {
 	 */
 	public void setPlayer2Up(int player2Up) {
 		this.player2Up = player2Up;
+		saveConfig();
 	}
 
 	/**
@@ -140,6 +153,7 @@ public class Config implements Serializable {
 	 */
 	public void setPlayer2Right(int player2Right) {
 		this.player2Right = player2Right;
+		saveConfig();
 	}
 
 	/**
@@ -154,6 +168,7 @@ public class Config implements Serializable {
 	 */
 	public void setPlayer2Down(int player2Down) {
 		this.player2Down = player2Down;
+		saveConfig();
 	}
 
 	/**
@@ -168,6 +183,45 @@ public class Config implements Serializable {
 	 */
 	public void setPlayer2Left(int player2Left) {
 		this.player2Left = player2Left;
+		saveConfig();
+	}
+	
+	public BufferedImage getPlayer1Image() {
+		BufferedImage returnImage = new BufferedImage(14, 14, BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics g = returnImage.createGraphics();
+		g.drawImage(player1Image.getImage(), 0, 0, null);
+		g.dispose();
+		
+		return returnImage;
+	}
+	
+	public void setPlayer1Image(BufferedImage image) {
+		if (image.getWidth() != 14 && image.getHeight() != 14) {
+			player1Image = new ImageIcon(image.getScaledInstance(14, 14, Image.SCALE_FAST));
+		} else {
+			player1Image = new ImageIcon(image);
+		}
+		saveConfig();
+	}
+	
+	public BufferedImage getPlayer2Image() {
+		BufferedImage returnImage = new BufferedImage(14, 14, BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics g = returnImage.createGraphics();
+		g.drawImage(player2Image.getImage(), 0, 0, null);
+		g.dispose();
+		
+		return returnImage;
+	}
+	
+	public void setPlayer2Image(BufferedImage image) {
+		if (image.getWidth() != 14 && image.getHeight() != 14) {
+			player2Image = new ImageIcon(image.getScaledInstance(14, 14, Image.SCALE_FAST));
+		} else {
+			player2Image = new ImageIcon(image);
+		}
+		saveConfig();
 	}
 	
 	public int getKeyBinding(ControlCode keyBinding) {
@@ -353,5 +407,50 @@ public class Config implements Serializable {
 		player2Right = c.player2Right;
 		player2Down = c.player2Down;
 		player2Left = c.player2Left;
+		player1Image = c.player1Image;
+		player2Image = c.player2Image;
+	}
+	
+	
+	/**
+	 * Creates a default player image based on a color and size.
+	 * @param playerColor
+	 * The player's color.
+	 * @param tileSize
+	 * The width and height of the image.
+	 * @return
+	 * The made image.
+	 */
+	private BufferedImage generateImage(int tileSize) {
+		BufferedImage image = new BufferedImage(tileSize - 2, tileSize - 2, BufferedImage.TYPE_INT_ARGB);
+		
+		Random rand = new Random();
+		
+		Color color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+		
+		// For now we make a basic 8x8 square.
+		// TODO: Make a better shape (a circle would stand out).
+		for (int y = 0; y < tileSize - 2; y++) {
+			for (int x = 0; x < tileSize - 2; x++) {
+				if (y < 3 || y >= 11 || x < 3 || x >= 11) {
+					// Outside the square is transparent.
+					image.setRGB(x, y, new Color(0, 0, 0, 0).getRGB());
+				} else {
+					image.setRGB(x, y, color.getRGB());
+				}
+			}
+		}
+
+		return image;
+	}
+	
+	public void setRandomPlayer1Image() {
+		player1Image = new ImageIcon(generateImage(16));
+		saveConfig();
+	}
+	
+	public void setRandomPlayer2Image() {
+		player2Image = new ImageIcon(generateImage(16));
+		saveConfig();
 	}
 }

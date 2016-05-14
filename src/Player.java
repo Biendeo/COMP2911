@@ -42,7 +42,12 @@ public class Player {
 	 * Where it is.
 	 */
 	public Player(Maze m, Coord pos) {
-		this(m, pos, UI.getRandomColor());
+		this.m = m;
+		this.pos = pos;
+		this.img = null;
+		this.id = nextId++;
+		this.totalMoves = 0;
+		this.millisecondsTaken = 0;
 	}
 	
 	/**
@@ -61,6 +66,10 @@ public class Player {
 	 */
 	public BufferedImage getImg() {
 		return img;
+	}
+	
+	public void setImg(BufferedImage image) {
+		img = image;
 	}
 	
 	/**
@@ -147,13 +156,13 @@ public class Player {
 	 * The made image.
 	 */
 	private BufferedImage generateImage(Color playerColor, int tileSize) {
-		BufferedImage image = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage image = new BufferedImage(tileSize - 2, tileSize - 2, BufferedImage.TYPE_INT_ARGB);
 		
 		// For now we make a basic 8x8 square.
 		// TODO: Make a better shape (a circle would stand out).
-		for (int y = 0; y < tileSize; y++) {
-			for (int x = 0; x < tileSize; x++) {
-				if (y < 4 || y >= 12 || x < 4 || x >= 12) {
+		for (int y = 0; y < tileSize - 2; y++) {
+			for (int x = 0; x < tileSize - 2; x++) {
+				if (y < 3 || y >= 11 || x < 3 || x >= 11) {
 					// Outside the square is transparent.
 					image.setRGB(x, y, new Color(0, 0, 0, 0).getRGB());
 				} else {

@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.Random;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
@@ -12,16 +13,23 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.SwingConstants;
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 
@@ -98,6 +106,10 @@ public class UI extends JFrame {
 	private JButton userSettingsPlayer2LeftButton;
 	private JButton userSettingsPlayer2DownButton;
 	private JButton userSettingsPlayer2RightButton;
+	private JPanel userSettingsPlayer1ImagePanel;
+	private JComponent userSettingsPlayer1Image;
+	private JButton userSettingsPlayer1ImageChooseButton;
+	private JButton userSettingsPlayer1ImageRandomiseButton;
 	
 	/**
 	 * Creates a UI frame with some basic properties.
@@ -446,12 +458,12 @@ public class UI extends JFrame {
 		JPanel userSettingsPlayer1Panel = new JPanel();
 		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsPlayer1Panel, 10, SpringLayout.NORTH, userSettingsPanel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsPlayer1Panel, 10, SpringLayout.WEST, userSettingsPanel);
-		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer1Panel, 90, SpringLayout.NORTH, userSettingsPanel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer1Panel, 80, SpringLayout.NORTH, userSettingsPanel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.EAST, userSettingsPlayer1Panel, -10, SpringLayout.EAST, userSettingsPanel);
 		userSettingsPanel.add(userSettingsPlayer1Panel);
 		userSettingsPlayer1Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel userSettingsPlayer1Label = new JLabel("Player 1");
+		JLabel userSettingsPlayer1Label = new JLabel("Player 1 - ");
 		userSettingsPlayer1Panel.add(userSettingsPlayer1Label);
 		
 		JLabel userSettingsPlayer1UpLabel = new JLabel("Up:");
@@ -502,12 +514,55 @@ public class UI extends JFrame {
 			}
 		});
 		
+		userSettingsPlayer1ImagePanel = new JPanel();
+		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsPlayer1ImagePanel, 10, SpringLayout.SOUTH, userSettingsPlayer1Panel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsPlayer1ImagePanel, 10, SpringLayout.WEST, userSettingsPanel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer1ImagePanel, 50, SpringLayout.SOUTH, userSettingsPlayer1Panel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.EAST, userSettingsPlayer1ImagePanel, -10, SpringLayout.EAST, userSettingsPanel);
+		userSettingsPanel.add(userSettingsPlayer1ImagePanel);
+		
 		userSettingsPlayer2Panel = new JPanel();
-		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsPlayer2Panel, 10, SpringLayout.SOUTH, userSettingsPlayer1Panel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsPlayer2Panel, 10, SpringLayout.SOUTH, userSettingsPlayer1ImagePanel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsPlayer2Panel, 10, SpringLayout.WEST, userSettingsPanel);
-		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer2Panel, 90, SpringLayout.SOUTH, userSettingsPlayer1Panel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer2Panel, 80, SpringLayout.SOUTH, userSettingsPlayer1ImagePanel);
+		userSettingsPlayer1ImagePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel userSettingsPlayer1ImageLabel = new JLabel("Player 1 - Image:");
+		userSettingsPlayer1ImagePanel.add(userSettingsPlayer1ImageLabel);
+		
+		userSettingsPlayer1Image = new JComponent() {
+			protected void paintComponent(Graphics g) {
+				g.drawImage(program.getPlayer1Image(), 0, 0, null);
+			}
+		};
+		userSettingsPlayer1Image.setPreferredSize(new Dimension(14, 14));
+		userSettingsPlayer1ImagePanel.add(userSettingsPlayer1Image);
+		
+		userSettingsPlayer1ImageChooseButton = new JButton("Choose");
+		userSettingsPlayer1ImagePanel.add(userSettingsPlayer1ImageChooseButton);
+		userSettingsPlayer1ImageChooseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.showOpenDialog(null);
+				try {
+					program.setPlayer1Image(ImageIO.read(fileChooser.getSelectedFile()));
+				} catch (IOException e1) {
+					
+				}
+				userSettingsPlayer1Image.repaint();
+			}
+		});
+		
+		userSettingsPlayer1ImageRandomiseButton = new JButton("Randomise");
+		userSettingsPlayer1ImagePanel.add(userSettingsPlayer1ImageRandomiseButton);
 		sl_userSettingsPanel.putConstraint(SpringLayout.EAST, userSettingsPlayer2Panel, -10, SpringLayout.EAST, userSettingsPanel);
 		userSettingsPanel.add(userSettingsPlayer2Panel);
+		userSettingsPlayer1ImageRandomiseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				program.setRandomPlayer1Image();
+				userSettingsPlayer1Image.repaint();
+			}
+		});
 		
 		JLabel userSettingsPlayer2Label = new JLabel("Player 2");
 		userSettingsPlayer2Panel.add(userSettingsPlayer2Label);
