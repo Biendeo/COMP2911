@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.SwingConstants;
 import javax.swing.ButtonGroup;
@@ -81,6 +83,21 @@ public class UI extends JFrame {
 	private JRadioButton customGameSetupDiffcultyCustomRadio;
 	private JRadioButton customGameSetupPlayers1Radio;
 	private JRadioButton customGameSetupPlayers2Radio;
+	private JPanel userSettingsPanel;
+	private JButton userSettingsPlayer1LeftButton;
+	private JButton userSettingsPlayer1DownButton;
+	private JButton userSettingsPlayer1RightButton;
+	private JPanel changeKeyBindingPanel;
+	private JLabel changeKeyBindingChangeLabel;
+	private JLabel changeKeyBindingPreviousLabel;
+	private JButton userSettingsPlayer1UpButton;
+	private JPanel userSettingsButtonPanel;
+	private JButton userSettingsBackButton;
+	private JPanel userSettingsPlayer2Panel;
+	private JButton userSettingsPlayer2UpButton;
+	private JButton userSettingsPlayer2LeftButton;
+	private JButton userSettingsPlayer2DownButton;
+	private JButton userSettingsPlayer2RightButton;
 	
 	/**
 	 * Creates a UI frame with some basic properties.
@@ -420,13 +437,178 @@ public class UI extends JFrame {
 		});
 		
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupPlayButton, 0, SpringLayout.NORTH, customGameSetupBackButton);
+		
+		userSettingsPanel = new JPanel();
+		mainPanel.add(userSettingsPanel, "userSettingsPanel");
+		SpringLayout sl_userSettingsPanel = new SpringLayout();
+		userSettingsPanel.setLayout(sl_userSettingsPanel);
+		
+		JPanel userSettingsPlayer1Panel = new JPanel();
+		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsPlayer1Panel, 10, SpringLayout.NORTH, userSettingsPanel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsPlayer1Panel, 10, SpringLayout.WEST, userSettingsPanel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer1Panel, 90, SpringLayout.NORTH, userSettingsPanel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.EAST, userSettingsPlayer1Panel, -10, SpringLayout.EAST, userSettingsPanel);
+		userSettingsPanel.add(userSettingsPlayer1Panel);
+		userSettingsPlayer1Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel userSettingsPlayer1Label = new JLabel("Player 1");
+		userSettingsPlayer1Panel.add(userSettingsPlayer1Label);
+		
+		JLabel userSettingsPlayer1UpLabel = new JLabel("Up:");
+		userSettingsPlayer1Panel.add(userSettingsPlayer1UpLabel);
+		
+		userSettingsPlayer1UpButton = new JButton("Player1Up");
+		userSettingsPlayer1Panel.add(userSettingsPlayer1UpButton);
+		userSettingsPlayer1UpButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER1UP)));
+		userSettingsPlayer1UpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeKeyBinding(Config.ControlCode.PLAYER1UP, program.getKeyBinding(Config.ControlCode.PLAYER1UP));
+			}
+		});
+		
+		JLabel userSettingsPlayer1LeftLabel = new JLabel("Left:");
+		userSettingsPlayer1Panel.add(userSettingsPlayer1LeftLabel);
+		
+		userSettingsPlayer1LeftButton = new JButton("Player1Left");
+		userSettingsPlayer1Panel.add(userSettingsPlayer1LeftButton);
+		userSettingsPlayer1LeftButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER1LEFT)));
+		userSettingsPlayer1LeftButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeKeyBinding(Config.ControlCode.PLAYER1LEFT, program.getKeyBinding(Config.ControlCode.PLAYER1LEFT));
+			}
+		});
+		
+		JLabel userSettingsPlayer1DownLabel = new JLabel("Down:");
+		userSettingsPlayer1Panel.add(userSettingsPlayer1DownLabel);
+		
+		userSettingsPlayer1DownButton = new JButton("Player1Down");
+		userSettingsPlayer1Panel.add(userSettingsPlayer1DownButton);
+		userSettingsPlayer1DownButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER1DOWN)));
+		userSettingsPlayer1DownButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeKeyBinding(Config.ControlCode.PLAYER1DOWN, program.getKeyBinding(Config.ControlCode.PLAYER1DOWN));
+			}
+		});
+		
+		JLabel userSettingsPlayer1RightLabel = new JLabel("Right:");
+		userSettingsPlayer1Panel.add(userSettingsPlayer1RightLabel);
+		
+		userSettingsPlayer1RightButton = new JButton("Player1Right");
+		userSettingsPlayer1Panel.add(userSettingsPlayer1RightButton);
+		userSettingsPlayer1RightButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER1RIGHT)));
+		userSettingsPlayer1RightButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeKeyBinding(Config.ControlCode.PLAYER1RIGHT, program.getKeyBinding(Config.ControlCode.PLAYER1RIGHT));
+			}
+		});
+		
+		userSettingsPlayer2Panel = new JPanel();
+		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsPlayer2Panel, 10, SpringLayout.SOUTH, userSettingsPlayer1Panel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsPlayer2Panel, 10, SpringLayout.WEST, userSettingsPanel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer2Panel, 90, SpringLayout.SOUTH, userSettingsPlayer1Panel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.EAST, userSettingsPlayer2Panel, -10, SpringLayout.EAST, userSettingsPanel);
+		userSettingsPanel.add(userSettingsPlayer2Panel);
+		
+		JLabel userSettingsPlayer2Label = new JLabel("Player 2");
+		userSettingsPlayer2Panel.add(userSettingsPlayer2Label);
+		
+		JLabel userSettingsPlayer2UpLabel = new JLabel("Up:");
+		userSettingsPlayer2Panel.add(userSettingsPlayer2UpLabel);
+		
+		userSettingsPlayer2UpButton = new JButton("Player2Up");
+		userSettingsPlayer2Panel.add(userSettingsPlayer2UpButton);
+		userSettingsPlayer2UpButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER2UP)));
+		userSettingsPlayer2UpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeKeyBinding(Config.ControlCode.PLAYER2UP, program.getKeyBinding(Config.ControlCode.PLAYER2UP));
+			}
+		});
+		
+		JLabel userSettingsPlayer2LeftLabel = new JLabel("Left:");
+		userSettingsPlayer2Panel.add(userSettingsPlayer2LeftLabel);
+		
+		userSettingsPlayer2LeftButton = new JButton("Player2Left");
+		userSettingsPlayer2Panel.add(userSettingsPlayer2LeftButton);
+		userSettingsPlayer2LeftButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER2LEFT)));
+		userSettingsPlayer2LeftButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeKeyBinding(Config.ControlCode.PLAYER2LEFT, program.getKeyBinding(Config.ControlCode.PLAYER2LEFT));
+			}
+		});
+		
+		JLabel userSettingsPlayer2DownLabel = new JLabel("Down:");
+		userSettingsPlayer2Panel.add(userSettingsPlayer2DownLabel);
+		
+		userSettingsPlayer2DownButton = new JButton("Player2Down");
+		userSettingsPlayer2Panel.add(userSettingsPlayer2DownButton);
+		userSettingsPlayer2DownButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER2DOWN)));
+		userSettingsPlayer2DownButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeKeyBinding(Config.ControlCode.PLAYER2DOWN, program.getKeyBinding(Config.ControlCode.PLAYER2DOWN));
+			}
+		});
+		
+		JLabel userSettingsPlayer2RightLabel = new JLabel("Right:");
+		userSettingsPlayer2Panel.add(userSettingsPlayer2RightLabel);
+		
+		userSettingsPlayer2RightButton = new JButton("Player2Right");
+		userSettingsPlayer2Panel.add(userSettingsPlayer2RightButton);
+		userSettingsPlayer2RightButton.setText(KeyEvent.getKeyText(program.getKeyBinding(Config.ControlCode.PLAYER2RIGHT)));
+		userSettingsPlayer2RightButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeKeyBinding(Config.ControlCode.PLAYER2RIGHT, program.getKeyBinding(Config.ControlCode.PLAYER2RIGHT));
+			}
+		});
+		
+		userSettingsButtonPanel = new JPanel();
+		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsButtonPanel, -50, SpringLayout.SOUTH, userSettingsPanel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsButtonPanel, 10, SpringLayout.WEST, userSettingsPanel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsButtonPanel, -10, SpringLayout.SOUTH, userSettingsPanel);
+		sl_userSettingsPanel.putConstraint(SpringLayout.EAST, userSettingsButtonPanel, -10, SpringLayout.EAST, userSettingsPanel);
+		userSettingsPanel.add(userSettingsButtonPanel);
+		userSettingsButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		userSettingsBackButton = new JButton("Back");
+		userSettingsButtonPanel.add(userSettingsBackButton);
+		userSettingsBackButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel("mainMenuPanel");
+			}
+		});
+		
+		changeKeyBindingPanel = new JPanel();
+		mainPanel.add(changeKeyBindingPanel, "changeKeyBindingPanel");
+		SpringLayout sl_changeKeyBindingPanel = new SpringLayout();
+		changeKeyBindingPanel.setLayout(sl_changeKeyBindingPanel);
+		
+		changeKeyBindingChangeLabel = new JLabel("Change key: <KEY>");
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.NORTH, changeKeyBindingChangeLabel, 10, SpringLayout.NORTH, changeKeyBindingPanel);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.WEST, changeKeyBindingChangeLabel, 10, SpringLayout.WEST, changeKeyBindingPanel);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.SOUTH, changeKeyBindingChangeLabel, 160, SpringLayout.NORTH, changeKeyBindingPanel);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.EAST, changeKeyBindingChangeLabel, -10, SpringLayout.EAST, changeKeyBindingPanel);
+		changeKeyBindingChangeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		changeKeyBindingChangeLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		changeKeyBindingPanel.add(changeKeyBindingChangeLabel);
+		
+		changeKeyBindingPreviousLabel = new JLabel("Previously: <OLD_KEY>");
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.NORTH, changeKeyBindingPreviousLabel, 10, SpringLayout.SOUTH, changeKeyBindingChangeLabel);
+		changeKeyBindingPreviousLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		changeKeyBindingPreviousLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.WEST, changeKeyBindingPreviousLabel, 10, SpringLayout.WEST, changeKeyBindingPanel);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.SOUTH, changeKeyBindingPreviousLabel, -10, SpringLayout.SOUTH, changeKeyBindingPanel);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.EAST, changeKeyBindingPreviousLabel, -10, SpringLayout.EAST, changeKeyBindingPanel);
+		changeKeyBindingPanel.add(changeKeyBindingPreviousLabel);
 		customGameSetupBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel("mainMenuPanel");
 			}
 		});
 		
-		mainMenuUserSettingsButton.setEnabled(false);
+		mainMenuUserSettingsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel("userSettingsPanel");
+			}
+		});
 		
 		// Finally, the program should start with the main menu.
 		switchPanel("mainMenuPanel");
@@ -559,7 +741,7 @@ public class UI extends JFrame {
 	 */
 	public void setGame(MazeGame g) {
 		this.game = g;
-		mazeViewImageComponent.setGame(g);;
+		mazeViewImageComponent.setGame(g);
 	}
 	
 	/**
@@ -643,5 +825,47 @@ public class UI extends JFrame {
 		Random rand = new Random();
 		// TODO: This can give really bad colours sometimes (close to white for example). Make it create interesting colours (or just force set primary colours).
 		return new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+	}
+	
+	private void changeKeyBinding(Config.ControlCode keyBinding, int previousKey) {
+		switchPanel("changeKeyBindingPanel");
+		
+		changeKeyBindingChangeLabel.setText("Change key: " + program.keyToString(keyBinding));
+		changeKeyBindingPreviousLabel.setText("Previous: " + KeyEvent.getKeyText(previousKey));
+		
+		changeKeyBindingPanel.grabFocus();
+		
+		changeKeyBindingPanel.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {}
+
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() != KeyEvent.VK_ESCAPE) {
+					program.changeKeyBinding(keyBinding, e.getKeyCode());
+					switch (keyBinding) {
+					case PLAYER1UP:
+						userSettingsPlayer1UpButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
+						break;
+					case PLAYER1RIGHT:
+						userSettingsPlayer1RightButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
+						break;
+					case PLAYER1DOWN:
+						userSettingsPlayer1DownButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
+						break;
+					case PLAYER1LEFT:
+						userSettingsPlayer1LeftButton.setText(KeyEvent.getKeyText(e.getKeyCode()));
+						break;
+					// Add player 2 stuff.
+					default:
+					}
+				}
+				
+				System.out.println(e.getKeyCode());
+				
+				switchPanel("userSettingsPanel");
+				changeKeyBindingPanel.removeKeyListener(this);
+			}
+
+			public void keyReleased(KeyEvent e) {}
+		});
 	}
 }

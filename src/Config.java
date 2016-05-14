@@ -1,3 +1,5 @@
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,143 +15,237 @@ import java.io.Serializable;
 public class Config implements Serializable {
 	private static final long serialVersionUID = -9101085459063432816L;
 
-	private static String configLocation = "cfg/";
-	private static String configFileName = "settings.cfg";
+	private static String configLocation = "dat/";
+	private static String configFileName = "settings.dat";
 
-	private char player1Up;
-	private char player1Right;
-	private char player1Down;
-	private char player1Left;
-	private char player2Up;
-	private char player2Right;
-	private char player2Down;
-	private char player2Left;
+	private int player1Up;
+	private int player1Right;
+	private int player1Down;
+	private int player1Left;
+	private int player2Up;
+	private int player2Right;
+	private int player2Down;
+	private int player2Left;
+	
+	private BufferedImage player1Image;
+	private BufferedImage player2Image;
+	
+	public enum ControlCode {
+		NONE,
+		PLAYER1UP,
+		PLAYER1RIGHT,
+		PLAYER1DOWN,
+		PLAYER1LEFT,
+		PLAYER2UP,
+		PLAYER2RIGHT,
+		PLAYER2DOWN,
+		PLAYER2LEFT
+	}
+	
 	
 	/**
 	 * Creates a new config object with default controls.
 	 */
 	public Config() {
-		player1Up = 'w';
-		player1Right = 'd';
-		player1Down = 's';
-		player1Left = 'a';
-		player2Up = 'i';
-		player2Right = 'l';
-		player2Down = 'k';
-		player2Left = 'j';
+		player1Up = KeyEvent.VK_UP;
+		player1Right = KeyEvent.VK_RIGHT;
+		player1Down = KeyEvent.VK_DOWN;
+		player1Left = KeyEvent.VK_LEFT;
+		player2Up = KeyEvent.VK_W;
+		player2Right = KeyEvent.VK_D;
+		player2Down = KeyEvent.VK_S;
+		player2Left = KeyEvent.VK_A;
 	}
 	
 	// TODO: Formalise these automatic comments.
 	/**
 	 * @return the player1Up
 	 */
-	public char getPlayer1Up() {
+	public int getPlayer1Up() {
 		return player1Up;
 	}
 
 	/**
 	 * @param player1Up the player1Up to set
 	 */
-	public void setPlayer1Up(char player1Up) {
+	public void setPlayer1Up(int player1Up) {
 		this.player1Up = player1Up;
 	}
 
 	/**
 	 * @return the player1Right
 	 */
-	public char getPlayer1Right() {
+	public int getPlayer1Right() {
 		return player1Right;
 	}
 
 	/**
 	 * @param player1Right the player1Right to set
 	 */
-	public void setPlayer1Right(char player1Right) {
+	public void setPlayer1Right(int player1Right) {
 		this.player1Right = player1Right;
 	}
 
 	/**
 	 * @return the player1Down
 	 */
-	public char getPlayer1Down() {
+	public int getPlayer1Down() {
 		return player1Down;
 	}
 
 	/**
 	 * @param player1Down the player1Down to set
 	 */
-	public void setPlayer1Down(char player1Down) {
+	public void setPlayer1Down(int player1Down) {
 		this.player1Down = player1Down;
 	}
 
 	/**
 	 * @return the player1Left
 	 */
-	public char getPlayer1Left() {
+	public int getPlayer1Left() {
 		return player1Left;
 	}
 
 	/**
 	 * @param player1Left the player1Left to set
 	 */
-	public void setPlayer1Left(char player1Left) {
+	public void setPlayer1Left(int player1Left) {
 		this.player1Left = player1Left;
 	}
 
 	/**
 	 * @return the player2Up
 	 */
-	public char getPlayer2Up() {
+	public int getPlayer2Up() {
 		return player2Up;
 	}
 
 	/**
 	 * @param player2Up the player2Up to set
 	 */
-	public void setPlayer2Up(char player2Up) {
+	public void setPlayer2Up(int player2Up) {
 		this.player2Up = player2Up;
 	}
 
 	/**
 	 * @return the player2Right
 	 */
-	public char getPlayer2Right() {
+	public int getPlayer2Right() {
 		return player2Right;
 	}
 
 	/**
 	 * @param player2Right the player2Right to set
 	 */
-	public void setPlayer2Right(char player2Right) {
+	public void setPlayer2Right(int player2Right) {
 		this.player2Right = player2Right;
 	}
 
 	/**
 	 * @return the player2Down
 	 */
-	public char getPlayer2Down() {
+	public int getPlayer2Down() {
 		return player2Down;
 	}
 
 	/**
 	 * @param player2Down the player2Down to set
 	 */
-	public void setPlayer2Down(char player2Down) {
+	public void setPlayer2Down(int player2Down) {
 		this.player2Down = player2Down;
 	}
 
 	/**
 	 * @return the player2Left
 	 */
-	public char getPlayer2Left() {
+	public int getPlayer2Left() {
 		return player2Left;
 	}
 
 	/**
 	 * @param player2Left the player2Left to set
 	 */
-	public void setPlayer2Left(char player2Left) {
+	public void setPlayer2Left(int player2Left) {
 		this.player2Left = player2Left;
+	}
+	
+	public int getKeyBinding(ControlCode keyBinding) {
+		switch (keyBinding) {
+		case PLAYER1UP:
+			return getPlayer1Up();
+		case PLAYER1RIGHT:
+			return getPlayer1Right();
+		case PLAYER1DOWN:
+			return getPlayer1Down();
+		case PLAYER1LEFT:
+			return getPlayer1Left();
+		case PLAYER2UP:
+			return getPlayer2Up();
+		case PLAYER2RIGHT:
+			return getPlayer2Right();
+		case PLAYER2DOWN:
+			return getPlayer2Down();
+		case PLAYER2LEFT:
+			return getPlayer2Left();
+		default:
+			return 0;
+		}
+	}
+	
+	public void setKeyBinding(ControlCode keyBinding, int keyCode) {
+		switch (keyBinding) {
+		case PLAYER1UP:
+			setPlayer1Up(keyCode);
+			break;
+		case PLAYER1RIGHT:
+			setPlayer1Right(keyCode);
+			break;
+		case PLAYER1DOWN:
+			setPlayer1Down(keyCode);
+			break;
+		case PLAYER1LEFT:
+			setPlayer1Left(keyCode);
+			break;
+		case PLAYER2UP:
+			setPlayer2Up(keyCode);
+			break;
+		case PLAYER2RIGHT:
+			setPlayer2Right(keyCode);
+			break;
+		case PLAYER2DOWN:
+			setPlayer2Down(keyCode);
+			break;
+		case PLAYER2LEFT:
+			setPlayer2Left(keyCode);
+			break;
+		default:
+			break;
+		}
+		saveConfig();
+	}
+	
+	public String keyToString(ControlCode keyBinding) {
+		switch (keyBinding) {
+		case PLAYER1UP:
+			return "Player 1 Up";
+		case PLAYER1RIGHT:
+			return "Player 1 Right";
+		case PLAYER1DOWN:
+			return "Player 1 Down";
+		case PLAYER1LEFT:
+			return "Player 1 Left";
+		case PLAYER2UP:
+			return "Player 2 Up";
+		case PLAYER2RIGHT:
+			return "Player 2 Right";
+		case PLAYER2DOWN:
+			return "Player 2 Down";
+		case PLAYER2LEFT:
+			return "Player 2 Left";
+		default:
+			return "UNKNOWN KEYBINDING";
+		}
 	}
 
 	/**

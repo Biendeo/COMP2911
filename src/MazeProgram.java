@@ -87,45 +87,45 @@ public class MazeProgram {
 	 * The key event.
 	 */
 	public void keyPress(KeyEvent ke) {
-		Player[] players = g.getPlayers();
-		char keyChar = ke.getKeyChar();
-		try {
-			if (g.isPlaying()) {
-				if (keyChar == cfg.getPlayer1Up()) {
+		if (g != null && g.isPlaying()) {
+			Player[] players = g.getPlayers();
+			int keyCode = ke.getKeyCode();
+			try {
+				if (keyCode == cfg.getPlayer1Up()) {
 					players[0].move(Direction.UP);
-				} else if (keyChar == cfg.getPlayer1Right()) {
+				} else if (keyCode == cfg.getPlayer1Right()) {
 					players[0].move(Direction.RIGHT);
-				} else if (keyChar == cfg.getPlayer1Down()) {
+				} else if (keyCode == cfg.getPlayer1Down()) {
 					players[0].move(Direction.DOWN);
-				} else if (keyChar == cfg.getPlayer1Left()) {
+				} else if (keyCode == cfg.getPlayer1Left()) {
 					players[0].move(Direction.LEFT);
-				} else if (keyChar == cfg.getPlayer2Up()) {
+				} else if (keyCode == cfg.getPlayer2Up()) {
 					players[1].move(Direction.UP);
-				} else if (keyChar == cfg.getPlayer2Right()) {
+				} else if (keyCode == cfg.getPlayer2Right()) {
 					players[1].move(Direction.RIGHT);
-				} else if (keyChar == cfg.getPlayer2Down()) {
+				} else if (keyCode == cfg.getPlayer2Down()) {
 					players[1].move(Direction.DOWN);
-				} else if (keyChar == cfg.getPlayer2Left()) {
+				} else if (keyCode == cfg.getPlayer2Left()) {
 					players[1].move(Direction.LEFT);
 				}
+			} catch (Exception e) {
+				// Do nothing.
 			}
-		} catch (Exception e) {
-			// Do nothing.
-		}
-
-		if (g.isEveryoneAtGoal()) {
-			g.setPlaying(false);
-		}
-		
-		// TODO: This needs to work much better with more than one player.
-		if (g.getPlayersAtGoal() > 0) {
-			JOptionPane.showMessageDialog(null, "You won! You're awesome!", "Winner winner chicken dinner", JOptionPane.PLAIN_MESSAGE);
-		}
-
-		frame.setMoveText(Integer.toString(g.getPlayers()[0].getTotalMoves()) + " moves");
-		if (frame != null) {
+	
+			if (g.isEveryoneAtGoal()) {
+				g.setPlaying(false);
+			}
+			
+			// TODO: This needs to work much better with more than one player.
+			if (g.getPlayersAtGoal() > 0) {
+				JOptionPane.showMessageDialog(null, "You won! You're awesome!", "Winner winner chicken dinner", JOptionPane.PLAIN_MESSAGE);
+			}
+	
 			frame.setMoveText(Integer.toString(g.getPlayers()[0].getTotalMoves()) + " moves");
-			frame.repaint();
+			if (frame != null) {
+				frame.setMoveText(Integer.toString(g.getPlayers()[0].getTotalMoves()) + " moves");
+				frame.repaint();
+			}
 		}
 	}
 	
@@ -201,6 +201,18 @@ public class MazeProgram {
 		frame.setSeedText("Seed: " + Long.toString(g.getSeed()));
 		
 		frame.switchPanel("mazeViewPanel");
+	}
+	
+	public void changeKeyBinding(Config.ControlCode keyBinding, int keyCode) {
+		cfg.setKeyBinding(keyBinding, keyCode);
+	}
+	
+	public int getKeyBinding(Config.ControlCode keyName) {
+		return cfg.getKeyBinding(keyName);
+	}
+	
+	public String keyToString(Config.ControlCode keyBinding) {
+		return cfg.keyToString(keyBinding);
 	}
 	
 	public static void main(String[] args) {

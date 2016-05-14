@@ -25,7 +25,7 @@ public class UIKeyGetter implements KeyListener, ActionListener {
 	 * Handle any key pressed down.
 	 */
 	public void keyPressed(KeyEvent e) {
-		// Add key down stuff here.
+		p.keyPress(e);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class UIKeyGetter implements KeyListener, ActionListener {
 	 * Handle when a key has been "typed".
 	 */
 	public void keyTyped(KeyEvent e) {
-		p.keyPress(e);
+		
 	}
 
 	@Override
