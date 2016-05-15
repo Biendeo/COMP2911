@@ -57,7 +57,7 @@ public class MazeProgram {
 	 * Starts a new game with default parameters.
 	 */
 	public void instantAction() {
-		customGameSetup(25, 20, 0, 1);
+		customGameSetup(25, 20, MazeGenerationStrategy.DEPTHFIRSTSEARCH, 0, 1);
 	}
 	
 	/**
@@ -181,8 +181,8 @@ public class MazeProgram {
 	 * @param players
 	 * The number of players.
 	 */
-	public void customGameSetup(int width, int height, long seed, int players) {
-		g = new MazeGame(width, height, seed);
+	public void customGameSetup(int width, int height, MazeGenerationStrategy strategy, long seed, int players) {
+		g = new MazeGame(width, height, strategy, seed);
 		
 		for (int i = 0; i < players; i++) {
 			g.addPlayer();

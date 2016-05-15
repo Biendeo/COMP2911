@@ -4,6 +4,7 @@ import java.util.Stack;
 public class DepthFirstSearchMaze extends Maze {
 	public DepthFirstSearchMaze(int width, int height) {
 		super(width, height);
+		strategy = MazeGenerationStrategy.DEPTHFIRSTSEARCH;
 	}
 	
 	/**

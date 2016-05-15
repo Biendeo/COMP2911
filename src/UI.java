@@ -117,6 +117,9 @@ public class UI extends JFrame {
 	private JComponent userSettingsPlayer2Image;
 	private JButton userSettingsPlayer2ImageChooseButton;
 	private JButton userSettingsPlayer2ImageRandomiseButton;
+	private JPanel customGameSetupStrategyPanel;
+	private JLabel customGameSetupStrategyLabel;
+	private JRadioButton customGameSetupDFSRadio;
 	
 	/**
 	 * Creates a UI frame with some basic properties.
@@ -301,23 +304,76 @@ public class UI extends JFrame {
 		SpringLayout sl_customGameSetupPanel = new SpringLayout();
 		customGameSetupPanel.setLayout(sl_customGameSetupPanel);
 		
-		JPanel customGameSetupSeedPanel = new JPanel();
-		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupSeedPanel, 10, SpringLayout.WEST, customGameSetupPanel);
-		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupSeedPanel, -10, SpringLayout.EAST, customGameSetupPanel);
-		customGameSetupPanel.add(customGameSetupSeedPanel);
-		customGameSetupSeedPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		customGameSetupDefaultPanel = new JPanel();
+		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupDefaultPanel, 10, SpringLayout.NORTH, customGameSetupPanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupDefaultPanel, 10, SpringLayout.WEST, customGameSetupPanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupDefaultPanel, 50, SpringLayout.NORTH, customGameSetupPanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupDefaultPanel, -10, SpringLayout.EAST, customGameSetupPanel);
+		customGameSetupPanel.add(customGameSetupDefaultPanel);
 		
-		JLabel customGameSetupSeedLabel = new JLabel("Seed:");
-		customGameSetupSeedPanel.add(customGameSetupSeedLabel);
+		ButtonGroup customGameDifficultyGroup = new ButtonGroup();
 		
-		customGameSetupSeedField = new JTextField();
-		customGameSetupSeedPanel.add(customGameSetupSeedField);
-		customGameSetupSeedField.setColumns(10);
+		customGameSetupDifficultyLabel = new JLabel("Difficulty:");
+		customGameSetupDefaultPanel.add(customGameSetupDifficultyLabel);
+		
+		customGameSetupDifficultyEasyRadio = new JRadioButton("Easy");
+		customGameSetupDifficultyEasyRadio.setSelected(true);
+		customGameSetupDefaultPanel.add(customGameSetupDifficultyEasyRadio);
+		customGameDifficultyGroup.add(customGameSetupDifficultyEasyRadio);
+		customGameSetupDifficultyEasyRadio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				customGameSetupSizeXField.setText("10");
+				customGameSetupSizeXField.setEnabled(false);
+				customGameSetupSizeYField.setText("10");
+				customGameSetupSizeYField.setEnabled(false);
+				customGameSetupDFSRadio.setSelected(true);
+				customGameSetupDFSRadio.setEnabled(false);
+			}
+		});
+		
+		customGameSetupDifficultyMediumRadio = new JRadioButton("Medium");
+		customGameSetupDefaultPanel.add(customGameSetupDifficultyMediumRadio);
+		customGameDifficultyGroup.add(customGameSetupDifficultyMediumRadio);
+		customGameSetupDifficultyMediumRadio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				customGameSetupSizeXField.setText("25");
+				customGameSetupSizeXField.setEnabled(false);
+				customGameSetupSizeYField.setText("20");
+				customGameSetupSizeYField.setEnabled(false);
+				customGameSetupDFSRadio.setSelected(true);
+				customGameSetupDFSRadio.setEnabled(false);
+			}
+		});
+		
+		customGameSetupDifficultyHardRadio = new JRadioButton("Hard");
+		customGameSetupDefaultPanel.add(customGameSetupDifficultyHardRadio);
+		customGameDifficultyGroup.add(customGameSetupDifficultyHardRadio);
+		customGameSetupDifficultyHardRadio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				customGameSetupSizeXField.setText("40");
+				customGameSetupSizeXField.setEnabled(false);
+				customGameSetupSizeYField.setText("30");
+				customGameSetupSizeYField.setEnabled(false);
+				customGameSetupDFSRadio.setSelected(true);
+				customGameSetupDFSRadio.setEnabled(false);
+			}
+		});
+		
+		customGameSetupDiffcultyCustomRadio = new JRadioButton("Custom");
+		customGameSetupDefaultPanel.add(customGameSetupDiffcultyCustomRadio);
+		customGameDifficultyGroup.add(customGameSetupDiffcultyCustomRadio);
+		customGameSetupDiffcultyCustomRadio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				customGameSetupSizeXField.setEnabled(true);
+				customGameSetupSizeYField.setEnabled(true);
+				customGameSetupDFSRadio.setEnabled(true);
+			}
+		});
 		
 		JPanel customGameSetupSizePanel = new JPanel();
-		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupSeedPanel, 10, SpringLayout.SOUTH, customGameSetupSizePanel);
-		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupSeedPanel, 50, SpringLayout.SOUTH, customGameSetupSizePanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupSizePanel, 10, SpringLayout.SOUTH, customGameSetupDefaultPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupSizePanel, 10, SpringLayout.WEST, customGameSetupPanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupSizePanel, 50, SpringLayout.SOUTH, customGameSetupDefaultPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupSizePanel, -10, SpringLayout.EAST, customGameSetupPanel);
 		customGameSetupPanel.add(customGameSetupSizePanel);
 		customGameSetupSizePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -340,6 +396,40 @@ public class UI extends JFrame {
 		customGameSetupSizePanel.add(customGameSetupSizeYField);
 		customGameSetupSizeYField.setColumns(5);
 		
+		customGameSetupStrategyPanel = new JPanel();
+		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupStrategyPanel, 10, SpringLayout.SOUTH, customGameSetupSizePanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupStrategyPanel, 10, SpringLayout.WEST, customGameSetupPanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupStrategyPanel, 50, SpringLayout.SOUTH, customGameSetupSizePanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupStrategyPanel, -10, SpringLayout.EAST, customGameSetupPanel);
+		customGameSetupPanel.add(customGameSetupStrategyPanel);
+		
+		JPanel customGameSetupSeedPanel = new JPanel();
+		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupSeedPanel, 10, SpringLayout.SOUTH, customGameSetupStrategyPanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupSeedPanel, 10, SpringLayout.WEST, customGameSetupPanel);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupSeedPanel, 50, SpringLayout.SOUTH, customGameSetupStrategyPanel);
+
+		
+		ButtonGroup customGameStrategyGroup = new ButtonGroup();
+		
+		customGameSetupStrategyLabel = new JLabel("Strategy:");
+		customGameSetupStrategyPanel.add(customGameSetupStrategyLabel);
+		
+		customGameSetupDFSRadio = new JRadioButton("DFS");
+		customGameSetupDFSRadio.setSelected(true);
+		customGameSetupStrategyPanel.add(customGameSetupDFSRadio);
+		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupSeedPanel, -10, SpringLayout.EAST, customGameSetupPanel);
+		customGameSetupPanel.add(customGameSetupSeedPanel);
+		customGameSetupSeedPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		customGameStrategyGroup.add(customGameSetupDFSRadio);
+		customGameSetupDFSRadio.setEnabled(false);
+		
+		JLabel customGameSetupSeedLabel = new JLabel("Seed:");
+		customGameSetupSeedPanel.add(customGameSetupSeedLabel);
+		
+		customGameSetupSeedField = new JTextField();
+		customGameSetupSeedPanel.add(customGameSetupSeedField);
+		customGameSetupSeedField.setColumns(10);
+		
 		customGameSetupPlayerPanel = new JPanel();
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupPlayerPanel, 10, SpringLayout.SOUTH, customGameSetupSeedPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupPlayerPanel, 10, SpringLayout.WEST, customGameSetupPanel);
@@ -361,67 +451,6 @@ public class UI extends JFrame {
 		customGameSetupPlayerPanel.add(customGameSetupPlayers2Radio);
 		customGamePlayerButtonGroup.add(customGameSetupPlayers2Radio);
 		
-		customGameSetupDefaultPanel = new JPanel();
-		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupSizePanel, 10, SpringLayout.SOUTH, customGameSetupDefaultPanel);
-		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupSizePanel, 50, SpringLayout.SOUTH, customGameSetupDefaultPanel);
-		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupDefaultPanel, 10, SpringLayout.NORTH, customGameSetupPanel);
-		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupDefaultPanel, 10, SpringLayout.WEST, customGameSetupPanel);
-		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupDefaultPanel, 50, SpringLayout.NORTH, customGameSetupPanel);
-		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupDefaultPanel, -10, SpringLayout.EAST, customGameSetupPanel);
-		customGameSetupPanel.add(customGameSetupDefaultPanel);
-		
-		customGameSetupDifficultyLabel = new JLabel("Difficulty:");
-		customGameSetupDefaultPanel.add(customGameSetupDifficultyLabel);
-		
-		ButtonGroup customGameDifficultyGroup = new ButtonGroup();
-		
-		customGameSetupDifficultyEasyRadio = new JRadioButton("Easy");
-		customGameSetupDifficultyEasyRadio.setSelected(true);
-		customGameSetupDefaultPanel.add(customGameSetupDifficultyEasyRadio);
-		customGameDifficultyGroup.add(customGameSetupDifficultyEasyRadio);
-		customGameSetupDifficultyEasyRadio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				customGameSetupSizeXField.setText("10");
-				customGameSetupSizeXField.setEnabled(false);
-				customGameSetupSizeYField.setText("10");
-				customGameSetupSizeYField.setEnabled(false);
-			}
-		});
-		
-		customGameSetupDifficultyMediumRadio = new JRadioButton("Medium");
-		customGameSetupDefaultPanel.add(customGameSetupDifficultyMediumRadio);
-		customGameDifficultyGroup.add(customGameSetupDifficultyMediumRadio);
-		customGameSetupDifficultyMediumRadio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				customGameSetupSizeXField.setText("25");
-				customGameSetupSizeXField.setEnabled(false);
-				customGameSetupSizeYField.setText("20");
-				customGameSetupSizeYField.setEnabled(false);
-			}
-		});
-		
-		customGameSetupDifficultyHardRadio = new JRadioButton("Hard");
-		customGameSetupDefaultPanel.add(customGameSetupDifficultyHardRadio);
-		customGameDifficultyGroup.add(customGameSetupDifficultyHardRadio);
-		customGameSetupDifficultyHardRadio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				customGameSetupSizeXField.setText("40");
-				customGameSetupSizeXField.setEnabled(false);
-				customGameSetupSizeYField.setText("30");
-				customGameSetupSizeYField.setEnabled(false);
-			}
-		});
-		
-		customGameSetupDiffcultyCustomRadio = new JRadioButton("Custom");
-		customGameSetupDefaultPanel.add(customGameSetupDiffcultyCustomRadio);
-		customGameDifficultyGroup.add(customGameSetupDiffcultyCustomRadio);
-		customGameSetupDiffcultyCustomRadio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				customGameSetupSizeXField.setEnabled(true);
-				customGameSetupSizeYField.setEnabled(true);
-			}
-		});
-		
 		customGameSetupButtonPanel = new JPanel();
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupButtonPanel, -50, SpringLayout.SOUTH, customGameSetupPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupButtonPanel, 10, SpringLayout.WEST, customGameSetupPanel);
@@ -439,21 +468,29 @@ public class UI extends JFrame {
 		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupPlayButton, 0, SpringLayout.EAST, customGameSetupSeedPanel);
 		customGameSetupPlayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// TODO: Handle the exceptions here.
 				int width = Integer.parseInt(customGameSetupSizeXField.getText());
 				int height = Integer.parseInt(customGameSetupSizeYField.getText());
 				long seed = 0;
+				
 				if (customGameSetupSeedField.getText().equals("")) {
 					seed = 0;
 				} else {
 					seed = Long.parseLong(customGameSetupSeedField.getText());
 				}
+				
+				MazeGenerationStrategy strategy = MazeGenerationStrategy.NONE;
+				if (customGameSetupDFSRadio.isSelected()) {
+					strategy = MazeGenerationStrategy.DEPTHFIRSTSEARCH;
+				}
+				
 				int players = 0;
 				if (customGameSetupPlayers1Radio.isSelected()) {
 					players = 1;
 				} else if (customGameSetupPlayers2Radio.isSelected()) {
 					players = 2;
 				}
-				program.customGameSetup(width, height, seed, players);
+				program.customGameSetup(width, height, strategy, seed, players);
 			}
 		});
 		
@@ -649,6 +686,7 @@ public class UI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.showOpenDialog(null);
+				// TODO: Handle exceptions.
 				try {
 					config.setPlayer2Image(ImageIO.read(fileChooser.getSelectedFile()));
 				} catch (IOException e1) {

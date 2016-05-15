@@ -11,7 +11,7 @@ public class MazeGame {
 	 * Creates a maze game with some default conditions.
 	 */
 	public MazeGame() {
-		this(25, 20, 0);
+		this(25, 20, MazeGenerationStrategy.DEPTHFIRSTSEARCH, 0);
 	}
 	
 	/**
@@ -23,8 +23,18 @@ public class MazeGame {
 	 * @param seed
 	 * The seed of the maze (0 is random).
 	 */
-	public MazeGame(int width, int height, long seed) {
-		m = new DepthFirstSearchMaze(width, height);
+	public MazeGame(int width, int height, MazeGenerationStrategy strategy, long seed) {
+		switch (strategy) {
+		case DEPTHFIRSTSEARCH:
+			m = new DepthFirstSearchMaze(width, height);
+			break;
+		case NONE:
+		default:
+			m = null;
+			// TODO: Maybe throw an error? (ideally this never gets called).
+			break;
+		}
+		
 		if (seed == 0) {
 			m.generateMaze();
 		} else {
@@ -128,5 +138,9 @@ public class MazeGame {
 	 */
 	public long getSeed() {
 		return m.getSeed();
+	}
+	
+	public MazeGenerationStrategy getGenerationStrategy() {
+		return m.getStrategy();
 	}
 }

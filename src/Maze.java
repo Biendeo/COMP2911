@@ -20,6 +20,8 @@ public abstract class Maze {
 	
 	protected long seed;
 	
+	protected MazeGenerationStrategy strategy;
+	
 	/**
 	 * Creates a new maze with given size parameters.
 	 * @param width
@@ -36,6 +38,7 @@ public abstract class Maze {
 		this.start = new Coord(0, height - 1);
 		this.end = new Coord(width - 1, 0);
 		this.seed = 0;
+		this.strategy = MazeGenerationStrategy.NONE;
 	}
 	
 	/**
@@ -181,5 +184,9 @@ public abstract class Maze {
 	 */
 	public long getSeed() {
 		return seed;
+	}
+	
+	public MazeGenerationStrategy getStrategy() {
+		return strategy;
 	}
 }
