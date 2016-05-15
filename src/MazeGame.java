@@ -143,4 +143,8 @@ public class MazeGame {
 	public MazeGenerationStrategy getGenerationStrategy() {
 		return m.getStrategy();
 	}
+	
+	public Coin[] getCoins() {
+		return m.getCoins();
+	}
 }

@@ -44,6 +44,12 @@ public class UI extends JFrame {
 	
 	// The maze image.
 	private BufferedImage mazeImg;
+	
+	// The uncollected coin image.
+	private BufferedImage coinImg;
+	
+	// The partially collected coin image.
+	private BufferedImage coinPartialImg;
 
 	// The mazeGame to be used.
 	private MazeGame game;
@@ -120,6 +126,7 @@ public class UI extends JFrame {
 	private JPanel customGameSetupStrategyPanel;
 	private JLabel customGameSetupStrategyLabel;
 	private JRadioButton customGameSetupDFSRadio;
+	private JLabel coinLabel;
 	
 	/**
 	 * Creates a UI frame with some basic properties.
@@ -131,6 +138,8 @@ public class UI extends JFrame {
 		this.tileSize = 16;
 		this.program = mazeProgram;
 		this.config = cfg;
+		this.coinImg = drawCoinImg();
+		this.coinPartialImg = drawCoinPartialImg();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 450);
@@ -159,7 +168,7 @@ public class UI extends JFrame {
 		SpringLayout sl_mazeViewLeftPanel = new SpringLayout();
 		mazeViewLeftPanel.setLayout(sl_mazeViewLeftPanel);
 		
-		mazeViewImageComponent = new UIImageComponent(mazeImg, game);
+		mazeViewImageComponent = new UIImageComponent(mazeImg, coinImg, coinPartialImg, game);
 		sl_mazeViewLeftPanel.putConstraint(SpringLayout.NORTH, mazeViewImageComponent, 0, SpringLayout.NORTH, mazeViewLeftPanel);
 		sl_mazeViewLeftPanel.putConstraint(SpringLayout.WEST, mazeViewImageComponent, 0, SpringLayout.WEST, mazeViewLeftPanel);
 		sl_mazeViewLeftPanel.putConstraint(SpringLayout.SOUTH, mazeViewImageComponent, 0, SpringLayout.SOUTH, mazeViewLeftPanel);
@@ -194,8 +203,9 @@ public class UI extends JFrame {
 		moveLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		mazeViewRightPanel.add(moveLabel);
 		
-		// Dummy panels.
-		mazeViewRightPanel.add(new JPanel());
+		coinLabel = new JLabel("Coin Text");
+		coinLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		mazeViewRightPanel.add(coinLabel);
 		mazeViewRightPanel.add(new JPanel());
 		mazeViewRightPanel.add(new JPanel());
 		mazeViewRightPanel.add(new JPanel());
@@ -870,6 +880,17 @@ public class UI extends JFrame {
 	}
 	
 	/**
+	 * Sets the label text for the game's coins.
+	 * @param coinText
+	 * The string to show.
+	 */
+	public void setCoinText(String coinText){
+		if (this.coinLabel != null) {
+			this.coinLabel.setText(coinText);
+		}
+	}
+	
+	/**
 	 * Switches the main panel to the one with a given name.
 	 * @param panelName
 	 * The name of the panel.
@@ -1023,5 +1044,41 @@ public class UI extends JFrame {
 
 			public void keyReleased(KeyEvent e) {}
 		});
+	}
+	
+	private BufferedImage drawCoinImg() {
+		BufferedImage img = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_INT_ARGB);
+		
+		for (int y = 0; y < tileSize; y++) {
+			for (int x = 0; x < tileSize; x++) {
+				if (x < 5 || x >= tileSize - 5 || y < 5 || y >= tileSize - 5) {
+					System.out.println("(" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
+					img.setRGB(x, y, new Color(0, 0, 0, 0).getRGB());
+				} else if (x == 5 || x == tileSize - 6 || y == 5 || y == tileSize - 6) {
+					img.setRGB(x, y, new Color(32, 32, 32, 255).getRGB());
+				} else {
+					img.setRGB(x, y, new Color(250, 250, 90, 255).getRGB());
+				}
+			}
+		}
+		
+		return img;
+	}
+	
+	private BufferedImage drawCoinPartialImg() {
+		BufferedImage img = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_INT_ARGB);
+		
+		for (int y = 0; y < tileSize; y++) {
+			for (int x = 0; x < tileSize; x++) {
+				if (x < 5 || x >= tileSize - 5 || y < 5 || y >= tileSize - 5) {
+					img.setRGB(x, y, new Color(0, 0, 0, 0).getRGB());
+				} else if (x == 5 || x == tileSize - 6 || y == 5 || y == tileSize - 6) {
+					img.setRGB(x, y, new Color(32, 32, 32, 255).getRGB());
+				} else {
+					img.setRGB(x, y, new Color(190, 190, 190, 255).getRGB());
+				}
+			}
+		}
+		return img;
 	}
 }

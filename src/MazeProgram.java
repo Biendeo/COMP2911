@@ -91,6 +91,7 @@ public class MazeProgram {
 	public void keyPress(KeyEvent ke) {
 		if (g != null && g.isPlaying()) {
 			Player[] players = g.getPlayers();
+			Coin[] coins = g.getCoins();
 			int keyCode = ke.getKeyCode();
 			try {
 				if (keyCode == cfg.getPlayer1Up()) {
@@ -113,6 +114,20 @@ public class MazeProgram {
 			} catch (Exception e) {
 				// Do nothing.
 			}
+			
+			for (int i = 0; i < players.length; i++) {
+				for (Coin c : coins) {
+					if (players[i].getPos().equals(c.getPos())) {
+						if (i == 0 && !c.getCollectedPlayer1()) {
+							c.setCollectedPlayer1(true);
+							players[i].collectCoin();
+						} else if (i == 0 && !c.getCollectedPlayer2()) {
+							c.setCollectedPlayer2(true);
+							players[i].collectCoin();
+						}
+					}
+				}
+			}
 	
 			if (g.isEveryoneAtGoal()) {
 				g.setPlaying(false);
@@ -122,12 +137,19 @@ public class MazeProgram {
 			if (g.getPlayersAtGoal() > 0) {
 				JOptionPane.showMessageDialog(null, "You won! You're awesome!", "Winner winner chicken dinner", JOptionPane.PLAIN_MESSAGE);
 			}
-	
-			frame.setMoveText(Integer.toString(g.getPlayers()[0].getTotalMoves()) + " moves");
-			if (frame != null) {
-				frame.setMoveText(Integer.toString(g.getPlayers()[0].getTotalMoves()) + " moves");
-				frame.repaint();
+			
+			if (players[0].getTotalMoves() == 1) {
+				frame.setMoveText(Integer.toString(players[0].getTotalMoves()) + " move");
+			} else {
+				frame.setMoveText(Integer.toString(players[0].getTotalMoves()) + " moves");
 			}
+			
+			if (players[0].getCoinsCollected() == 1) {
+				frame.setCoinText(Integer.toString(players[0].getCoinsCollected()) + " coin");
+			} else {
+				frame.setCoinText(Integer.toString(players[0].getCoinsCollected()) + " coins");
+			}
+			frame.repaint();
 		}
 	}
 	
@@ -204,6 +226,8 @@ public class MazeProgram {
 		frame.showPause(false);
 		
 		frame.setMoveText("0 moves");
+		
+		frame.setCoinText("0 coins");
 		
 		frame.setSeedText("Seed: " + Long.toString(g.getSeed()));
 		

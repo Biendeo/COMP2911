@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
@@ -22,6 +23,8 @@ public abstract class Maze {
 	
 	protected MazeGenerationStrategy strategy;
 	
+	protected ArrayList<Coin> coins;
+	
 	/**
 	 * Creates a new maze with given size parameters.
 	 * @param width
@@ -39,6 +42,7 @@ public abstract class Maze {
 		this.end = new Coord(width - 1, 0);
 		this.seed = 0;
 		this.strategy = MazeGenerationStrategy.NONE;
+		this.coins = new ArrayList<Coin>();
 	}
 	
 	/**
@@ -189,4 +193,10 @@ public abstract class Maze {
 	public MazeGenerationStrategy getStrategy() {
 		return strategy;
 	}
+	
+	public Coin[] getCoins() {
+		return coins.toArray(new Coin[coins.size()]);
+	}
+	
+	protected abstract void placeCoins(Random rand);
 }

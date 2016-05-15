@@ -96,6 +96,8 @@ public class DepthFirstSearchMaze extends Maze {
 				}
 			}
 		}
+		
+		placeCoins(rand);
 	}
 
 	/**
@@ -117,6 +119,32 @@ public class DepthFirstSearchMaze extends Maze {
 			return Direction.DOWN;
 		case 3:
 			return Direction.LEFT;
+		}
+	}
+
+	protected void placeCoins(Random rand) {
+		int totalCoins = width * height / 20;
+		
+		for (int i = 0; i < totalCoins; i++) {
+			boolean foundSpot = false;
+			Coord coinPos = null;
+			while (!foundSpot) {
+				foundSpot = true;
+				coinPos = new Coord(rand.nextInt(width), rand.nextInt(height));
+				if (!coinPos.equals(start) && !coinPos.equals(end)) {
+					for (Coin c : coins) {
+						if (coinPos.equals(c.getPos())) {
+							foundSpot = false;
+						}
+					}
+				} else {
+					foundSpot = false;
+				}
+			}
+			
+			if (foundSpot) {
+				coins.add(new Coin(coinPos));
+			}
 		}
 	}
 }

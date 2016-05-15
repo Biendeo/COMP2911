@@ -14,25 +14,9 @@ public class Player {
 	private int totalMoves;
 	private int millisecondsTaken;
 	
-	private static int nextId = 1;
+	private int coinsCollected;
 	
-	/**
-	 * Creates a new player.
-	 * @param m
-	 * A reference to the maze it is in.
-	 * @param pos
-	 * Where it is.
-	 * @param color
-	 * What color it should be.
-	 */
-	public Player(Maze m, Coord pos, Color color) {
-		this.m = m;
-		this.pos = pos;
-		this.img = generateImage(color, 16);
-		this.id = nextId++;
-		this.totalMoves = 0;
-		this.millisecondsTaken = 0;
-	}
+	private static int nextId = 1;
 	
 	/**
 	 * Creates a new player
@@ -48,6 +32,7 @@ public class Player {
 		this.id = nextId++;
 		this.totalMoves = 0;
 		this.millisecondsTaken = 0;
+		this.coinsCollected = 0;
 	}
 	
 	/**
@@ -146,31 +131,11 @@ public class Player {
 		this.m = m;
 	}
 	
-	/**
-	 * Creates a default player image based on a color and size.
-	 * @param playerColor
-	 * The player's color.
-	 * @param tileSize
-	 * The width and height of the image.
-	 * @return
-	 * The made image.
-	 */
-	private BufferedImage generateImage(Color playerColor, int tileSize) {
-		BufferedImage image = new BufferedImage(tileSize - 2, tileSize - 2, BufferedImage.TYPE_INT_ARGB);
-		
-		// For now we make a basic 8x8 square.
-		// TODO: Make a better shape (a circle would stand out).
-		for (int y = 0; y < tileSize - 2; y++) {
-			for (int x = 0; x < tileSize - 2; x++) {
-				if (y < 3 || y >= 11 || x < 3 || x >= 11) {
-					// Outside the square is transparent.
-					image.setRGB(x, y, new Color(0, 0, 0, 0).getRGB());
-				} else {
-					image.setRGB(x, y, playerColor.getRGB());
-				}
-			}
-		}
-
-		return image;
+	public int getCoinsCollected() {
+		return coinsCollected;
+	}
+	
+	public void collectCoin() {
+		coinsCollected++;
 	}
 }

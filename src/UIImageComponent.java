@@ -6,6 +6,8 @@ import javax.swing.JComponent;
 public class UIImageComponent extends JComponent {
 	private static final long serialVersionUID = 1L;
 	private BufferedImage mazeImg;
+	private BufferedImage coinImg;
+	private BufferedImage coinPartialImg;
 	private MazeGame game;
 	
 	private int tileSize;
@@ -17,8 +19,10 @@ public class UIImageComponent extends JComponent {
 	 * @param g
 	 * The game.
 	 */
-	public UIImageComponent(BufferedImage mazeImg, MazeGame g) {
+	public UIImageComponent(BufferedImage mazeImg, BufferedImage coinImg, BufferedImage coinPartialImg, MazeGame g) {
 		setMazeImg(mazeImg);
+		this.coinImg = coinImg;
+		this.coinPartialImg = coinPartialImg;
 		setGame(g);
 		tileSize = 16;
 	}
@@ -46,6 +50,7 @@ public class UIImageComponent extends JComponent {
 		super.paintComponent(g);
 		if (mazeImg != null && game != null) {
 			Player[] players = game.getPlayers();
+			Coin[] coins = game.getCoins();
 			int panelWidth = getWidth();
 			int panelHeight = getHeight();
 			int imageWidth = mazeImg.getWidth();
@@ -74,9 +79,17 @@ public class UIImageComponent extends JComponent {
 			}
 			
 			g.drawImage(mazeImg, decidedX, decidedY, null);
+			
+			for (Coin c : coins) {
+				if (!c.getCollectedPlayer1() && !c.getCollectedPlayer2()) {
+					g.drawImage(coinImg, tileSize * c.getPos().x + decidedX, tileSize * c.getPos().y + decidedY, null);
+				} else if (players.length == 2 && (c.getCollectedPlayer1() ^ c.getCollectedPlayer2())) {
+					g.drawImage(coinPartialImg, tileSize * c.getPos().x + decidedX, tileSize * c.getPos().y + decidedY, null);
+				}
+			}
 
-			for (int i = 0; i < players.length; i++) {
-				g.drawImage(players[i].getImg(), tileSize * players[i].getPos().x + decidedX + 1, tileSize * players[i].getPos().y + decidedY + 1, null);
+			for (Player p : players) {
+				g.drawImage(p.getImg(), tileSize * p.getPos().x + decidedX + 1, tileSize * p.getPos().y + decidedY + 1, null);
 			}
 		}
 	}
