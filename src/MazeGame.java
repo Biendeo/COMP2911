@@ -24,11 +24,11 @@ public class MazeGame {
 	 * The seed of the maze (0 is random).
 	 */
 	public MazeGame(int width, int height, long seed) {
-		m = new Maze(width, height);
+		m = new DepthFirstSearchMaze(width, height);
 		if (seed == 0) {
-			m.generateMapDepthStyle();
+			m.generateMaze();
 		} else {
-			m.generateMapDepthStyle(seed);
+			m.generateMaze(seed);
 		}
 		players = new ArrayList<Player>();
 		isPlaying = false;

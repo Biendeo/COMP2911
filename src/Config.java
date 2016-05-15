@@ -36,19 +36,6 @@ public class Config implements Serializable {
 	private ImageIcon player1Image;
 	private ImageIcon player2Image;
 	
-	public enum ControlCode {
-		NONE,
-		PLAYER1UP,
-		PLAYER1RIGHT,
-		PLAYER1DOWN,
-		PLAYER1LEFT,
-		PLAYER2UP,
-		PLAYER2RIGHT,
-		PLAYER2DOWN,
-		PLAYER2LEFT
-	}
-	
-	
 	/**
 	 * Creates a new config object with default controls.
 	 */

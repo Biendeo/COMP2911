@@ -480,10 +480,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer1UpButton = new JButton("Player1Up");
 		userSettingsPlayer1Panel.add(userSettingsPlayer1UpButton);
-		userSettingsPlayer1UpButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER1UP)));
+		userSettingsPlayer1UpButton.setText(KeyEvent.getKeyText(config.getKeyBinding(ControlCode.PLAYER1UP)));
 		userSettingsPlayer1UpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER1UP, config.getKeyBinding(Config.ControlCode.PLAYER1UP));
+				changeKeyBinding(ControlCode.PLAYER1UP, config.getKeyBinding(ControlCode.PLAYER1UP));
 			}
 		});
 		
@@ -492,10 +492,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer1LeftButton = new JButton("Player1Left");
 		userSettingsPlayer1Panel.add(userSettingsPlayer1LeftButton);
-		userSettingsPlayer1LeftButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER1LEFT)));
+		userSettingsPlayer1LeftButton.setText(KeyEvent.getKeyText(config.getKeyBinding(ControlCode.PLAYER1LEFT)));
 		userSettingsPlayer1LeftButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER1LEFT, config.getKeyBinding(Config.ControlCode.PLAYER1LEFT));
+				changeKeyBinding(ControlCode.PLAYER1LEFT, config.getKeyBinding(ControlCode.PLAYER1LEFT));
 			}
 		});
 		
@@ -504,10 +504,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer1DownButton = new JButton("Player1Down");
 		userSettingsPlayer1Panel.add(userSettingsPlayer1DownButton);
-		userSettingsPlayer1DownButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER1DOWN)));
+		userSettingsPlayer1DownButton.setText(KeyEvent.getKeyText(config.getKeyBinding(ControlCode.PLAYER1DOWN)));
 		userSettingsPlayer1DownButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER1DOWN, config.getKeyBinding(Config.ControlCode.PLAYER1DOWN));
+				changeKeyBinding(ControlCode.PLAYER1DOWN, config.getKeyBinding(ControlCode.PLAYER1DOWN));
 			}
 		});
 		
@@ -516,10 +516,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer1RightButton = new JButton("Player1Right");
 		userSettingsPlayer1Panel.add(userSettingsPlayer1RightButton);
-		userSettingsPlayer1RightButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER1RIGHT)));
+		userSettingsPlayer1RightButton.setText(KeyEvent.getKeyText(config.getKeyBinding(ControlCode.PLAYER1RIGHT)));
 		userSettingsPlayer1RightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER1RIGHT, config.getKeyBinding(Config.ControlCode.PLAYER1RIGHT));
+				changeKeyBinding(ControlCode.PLAYER1RIGHT, config.getKeyBinding(ControlCode.PLAYER1RIGHT));
 			}
 		});
 		
@@ -581,10 +581,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer2UpButton = new JButton("Player2Up");
 		userSettingsPlayer2Panel.add(userSettingsPlayer2UpButton);
-		userSettingsPlayer2UpButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER2UP)));
+		userSettingsPlayer2UpButton.setText(KeyEvent.getKeyText(config.getKeyBinding(ControlCode.PLAYER2UP)));
 		userSettingsPlayer2UpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER2UP, config.getKeyBinding(Config.ControlCode.PLAYER2UP));
+				changeKeyBinding(ControlCode.PLAYER2UP, config.getKeyBinding(ControlCode.PLAYER2UP));
 			}
 		});
 		
@@ -593,10 +593,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer2LeftButton = new JButton("Player2Left");
 		userSettingsPlayer2Panel.add(userSettingsPlayer2LeftButton);
-		userSettingsPlayer2LeftButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER2LEFT)));
+		userSettingsPlayer2LeftButton.setText(KeyEvent.getKeyText(config.getKeyBinding(ControlCode.PLAYER2LEFT)));
 		userSettingsPlayer2LeftButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER2LEFT, config.getKeyBinding(Config.ControlCode.PLAYER2LEFT));
+				changeKeyBinding(ControlCode.PLAYER2LEFT, config.getKeyBinding(ControlCode.PLAYER2LEFT));
 			}
 		});
 		
@@ -605,10 +605,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer2DownButton = new JButton("Player2Down");
 		userSettingsPlayer2Panel.add(userSettingsPlayer2DownButton);
-		userSettingsPlayer2DownButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER2DOWN)));
+		userSettingsPlayer2DownButton.setText(KeyEvent.getKeyText(config.getKeyBinding(ControlCode.PLAYER2DOWN)));
 		userSettingsPlayer2DownButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER2DOWN, config.getKeyBinding(Config.ControlCode.PLAYER2DOWN));
+				changeKeyBinding(ControlCode.PLAYER2DOWN, config.getKeyBinding(ControlCode.PLAYER2DOWN));
 			}
 		});
 		
@@ -617,10 +617,10 @@ public class UI extends JFrame {
 		
 		userSettingsPlayer2RightButton = new JButton("Player2Right");
 		userSettingsPlayer2Panel.add(userSettingsPlayer2RightButton);
-		userSettingsPlayer2RightButton.setText(KeyEvent.getKeyText(config.getKeyBinding(Config.ControlCode.PLAYER2RIGHT)));
+		userSettingsPlayer2RightButton.setText(KeyEvent.getKeyText(config.getKeyBinding(ControlCode.PLAYER2RIGHT)));
 		userSettingsPlayer2RightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeKeyBinding(Config.ControlCode.PLAYER2RIGHT, config.getKeyBinding(Config.ControlCode.PLAYER2RIGHT));
+				changeKeyBinding(ControlCode.PLAYER2RIGHT, config.getKeyBinding(ControlCode.PLAYER2RIGHT));
 			}
 		});
 		
@@ -934,8 +934,8 @@ public class UI extends JFrame {
 		return new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
 	}
 	
-	private void changeKeyBinding(Config.ControlCode keyBinding, int previousKey) {
-		final Config.ControlCode finalKeyBinding = keyBinding;
+	private void changeKeyBinding(ControlCode keyBinding, int previousKey) {
+		final ControlCode finalKeyBinding = keyBinding;
 		
 		switchPanel("changeKeyBindingPanel");
 		
