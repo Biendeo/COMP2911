@@ -28,6 +28,9 @@ public class MazeGame {
 		case DEPTHFIRSTSEARCH:
 			m = new DepthFirstSearchMaze(width, height);
 			break;
+		case RING:
+			m = new RingMaze(width, height);
+			break;
 		case NONE:
 		default:
 			m = null;

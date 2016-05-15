@@ -1,5 +1,6 @@
 
 public enum MazeGenerationStrategy {
 	NONE,
-	DEPTHFIRSTSEARCH
+	DEPTHFIRSTSEARCH,
+	RING
 }

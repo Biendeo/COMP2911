@@ -127,6 +127,7 @@ public class UI extends JFrame {
 	private JLabel customGameSetupStrategyLabel;
 	private JRadioButton customGameSetupDFSRadio;
 	private JLabel coinLabel;
+	private JRadioButton customGameSetupRingRadio;
 	
 	/**
 	 * Creates a UI frame with some basic properties.
@@ -338,6 +339,8 @@ public class UI extends JFrame {
 				customGameSetupSizeYField.setEnabled(false);
 				customGameSetupDFSRadio.setSelected(true);
 				customGameSetupDFSRadio.setEnabled(false);
+				customGameSetupRingRadio.setSelected(false);
+				customGameSetupRingRadio.setEnabled(false);
 			}
 		});
 		
@@ -352,6 +355,8 @@ public class UI extends JFrame {
 				customGameSetupSizeYField.setEnabled(false);
 				customGameSetupDFSRadio.setSelected(true);
 				customGameSetupDFSRadio.setEnabled(false);
+				customGameSetupRingRadio.setSelected(false);
+				customGameSetupRingRadio.setEnabled(false);
 			}
 		});
 		
@@ -366,6 +371,8 @@ public class UI extends JFrame {
 				customGameSetupSizeYField.setEnabled(false);
 				customGameSetupDFSRadio.setSelected(true);
 				customGameSetupDFSRadio.setEnabled(false);
+				customGameSetupRingRadio.setSelected(false);
+				customGameSetupRingRadio.setEnabled(false);
 			}
 		});
 		
@@ -377,6 +384,7 @@ public class UI extends JFrame {
 				customGameSetupSizeXField.setEnabled(true);
 				customGameSetupSizeYField.setEnabled(true);
 				customGameSetupDFSRadio.setEnabled(true);
+				customGameSetupRingRadio.setEnabled(true);
 			}
 		});
 		
@@ -432,6 +440,11 @@ public class UI extends JFrame {
 		customGameSetupSeedPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		customGameStrategyGroup.add(customGameSetupDFSRadio);
 		customGameSetupDFSRadio.setEnabled(false);
+		
+		customGameSetupRingRadio = new JRadioButton("Ring (NOT FINISHED)");
+		customGameSetupStrategyPanel.add(customGameSetupRingRadio);
+		customGameStrategyGroup.add(customGameSetupRingRadio);
+		customGameSetupRingRadio.setEnabled(false);
 		
 		JLabel customGameSetupSeedLabel = new JLabel("Seed:");
 		customGameSetupSeedPanel.add(customGameSetupSeedLabel);
@@ -492,6 +505,8 @@ public class UI extends JFrame {
 				MazeGenerationStrategy strategy = MazeGenerationStrategy.NONE;
 				if (customGameSetupDFSRadio.isSelected()) {
 					strategy = MazeGenerationStrategy.DEPTHFIRSTSEARCH;
+				} else if (customGameSetupRingRadio.isSelected()) {
+					strategy = MazeGenerationStrategy.RING;
 				}
 				
 				int players = 0;
@@ -1052,7 +1067,6 @@ public class UI extends JFrame {
 		for (int y = 0; y < tileSize; y++) {
 			for (int x = 0; x < tileSize; x++) {
 				if (x < 5 || x >= tileSize - 5 || y < 5 || y >= tileSize - 5) {
-					System.out.println("(" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
 					img.setRGB(x, y, new Color(0, 0, 0, 0).getRGB());
 				} else if (x == 5 || x == tileSize - 6 || y == 5 || y == tileSize - 6) {
 					img.setRGB(x, y, new Color(32, 32, 32, 255).getRGB());
