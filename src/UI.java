@@ -20,6 +20,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -31,7 +37,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  * Provides static functions to drawing mazes to the console.
@@ -128,6 +137,14 @@ public class UI extends JFrame {
 	private JRadioButton customGameSetupDFSRadio;
 	private JLabel coinLabel;
 	private JRadioButton customGameSetupRingRadio;
+	private JButton mainMenuLeaderboardButton;
+	private JPanel leaderboardPanel;
+	private JTable leaderboardDataTable;
+	private JScrollPane leaderboardDataPanel;
+	private JPanel leaderboardButtonPanel;
+	private JButton leaderboardBackButton;
+	private JButton leaderboardChallengeButton;
+	private JButton leaderboardDeleteEntryButton;
 	
 	/**
 	 * Creates a UI frame with some basic properties.
@@ -265,7 +282,7 @@ public class UI extends JFrame {
 		
 		mainMenuButtonPanelCentral = new JPanel();
 		mainMenuButtonPanel.add(mainMenuButtonPanelCentral);
-		mainMenuButtonPanelCentral.setLayout(new GridLayout(4, 1, 0, 0));
+		mainMenuButtonPanelCentral.setLayout(new GridLayout(5, 1, 0, 0));
 		
 		mainMenuInstantActionButton = new JButton("Instant Action");
 		mainMenuButtonPanelCentral.add(mainMenuInstantActionButton);
@@ -285,6 +302,14 @@ public class UI extends JFrame {
 		
 		mainMenuUserSettingsButton = new JButton("User Settings");
 		mainMenuButtonPanelCentral.add(mainMenuUserSettingsButton);
+		
+		mainMenuLeaderboardButton = new JButton("Leaderboard");
+		mainMenuButtonPanelCentral.add(mainMenuLeaderboardButton);
+		mainMenuLeaderboardButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel("leaderboardPanel");
+			}
+		});
 		
 		mainMenuExitButton = new JButton("Exit");
 		mainMenuButtonPanelCentral.add(mainMenuExitButton);
@@ -768,6 +793,88 @@ public class UI extends JFrame {
 		sl_changeKeyBindingPanel.putConstraint(SpringLayout.SOUTH, changeKeyBindingPreviousLabel, -10, SpringLayout.SOUTH, changeKeyBindingPanel);
 		sl_changeKeyBindingPanel.putConstraint(SpringLayout.EAST, changeKeyBindingPreviousLabel, -10, SpringLayout.EAST, changeKeyBindingPanel);
 		changeKeyBindingPanel.add(changeKeyBindingPreviousLabel);
+		
+		leaderboardPanel = new JPanel();
+		mainPanel.add(leaderboardPanel, "leaderboardPanel");
+		SpringLayout sl_leaderboardPanel = new SpringLayout();
+		leaderboardPanel.setLayout(sl_leaderboardPanel);
+		
+		leaderboardDataPanel = new JScrollPane();
+		sl_leaderboardPanel.putConstraint(SpringLayout.NORTH, leaderboardDataPanel, 10, SpringLayout.NORTH, leaderboardPanel);
+		sl_leaderboardPanel.putConstraint(SpringLayout.WEST, leaderboardDataPanel, 10, SpringLayout.WEST, leaderboardPanel);
+		sl_leaderboardPanel.putConstraint(SpringLayout.EAST, leaderboardDataPanel, -10, SpringLayout.EAST, leaderboardPanel);
+		leaderboardPanel.add(leaderboardDataPanel);
+		
+		leaderboardButtonPanel = new JPanel();
+		sl_leaderboardPanel.putConstraint(SpringLayout.NORTH, leaderboardButtonPanel, -50, SpringLayout.SOUTH, leaderboardPanel);
+		sl_leaderboardPanel.putConstraint(SpringLayout.SOUTH, leaderboardDataPanel, -10, SpringLayout.NORTH, leaderboardButtonPanel);
+		
+		String[] leaderboardTableHeader = {"Strategy", "Width", "Height", "Time", "Moves", "Coins", "Seed"};
+		String[][] leaderboardTableContent = config.getLeaderboardTable();
+		
+		// TODO: Add the ability to sort this via the top.
+		leaderboardDataTable = new JTable(new DefaultTableModel(leaderboardTableContent, leaderboardTableHeader));
+		leaderboardDataTable.setDefaultEditor(Object.class, null);
+		leaderboardDataTable.setFillsViewportHeight(true);
+		
+		leaderboardDataTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				if (((ListSelectionModel)e.getSource()).getMaxSelectionIndex() == -1) {
+					leaderboardChallengeButton.setEnabled(false);
+					leaderboardDeleteEntryButton.setEnabled(false);
+				} else {
+					leaderboardChallengeButton.setEnabled(true);
+					leaderboardDeleteEntryButton.setEnabled(true);
+				}
+			}
+		});
+		
+		leaderboardDataPanel.setViewportView(leaderboardDataTable);
+		sl_leaderboardPanel.putConstraint(SpringLayout.WEST, leaderboardButtonPanel, 10, SpringLayout.WEST, leaderboardPanel);
+		sl_leaderboardPanel.putConstraint(SpringLayout.SOUTH, leaderboardButtonPanel, -10, SpringLayout.SOUTH, leaderboardPanel);
+		sl_leaderboardPanel.putConstraint(SpringLayout.EAST, leaderboardButtonPanel, -10, SpringLayout.EAST, leaderboardPanel);
+		leaderboardPanel.add(leaderboardButtonPanel);
+		leaderboardButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		leaderboardBackButton = new JButton("Back");
+		leaderboardButtonPanel.add(leaderboardBackButton);
+		leaderboardBackButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanel("mainMenuPanel");
+			}
+		});
+		
+		leaderboardChallengeButton = new JButton("Challenge");
+		leaderboardButtonPanel.add(leaderboardChallengeButton);
+		leaderboardChallengeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String[] selection = cfg.getLeaderboardTable()[leaderboardDataTable.getSelectedRow()];
+				// TODO: Set the strategy too.
+				// TODO: Move this part into its own function, it gets called a few times.
+				customGameSetupSizeXField.setEnabled(true);
+				customGameSetupSizeYField.setEnabled(true);
+				customGameSetupDFSRadio.setEnabled(true);
+				customGameSetupRingRadio.setEnabled(true);
+				customGameSetupDiffcultyCustomRadio.setSelected(true);
+				customGameSetupSizeXField.setText(selection[1]);
+				customGameSetupSizeYField.setText(selection[2]);
+				customGameSetupSeedField.setText(selection[6]);
+				switchPanel("customGameSetupPanel");
+			}
+		});
+		leaderboardChallengeButton.setEnabled(false);
+		
+		leaderboardDeleteEntryButton = new JButton("Delete Entry");
+		leaderboardButtonPanel.add(leaderboardDeleteEntryButton);
+		leaderboardDeleteEntryButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO: Add a confirmation box.
+				config.deleteLeaderboardEntry(leaderboardDataTable.getSelectedRow());
+				((DefaultTableModel)leaderboardDataTable.getModel()).removeRow(leaderboardDataTable.getSelectedRow());
+			}
+		});
+		leaderboardDeleteEntryButton.setEnabled(false);
+		
 		customGameSetupBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanel("mainMenuPanel");
@@ -1094,5 +1201,10 @@ public class UI extends JFrame {
 			}
 		}
 		return img;
+	}
+	
+	@SuppressWarnings("serial")
+	public void addLeaderboardRow(String[] row) {
+		((DefaultTableModel)leaderboardDataTable.getModel()).addRow(row);
 	}
 }

@@ -136,6 +136,9 @@ public class MazeProgram {
 			// TODO: This needs to work much better with more than one player.
 			if (g.getPlayersAtGoal() > 0) {
 				JOptionPane.showMessageDialog(null, "You won! You're awesome!", "Winner winner chicken dinner", JOptionPane.PLAIN_MESSAGE);
+				cfg.addLeaderboardEntry(g.getMaze().getWidth(), g.getMaze().getHeight(), g.getSeed(), g.getGenerationStrategy(), g.getPlayers()[0].getMillisecondsTaken(), g.getPlayers()[0].getTotalMoves(), g.getPlayers()[0].getCoinsCollected());
+				// TODO: This line is not very good.
+				frame.addLeaderboardRow(cfg.getLeaderboardTable()[cfg.getLeaderboardTable().length - 1]);
 			}
 			
 			if (players[0].getTotalMoves() == 1) {

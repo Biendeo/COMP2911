@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -36,6 +37,8 @@ public class Config implements Serializable {
 	private ImageIcon player1Image;
 	private ImageIcon player2Image;
 	
+	private ArrayList<LeaderboardEntry> leaderboard;
+	
 	/**
 	 * Creates a new config object with default controls.
 	 */
@@ -50,6 +53,7 @@ public class Config implements Serializable {
 		player2Left = KeyEvent.VK_A;
 		player1Image = new ImageIcon(generateImage(16));
 		player2Image = new ImageIcon(generateImage(16));
+		leaderboard = new ArrayList<LeaderboardEntry>();
 	}
 	
 	// TODO: Formalise these automatic comments.
@@ -396,6 +400,7 @@ public class Config implements Serializable {
 		player2Left = c.player2Left;
 		player1Image = c.player1Image;
 		player2Image = c.player2Image;
+		leaderboard = c.leaderboard;
 	}
 	
 	
@@ -438,6 +443,37 @@ public class Config implements Serializable {
 	
 	public void setRandomPlayer2Image() {
 		player2Image = new ImageIcon(generateImage(16));
+		saveConfig();
+	}
+	
+	public void addLeaderboardEntry(int mazeWidth, int mazeHeight, long mazeSeed, MazeGenerationStrategy mazeStrategy, int timeMillis, int movesTaken, int coinsCollected) {
+		leaderboard.add(new LeaderboardEntry(mazeWidth, mazeHeight, mazeSeed, mazeStrategy, timeMillis, movesTaken, coinsCollected));
+		saveConfig();
+	}
+	
+	public LeaderboardEntry[] getLeaderboard() {
+		return leaderboard.toArray(new LeaderboardEntry[leaderboard.size()]);
+	}
+	
+	public String[][] getLeaderboardTable() {
+		String[][] leaderboardTable = new String[leaderboard.size()][];
+		for (int i = 0; i < leaderboard.size(); i++) {
+			LeaderboardEntry entry = leaderboard.get(i);
+			leaderboardTable[i] = new String[7];
+			leaderboardTable[i][0] = entry.getMazeStrategy().toString();
+			leaderboardTable[i][1] = Integer.toString(entry.getMazeWidth());
+			leaderboardTable[i][2] = Integer.toString(entry.getMazeHeight());
+			leaderboardTable[i][3] = String.format("%02d:%02d:%03d", entry.getTimeMillis() / 60000, entry.getTimeMillis() / 1000 % 60, entry.getTimeMillis() % 1000);
+			leaderboardTable[i][4] = Integer.toString(entry.getMovesTaken());
+			leaderboardTable[i][5] = Integer.toString(entry.getCoinsCollected());
+			leaderboardTable[i][6] = Long.toString(entry.getMazeSeed());
+		}
+		
+		return leaderboardTable;
+	}
+	
+	public void deleteLeaderboardEntry(int id) {
+		leaderboard.remove(id);
 		saveConfig();
 	}
 }
