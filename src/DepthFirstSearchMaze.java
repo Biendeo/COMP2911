@@ -16,7 +16,7 @@ public class DepthFirstSearchMaze extends Maze {
 		this.seed = seed;
 		Random rand = new Random(seed);
 		Stack<Coord> currentPath = new Stack<Coord>();
-		Coord current = start.clone();
+		Coord current = end.clone();
 		
 		currentPath.push(current);
 		maze[current.x][current.y] = new MazeGrid();
