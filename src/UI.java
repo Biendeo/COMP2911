@@ -848,7 +848,7 @@ public class UI extends JFrame {
 		leaderboardButtonPanel.add(leaderboardChallengeButton);
 		leaderboardChallengeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String[] selection = cfg.getLeaderboardTable()[leaderboardDataTable.getSelectedRow()];
+				String[] selection = config.getLeaderboardTable()[leaderboardDataTable.getSelectedRow()];
 				// TODO: Set the strategy too.
 				// TODO: Move this part into its own function, it gets called a few times.
 				customGameSetupSizeXField.setEnabled(true);
