@@ -34,7 +34,6 @@ public class MazeGame {
 		case NONE:
 		default:
 			m = null;
-			// TODO: Maybe throw an error? (ideally this never gets called).
 			break;
 		}
 		
@@ -114,11 +113,19 @@ public class MazeGame {
 	public int getPlayersAtGoal() {
 		int goals = 0;
 		for (Player p : players) {
-			if (p.getPos().equals(m.getEnd())) {
+			if (p.isFinished()) {
 				goals++;
 			}
 		}
 		return goals;
+	}
+	
+	public void autoFinishPlayers() {
+		for (Player p : players) {
+			if (p.getPos().equals(m.getEnd())) {
+				p.setFinished(true);
+			}
+		}
 	}
 	
 	/**

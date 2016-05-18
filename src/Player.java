@@ -16,6 +16,8 @@ public class Player {
 	
 	private int coinsCollected;
 	
+	private boolean finished;
+	
 	private static int nextId = 1;
 	
 	/**
@@ -33,6 +35,7 @@ public class Player {
 		this.totalMoves = 0;
 		this.millisecondsTaken = 0;
 		this.coinsCollected = 0;
+		this.finished = false;
 	}
 	
 	/**
@@ -137,5 +140,13 @@ public class Player {
 	
 	public void collectCoin() {
 		coinsCollected++;
+	}
+	
+	public boolean isFinished() {
+		return finished;
+	}
+	
+	public void setFinished(boolean finished) {
+		this.finished = finished;
 	}
 }

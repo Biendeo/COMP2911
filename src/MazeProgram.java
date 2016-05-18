@@ -34,7 +34,6 @@ public class MazeProgram {
 		// g will be null initially.
 		// frame will be null initially.
 		
-		
 		keyGet = new UIKeyGetter(this);
 
 		refresh = new Timer(refreshTime, keyGet);
@@ -94,26 +93,34 @@ public class MazeProgram {
 			Coin[] coins = g.getCoins();
 			int keyCode = ke.getKeyCode();
 			try {
-				if (keyCode == cfg.getPlayer1Up()) {
-					players[0].move(Direction.UP);
-				} else if (keyCode == cfg.getPlayer1Right()) {
-					players[0].move(Direction.RIGHT);
-				} else if (keyCode == cfg.getPlayer1Down()) {
-					players[0].move(Direction.DOWN);
-				} else if (keyCode == cfg.getPlayer1Left()) {
-					players[0].move(Direction.LEFT);
-				} else if (keyCode == cfg.getPlayer2Up()) {
-					players[1].move(Direction.UP);
-				} else if (keyCode == cfg.getPlayer2Right()) {
-					players[1].move(Direction.RIGHT);
-				} else if (keyCode == cfg.getPlayer2Down()) {
-					players[1].move(Direction.DOWN);
-				} else if (keyCode == cfg.getPlayer2Left()) {
-					players[1].move(Direction.LEFT);
+				if (players.length >= 1 && !players[0].isFinished()) {
+					if (keyCode == cfg.getPlayer1Up()) {
+						players[0].move(Direction.UP);
+					} else if (keyCode == cfg.getPlayer1Right()) {
+						players[0].move(Direction.RIGHT);
+					} else if (keyCode == cfg.getPlayer1Down()) {
+						players[0].move(Direction.DOWN);
+					} else if (keyCode == cfg.getPlayer1Left()) {
+						players[0].move(Direction.LEFT);
+					}
+				}
+				
+				if (players.length >= 2 && !players[1].isFinished()) {
+					if (keyCode == cfg.getPlayer2Up()) {
+						players[1].move(Direction.UP);
+					} else if (keyCode == cfg.getPlayer2Right()) {
+						players[1].move(Direction.RIGHT);
+					} else if (keyCode == cfg.getPlayer2Down()) {
+						players[1].move(Direction.DOWN);
+					} else if (keyCode == cfg.getPlayer2Left()) {
+						players[1].move(Direction.LEFT);
+					}
 				}
 			} catch (Exception e) {
 				// Do nothing.
 			}
+			
+			g.autoFinishPlayers();
 			
 			for (int i = 0; i < players.length; i++) {
 				for (Coin c : coins) {
@@ -121,7 +128,7 @@ public class MazeProgram {
 						if (i == 0 && !c.getCollectedPlayer1()) {
 							c.setCollectedPlayer1(true);
 							players[i].collectCoin();
-						} else if (i == 0 && !c.getCollectedPlayer2()) {
+						} else if (i == 1 && !c.getCollectedPlayer2()) {
 							c.setCollectedPlayer2(true);
 							players[i].collectCoin();
 						}

@@ -855,6 +855,17 @@ public class UI extends JFrame {
 				customGameSetupSizeYField.setEnabled(true);
 				customGameSetupDFSRadio.setEnabled(true);
 				customGameSetupRingRadio.setEnabled(true);
+				
+				switch (MazeGenerationStrategy.fromString(selection[0])) {
+				case DEPTHFIRSTSEARCH:
+					customGameSetupDFSRadio.setSelected(true);
+					break;
+				case RING:
+					customGameSetupRingRadio.setSelected(true);
+					break;
+				default:
+					break;
+				}
 				customGameSetupDiffcultyCustomRadio.setSelected(true);
 				customGameSetupSizeXField.setText(selection[1]);
 				customGameSetupSizeYField.setText(selection[2]);
@@ -1203,7 +1214,6 @@ public class UI extends JFrame {
 		return img;
 	}
 	
-	@SuppressWarnings("serial")
 	public void addLeaderboardRow(String[] row) {
 		((DefaultTableModel)leaderboardDataTable.getModel()).addRow(row);
 	}
