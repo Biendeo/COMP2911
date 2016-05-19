@@ -76,6 +76,32 @@ public class RingMaze extends Maze {
 		}
 		
 		// Then go through a random process to create pathways.
+		int rings = 0;
+		if (width < height) {
+			rings = width - 1;
+		} else {
+			rings = height - 1;
+		}
+		
+		Coord c = new Coord(0, 0);
+		
+		for (int i = 0; i < rings; i++) {
+			if (i % 2 == 0) {
+				c.x = i;
+				if (i < rings / 2) {
+					c.y = i + rand.nextInt(height - (2 * i));
+				}
+				maze[c.x][c.y].right = true;
+				maze[c.x + 1][c.y].left = true;
+			} else {
+				c.y = i;
+				if (i < rings / 2) {
+					c.x = i + rand.nextInt(width - (2 * i));
+				}
+				maze[c.x][c.y].bottom = true;
+				maze[c.x][c.y + 1].top = true;
+			}
+		}
 		
 		placeCoins(rand);
 	}
