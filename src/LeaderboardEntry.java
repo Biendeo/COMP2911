@@ -43,51 +43,64 @@ public class LeaderboardEntry implements Serializable {
 		this.coinsCollected = coinsCollected;
 	}
 	
-	// TODO: Automatic comments, away!
 	/**
-	 * @return the mazeWidth
+	 * Returns the width of the maze.
+	 * @return
+	 * The width of the maze.
 	 */
 	public int getMazeWidth() {
 		return mazeWidth;
 	}
 
 	/**
-	 * @return the mazeHeight
+	 * Returns the height of the maze.
+	 * @return
+	 * The height of the maze.
 	 */
 	public int getMazeHeight() {
 		return mazeHeight;
 	}
 	
 	/**
-	 * @return the mazeSeed
+	 * Returns the seed of the maze.
+	 * @return
+	 * The seed of the maze.
 	 */
 	public long getMazeSeed() {
 		return mazeSeed;
 	}
 	
 	/**
-	 * @return the mazeStrategy
+	 * Returns the strategy of the maze.
+	 * @return
+	 * The strategy of the maze.
 	 */
 	public MazeGenerationStrategy getMazeStrategy() {
 		return mazeStrategy;
 	}
 
 	/**
-	 * @return the timeMillis
+	 * Returns the time taken by the player (in milliseconds).
+	 * @return
+	 * The time taken by the player.
 	 */
 	public int getTimeMillis() {
 		return timeMillis;
 	}
 
 	/**
-	 * @return the movesTaken
+	 * Returns the moves taken by the player.
+	 * @return
+	 * The moves taken by the player.
 	 */
 	public int getMovesTaken() {
 		return movesTaken;
 	}
 
 	/**
-	 * @return the coinsCollected
+	 * Returns the number of coins collected by the player.
+	 * @return
+	 * The number of coins collected by the player.
 	 */
 	public int getCoinsCollected() {
 		return coinsCollected;

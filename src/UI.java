@@ -852,7 +852,6 @@ public class UI extends JFrame {
 		leaderboardChallengeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String[] selection = config.getLeaderboardTable()[leaderboardDataTable.getSelectedRow()];
-				// TODO: Set the strategy too.
 				// TODO: Move this part into its own function, it gets called a few times.
 				customGameSetupSizeXField.setEnabled(true);
 				customGameSetupSizeYField.setEnabled(true);
@@ -970,16 +969,6 @@ public class UI extends JFrame {
 		}
 		mazeImg = image;
 		mazeViewImageComponent.setMazeImg(mazeImg);
-	}
-	
-	/**
-	 * Makes a list of all the players.
-	 * @return
-	 * A list of all the players.
-	 */
-	// TODO: Decide which class manages players.
-	public Player[] getPlayers() {
-		return game.getPlayers();
 	}
 
 	/**

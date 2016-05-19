@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Stack;
 
-// TODO: Formally decide what a maze is, and what it stores.
 /**
  * A maze class, that stores data about a maze.
  * Maze generation should only be called once per maze object. Create

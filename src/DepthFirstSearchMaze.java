@@ -52,7 +52,6 @@ public class DepthFirstSearchMaze extends Maze {
 			// checked every side, or it's found a side which has an unchecked
 			// tile.
 			while (!checkedSide) {
-				// TODO: Delegate this to a function, and return the enum instead.
 				Direction randomDirection = getRandomDirection(rand);
 				// 0 is up, 1 is right, 2 is down, 3 is left.
 				// This can be modified to add some interesting bias to the generation.
