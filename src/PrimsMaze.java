@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PRIMS extends Maze {
-	public PRIMS(int width, int height) {
+public class PrimsMaze extends Maze {
+	public PrimsMaze(int width, int height) {
 		super(width, height);
 		strategy = MazeGenerationStrategy.PRIMS;
 	}

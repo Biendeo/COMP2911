@@ -30,7 +30,7 @@ public class MazeGame {
 			m = new RingMaze(width, height);
 			break;
 		case PRIMS:
-			m = new PRIMS(width, height);
+			m = new PrimsMaze(width, height);
 			break;
 		default:
 			m = null;
