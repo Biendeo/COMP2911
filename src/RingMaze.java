@@ -25,47 +25,57 @@ public class RingMaze extends Maze {
 			}
 		}
 		
+		// Start by making the ring shape.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				if (x == y && (x < width / 2 || y < height / 2)) {
+				if (x == y && (x < width / 2 && y < height / 2)) {
 					maze[x][y].bottom = true;
 					maze[x][y].right = true;
-				} else if (width - x - 1 == y && (x >= width / 2 || y < height / 2)) {
+				} else if (width - x - 1 == y && (x >= width / 2 && y < height / 2)) {
 					maze[x][y].bottom = true;
 					maze[x][y].left = true;
-				} else if (x == height - y - 1 && (x < width / 2 || y >= height / 2)) {
+				} else if (x == height - y - 1 && (x < width / 2 && y >= height / 2)) {
 					maze[x][y].top = true;
 					maze[x][y].right = true;
-				} else if (width - x - 1 == height - y - 1 && (x >= width / 2 || y >= height / 2)) {
+				} else if (width - x - 1 == height - y - 1 && (x >= width / 2 && y >= height / 2)) {
 					maze[x][y].top = true;
 					maze[x][y].left = true;
-				} else if (x > y && width - x - 1 > y) {
+				} else if (x > y && width - x - 1 > y && (y < height / 2)) {
 					maze[x][y].left = true;
 					maze[x][y].right = true;
-				} else if (x < y && width - x - 1 < y) {
+				} else if (x > height - y - 1 && width - x - 1 > height - y - 1 && (y >= height / 2)) {
 					maze[x][y].left = true;
 					maze[x][y].right = true;
-				} else if (x > y && width - x - 1 < y) {
+				} else if (y > x && height - y - 1 > x && (x < width / 2)) {
 					maze[x][y].top = true;
 					maze[x][y].bottom = true;
-				} else if (x < y && width - x - 1 > y) {
+				} else if (y > width - x - 1 && height - y - 1 > width - x - 1 && (x >= width / 2)) {
 					maze[x][y].top = true;
 					maze[x][y].bottom = true;
-				}
-				
-				if (x + 1 == width / 2) {
-					if (y % 2 == 0) {
-						maze[x][y].right = false;
-						maze[x + 1][y].left = false;
-					}
-				} else if (y + 1 == height / 2) {
-					if (x % 2 == 1) {
-						maze[x][y].bottom = false;
-						maze[x][y + 1].top = false;
-					}
 				}
 			}
 		}
+		
+		// Add in the set boundaries on each ring.
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (x + 1 == width / 2 && y < height / 2 && y % 2 == 0) {
+					maze[x][y].right = false;
+					maze[x + 1][y].left = false;
+				} else if (x + 1 == width / 2 && y >= height / 2 && (height - y - 1) % 2 == 0) {
+					maze[x][y].right = false;
+					maze[x + 1][y].left = false;
+				} else if (y + 1 == height / 2 && x < width / 2 && x % 2 == 1) {
+					maze[x][y].bottom = false;
+					maze[x][y + 1].top = false;
+				} else if (y + 1 == height / 2 && x >= width / 2 && (width - x - 1) % 2 == 1) {
+					maze[x][y].bottom = false;
+					maze[x][y + 1].top = false;
+				}
+			}
+		}
+		
+		// Then go through a random process to create pathways.
 		
 		placeCoins(rand);
 	}
