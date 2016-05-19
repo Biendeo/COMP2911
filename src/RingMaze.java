@@ -88,15 +88,19 @@ public class RingMaze extends Maze {
 		for (int i = 0; i < rings; i++) {
 			if (i % 2 == 0) {
 				c.x = i;
-				if (i < rings / 2) {
+				if (i <= rings / 2) {
 					c.y = i + rand.nextInt(height - (2 * i));
+				} else {
+					c.y = height - i - 1 + rand.nextInt((2 * i) - rings);
 				}
 				maze[c.x][c.y].right = true;
 				maze[c.x + 1][c.y].left = true;
 			} else {
 				c.y = i;
-				if (i < rings / 2) {
+				if (i <= rings / 2) {
 					c.x = i + rand.nextInt(width - (2 * i));
+				} else {
+					c.x = width - i - 1 + rand.nextInt((2 * i) - rings);
 				}
 				maze[c.x][c.y].bottom = true;
 				maze[c.x][c.y + 1].top = true;
