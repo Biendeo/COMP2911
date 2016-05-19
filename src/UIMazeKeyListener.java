@@ -4,19 +4,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Handles key presses and input.
+ * A key listener that handles the maze key input and frame delay.
  *
  */
-public class UIKeyGetter implements KeyListener, ActionListener {
+public class UIMazeKeyListener implements KeyListener, ActionListener {
 	
 	private MazeProgram p;
 	
 	/**
-	 * Creates a new key getter.
+	 * Creates a new key listener..
 	 * @param p
 	 * The main maze program.
 	 */
-	public UIKeyGetter(MazeProgram p) {
+	public UIMazeKeyListener(MazeProgram p) {
 		this.p = p;
 	}
 

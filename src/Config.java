@@ -17,6 +17,8 @@ import javax.swing.ImageIcon;
 
 /**
  * A config object that stores all data that will be saved between sessions.
+ * Any operation that modifies its values will save the config to a file on
+ * the spot.
  *
  */
 public class Config implements Serializable {
@@ -56,127 +58,11 @@ public class Config implements Serializable {
 		leaderboard = new ArrayList<LeaderboardEntry>();
 	}
 	
-	// TODO: Formalise these automatic comments.
 	/**
-	 * @return the player1Up
+	 * Returns the image used by player 1.
+	 * @return
+	 * The image used by player 1.
 	 */
-	public int getPlayer1Up() {
-		return player1Up;
-	}
-
-	/**
-	 * @param player1Up the player1Up to set
-	 */
-	public void setPlayer1Up(int player1Up) {
-		this.player1Up = player1Up;
-		saveConfig();
-	}
-
-	/**
-	 * @return the player1Right
-	 */
-	public int getPlayer1Right() {
-		return player1Right;
-	}
-
-	/**
-	 * @param player1Right the player1Right to set
-	 */
-	public void setPlayer1Right(int player1Right) {
-		this.player1Right = player1Right;
-		saveConfig();
-	}
-
-	/**
-	 * @return the player1Down
-	 */
-	public int getPlayer1Down() {
-		return player1Down;
-	}
-
-	/**
-	 * @param player1Down the player1Down to set
-	 */
-	public void setPlayer1Down(int player1Down) {
-		this.player1Down = player1Down;
-		saveConfig();
-	}
-
-	/**
-	 * @return the player1Left
-	 */
-	public int getPlayer1Left() {
-		return player1Left;
-	}
-
-	/**
-	 * @param player1Left the player1Left to set
-	 */
-	public void setPlayer1Left(int player1Left) {
-		this.player1Left = player1Left;
-		saveConfig();
-	}
-
-	/**
-	 * @return the player2Up
-	 */
-	public int getPlayer2Up() {
-		return player2Up;
-	}
-
-	/**
-	 * @param player2Up the player2Up to set
-	 */
-	public void setPlayer2Up(int player2Up) {
-		this.player2Up = player2Up;
-		saveConfig();
-	}
-
-	/**
-	 * @return the player2Right
-	 */
-	public int getPlayer2Right() {
-		return player2Right;
-	}
-
-	/**
-	 * @param player2Right the player2Right to set
-	 */
-	public void setPlayer2Right(int player2Right) {
-		this.player2Right = player2Right;
-		saveConfig();
-	}
-
-	/**
-	 * @return the player2Down
-	 */
-	public int getPlayer2Down() {
-		return player2Down;
-	}
-
-	/**
-	 * @param player2Down the player2Down to set
-	 */
-	public void setPlayer2Down(int player2Down) {
-		this.player2Down = player2Down;
-		saveConfig();
-	}
-
-	/**
-	 * @return the player2Left
-	 */
-	public int getPlayer2Left() {
-		return player2Left;
-	}
-
-	/**
-	 * @param player2Left the player2Left to set
-	 */
-	public void setPlayer2Left(int player2Left) {
-		this.player2Left = player2Left;
-		saveConfig();
-	}
-	
 	public BufferedImage getPlayer1Image() {
 		BufferedImage returnImage = new BufferedImage(14, 14, BufferedImage.TYPE_INT_ARGB);
 		
@@ -187,6 +73,11 @@ public class Config implements Serializable {
 		return returnImage;
 	}
 	
+	/**
+	 * Sets the image used by player 1.
+	 * @param image
+	 * The image to be used by player 1.
+	 */
 	public void setPlayer1Image(BufferedImage image) {
 		if (image.getWidth() != 14 && image.getHeight() != 14) {
 			player1Image = new ImageIcon(image.getScaledInstance(14, 14, Image.SCALE_FAST));
@@ -196,6 +87,11 @@ public class Config implements Serializable {
 		saveConfig();
 	}
 	
+	/**
+	 * Returns the image used by player 2.
+	 * @return
+	 * The image used by player 2.
+	 */
 	public BufferedImage getPlayer2Image() {
 		BufferedImage returnImage = new BufferedImage(14, 14, BufferedImage.TYPE_INT_ARGB);
 		
@@ -205,7 +101,12 @@ public class Config implements Serializable {
 		
 		return returnImage;
 	}
-	
+
+	/**
+	 * Sets the image used by player 2.
+	 * @param image
+	 * The image to be used by player 2.
+	 */
 	public void setPlayer2Image(BufferedImage image) {
 		if (image.getWidth() != 14 && image.getHeight() != 14) {
 			player2Image = new ImageIcon(image.getScaledInstance(14, 14, Image.SCALE_FAST));
@@ -215,24 +116,29 @@ public class Config implements Serializable {
 		saveConfig();
 	}
 	
+	/**
+	 * Gets the key given by a ControlCode.
+	 * @param keyBinding
+	 * @return
+	 */
 	public int getKeyBinding(ControlCode keyBinding) {
 		switch (keyBinding) {
 		case PLAYER1UP:
-			return getPlayer1Up();
+			return player1Up;
 		case PLAYER1RIGHT:
-			return getPlayer1Right();
+			return player1Right;
 		case PLAYER1DOWN:
-			return getPlayer1Down();
+			return player1Down;
 		case PLAYER1LEFT:
-			return getPlayer1Left();
+			return player1Left;
 		case PLAYER2UP:
-			return getPlayer2Up();
+			return player2Up;
 		case PLAYER2RIGHT:
-			return getPlayer2Right();
+			return player2Right;
 		case PLAYER2DOWN:
-			return getPlayer2Down();
+			return player2Down;
 		case PLAYER2LEFT:
-			return getPlayer2Left();
+			return player2Left;
 		default:
 			return 0;
 		}
@@ -241,56 +147,33 @@ public class Config implements Serializable {
 	public void setKeyBinding(ControlCode keyBinding, int keyCode) {
 		switch (keyBinding) {
 		case PLAYER1UP:
-			setPlayer1Up(keyCode);
+			player1Up = keyCode;
 			break;
 		case PLAYER1RIGHT:
-			setPlayer1Right(keyCode);
+			player1Right = keyCode;
 			break;
 		case PLAYER1DOWN:
-			setPlayer1Down(keyCode);
+			player1Down = keyCode;
 			break;
 		case PLAYER1LEFT:
-			setPlayer1Left(keyCode);
+			player1Left = keyCode;
 			break;
 		case PLAYER2UP:
-			setPlayer2Up(keyCode);
+			player2Up = keyCode;
 			break;
 		case PLAYER2RIGHT:
-			setPlayer2Right(keyCode);
+			player2Right = keyCode;
 			break;
 		case PLAYER2DOWN:
-			setPlayer2Down(keyCode);
+			player2Down = keyCode;
 			break;
 		case PLAYER2LEFT:
-			setPlayer2Left(keyCode);
+			player2Left = keyCode;
 			break;
 		default:
 			break;
 		}
 		saveConfig();
-	}
-	
-	public String keyToString(ControlCode keyBinding) {
-		switch (keyBinding) {
-		case PLAYER1UP:
-			return "Player 1 Up";
-		case PLAYER1RIGHT:
-			return "Player 1 Right";
-		case PLAYER1DOWN:
-			return "Player 1 Down";
-		case PLAYER1LEFT:
-			return "Player 1 Left";
-		case PLAYER2UP:
-			return "Player 2 Up";
-		case PLAYER2RIGHT:
-			return "Player 2 Right";
-		case PLAYER2DOWN:
-			return "Player 2 Down";
-		case PLAYER2LEFT:
-			return "Player 2 Left";
-		default:
-			return "UNKNOWN KEYBINDING";
-		}
 	}
 
 	/**
@@ -310,7 +193,6 @@ public class Config implements Serializable {
 	/**
 	 * Loads a config from the config location.
 	 */
-	// TODO: Figure out how to not have this exception.
 	public void loadConfig() {
 		if (doesConfigExist()) {
 			try {
@@ -347,45 +229,7 @@ public class Config implements Serializable {
 	}
 	
 	/**
-	 * Allows the user to input in their config settings through the console.
-	 */
-	// TODO: Use the UI to do this.
-	// TODO: Figure out how to not have this exception.
-	public void editConfig() {
-		// TODO: Get this to work via a function similar to getch() rather than just line by line input.
-		try {
-			System.in.skip(System.in.available());
-			System.out.println("Player 1 Up: ");
-			player1Up = (char)System.in.read();
-			System.in.skip(System.in.available());
-			System.out.println("Player 1 Right: ");
-			player1Right = (char)System.in.read();
-			System.in.skip(System.in.available());
-			System.out.println("Player 1 Down: ");
-			player1Down = (char)System.in.read();
-			System.in.skip(System.in.available());
-			System.out.println("Player 1 Left: ");
-			player1Left = (char)System.in.read();
-			System.in.skip(System.in.available());
-			System.out.println("Player 2 Up: ");
-			player2Up = (char)System.in.read();
-			System.in.skip(System.in.available());
-			System.out.println("Player 2 Right: ");
-			player2Right = (char)System.in.read();
-			System.in.skip(System.in.available());
-			System.out.println("Player 2 Down: ");
-			player2Down = (char)System.in.read();
-			System.in.skip(System.in.available());
-			System.out.println("Player 2 Left: ");
-			player2Left = (char)System.in.read();
-			System.in.skip(System.in.available());
-		} catch (IOException e) {
-			
-		}
-	}
-	
-	/**
-	 * Copies a config object to this object.
+	 * Copies a config object to this object. This is used when loading a config.
 	 * @param c
 	 * The config in question.
 	 */
@@ -436,25 +280,58 @@ public class Config implements Serializable {
 		return image;
 	}
 	
+	/**
+	 * Sets a randomised image for player 1.
+	 */
 	public void setRandomPlayer1Image() {
 		player1Image = new ImageIcon(generateImage(16));
 		saveConfig();
 	}
 	
+	/**
+	 * Sets a randomised image for player 2.
+	 */
 	public void setRandomPlayer2Image() {
 		player2Image = new ImageIcon(generateImage(16));
 		saveConfig();
 	}
 	
+	/**
+	 * Adds a new entry to the leaderboard.
+	 * @param mazeWidth
+	 * The width of the maze.
+	 * @param mazeHeight
+	 * The height of the maze.
+	 * @param mazeSeed
+	 * The seed of the maze.
+	 * @param mazeStrategy
+	 * The strategy used by the maze.
+	 * @param timeMillis
+	 * The time it took the player to clear it (in milliseconds).
+	 * @param movesTaken
+	 * The moves taken by the player.
+	 * @param coinsCollected
+	 * The number of coins the player collected.
+	 */
 	public void addLeaderboardEntry(int mazeWidth, int mazeHeight, long mazeSeed, MazeGenerationStrategy mazeStrategy, int timeMillis, int movesTaken, int coinsCollected) {
 		leaderboard.add(new LeaderboardEntry(mazeWidth, mazeHeight, mazeSeed, mazeStrategy, timeMillis, movesTaken, coinsCollected));
 		saveConfig();
 	}
 	
+	/**
+	 * Returns the leaderboard as an array of LeaderboardEntries.
+	 * @return
+	 * The leaderboard as an array of LeaderboardEntries.
+	 */
 	public LeaderboardEntry[] getLeaderboard() {
 		return leaderboard.toArray(new LeaderboardEntry[leaderboard.size()]);
 	}
 	
+	/**
+	 * Returns the leaderboard as a 2D array of strings.
+	 * @return
+	 * The leaderboard as a 2D array of strings.
+	 */
 	public String[][] getLeaderboardTable() {
 		String[][] leaderboardTable = new String[leaderboard.size()][];
 		for (int i = 0; i < leaderboard.size(); i++) {
@@ -472,6 +349,11 @@ public class Config implements Serializable {
 		return leaderboardTable;
 	}
 	
+	/**
+	 * Deletes a leaderboard entry given its position in the table.
+	 * @param id
+	 * The position of the entry.
+	 */
 	public void deleteLeaderboardEntry(int id) {
 		leaderboard.remove(id);
 		saveConfig();

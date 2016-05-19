@@ -1,8 +1,7 @@
 
-// TODO: Formally decide what this class is.
-// Thomas: I'm using this more as a struct than a class.
 /**
  * A basic class that stores an x and y position.
+ * It should be used more as a copyable struct rather than a class.
  *
  */
 public class Coord {

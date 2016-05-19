@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 /**
@@ -134,18 +133,36 @@ public class Player {
 		this.m = m;
 	}
 	
+	/**
+	 * Gets the number of coins the player has collected.
+	 * @return
+	 * The number of coins the player has collected.
+	 */
 	public int getCoinsCollected() {
 		return coinsCollected;
 	}
 	
+	/**
+	 * Increments the number of coins the player has collected by one.
+	 */
 	public void collectCoin() {
 		coinsCollected++;
 	}
 	
+	/**
+	 * Returns whether the player has finished the game.
+	 * @return
+	 * Whether the player has finished the game.
+	 */
 	public boolean isFinished() {
 		return finished;
 	}
 	
+	/**
+	 * Sets whether the player has finished the game.
+	 * @param finished
+	 * Whether the player has finished the game.
+	 */
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}

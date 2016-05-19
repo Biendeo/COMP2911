@@ -77,7 +77,7 @@ public class UI extends JFrame {
 	private JPanel mazeViewRightPanel;
 	private JLabel timeLabel;
 	private JLabel moveLabel;
-	private UIImageComponent mazeViewImageComponent;
+	private UIMazeViewComponent mazeViewImageComponent;
 	private JPanel mazeViewButtonPanel;
 	private JButton mazeViewQuitButton;
 	private JPanel mainMenuPanel;
@@ -147,9 +147,12 @@ public class UI extends JFrame {
 	private JButton leaderboardDeleteEntryButton;
 	
 	/**
-	 * Creates a UI frame with some basic properties.
+	 * Creates the whole UI system for the program. It initialises every
+	 * frame related to the program.
 	 * @param mazeProgram
 	 * The mazeProgram that runs this.
+	 * @param cfg
+	 * The config that contains user-specific details.
 	 */
 	@SuppressWarnings("serial")
 	public UI(MazeProgram mazeProgram, Config cfg) {
@@ -186,7 +189,7 @@ public class UI extends JFrame {
 		SpringLayout sl_mazeViewLeftPanel = new SpringLayout();
 		mazeViewLeftPanel.setLayout(sl_mazeViewLeftPanel);
 		
-		mazeViewImageComponent = new UIImageComponent(mazeImg, coinImg, coinPartialImg, game);
+		mazeViewImageComponent = new UIMazeViewComponent(mazeImg, coinImg, coinPartialImg, game);
 		sl_mazeViewLeftPanel.putConstraint(SpringLayout.NORTH, mazeViewImageComponent, 0, SpringLayout.NORTH, mazeViewLeftPanel);
 		sl_mazeViewLeftPanel.putConstraint(SpringLayout.WEST, mazeViewImageComponent, 0, SpringLayout.WEST, mazeViewLeftPanel);
 		sl_mazeViewLeftPanel.putConstraint(SpringLayout.SOUTH, mazeViewImageComponent, 0, SpringLayout.SOUTH, mazeViewLeftPanel);
@@ -1126,12 +1129,19 @@ public class UI extends JFrame {
 		return new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
 	}
 	
+	/**
+	 * Presents a UI panel and handles changing a key binding.
+	 * @param keyBinding
+	 * The key to change.
+	 * @param previousKey
+	 * The previous key this binding was set to.
+	 */
 	private void changeKeyBinding(ControlCode keyBinding, int previousKey) {
 		final ControlCode finalKeyBinding = keyBinding;
 		
 		switchPanel("changeKeyBindingPanel");
 		
-		changeKeyBindingChangeLabel.setText("Change key: " + config.keyToString(keyBinding));
+		changeKeyBindingChangeLabel.setText("Change key: " + keyBinding.toString());
 		changeKeyBindingPreviousLabel.setText("Previous: " + KeyEvent.getKeyText(previousKey));
 		
 		changeKeyBindingPanel.grabFocus();
@@ -1179,6 +1189,11 @@ public class UI extends JFrame {
 		});
 	}
 	
+	/**
+	 * Draws the coin image.
+	 * @return
+	 * The coin image.
+	 */
 	private BufferedImage drawCoinImg() {
 		BufferedImage img = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_INT_ARGB);
 		
@@ -1197,6 +1212,11 @@ public class UI extends JFrame {
 		return img;
 	}
 	
+	/**
+	 * Draws the partial coin image.
+	 * @return
+	 * The partial coin image.
+	 */
 	private BufferedImage drawCoinPartialImg() {
 		BufferedImage img = new BufferedImage(tileSize, tileSize, BufferedImage.TYPE_INT_ARGB);
 		
@@ -1214,6 +1234,11 @@ public class UI extends JFrame {
 		return img;
 	}
 	
+	/**
+	 * Adds a row to the leaderboard table.
+	 * @param row
+	 * The table row to add.
+	 */
 	public void addLeaderboardRow(String[] row) {
 		((DefaultTableModel)leaderboardDataTable.getModel()).addRow(row);
 	}

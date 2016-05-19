@@ -5,8 +5,6 @@ public class MazeGame {
 	private ArrayList<Player> players;
 	private boolean isPlaying;
 	
-	// Other game related stuff.
-	
 	/**
 	 * Creates a maze game with some default conditions.
 	 */
@@ -120,6 +118,9 @@ public class MazeGame {
 		return goals;
 	}
 	
+	/**
+	 * Marks all players who are at the goal as finished.
+	 */
 	public void autoFinishPlayers() {
 		for (Player p : players) {
 			if (p.getPos().equals(m.getEnd())) {
@@ -150,10 +151,20 @@ public class MazeGame {
 		return m.getSeed();
 	}
 	
+	/**
+	 * Returns the strategy of the maze generation.
+	 * @return
+	 * The maze generation strategy.
+	 */
 	public MazeGenerationStrategy getGenerationStrategy() {
 		return m.getStrategy();
 	}
 	
+	/**
+	 * Returns an array of all the coins in the maze.
+	 * @return
+	 * An array of all the coins in the maze.
+	 */
 	public Coin[] getCoins() {
 		return m.getCoins();
 	}

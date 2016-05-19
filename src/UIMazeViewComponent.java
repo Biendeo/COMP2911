@@ -3,7 +3,11 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
-public class UIImageComponent extends JComponent {
+/**
+ * A class used to store properties and display the maze.
+ *
+ */
+public class UIMazeViewComponent extends JComponent {
 	private static final long serialVersionUID = 1L;
 	private BufferedImage mazeImg;
 	private BufferedImage coinImg;
@@ -13,13 +17,17 @@ public class UIImageComponent extends JComponent {
 	private int tileSize;
 	
 	/**
-	 * Creates a new UIIageComponent with the rendered maze image and the game.
+	 * Creates a new UIMazeViewComponent.
 	 * @param mazeImg
-	 * The maze image.
+	 * The maze image (can be null and set later).
+	 * @param coinImg
+	 * The image used for a coin.
+	 * @param coinPartialImg
+	 * The image used for a partial coin.
 	 * @param g
 	 * The game.
 	 */
-	public UIImageComponent(BufferedImage mazeImg, BufferedImage coinImg, BufferedImage coinPartialImg, MazeGame g) {
+	public UIMazeViewComponent(BufferedImage mazeImg, BufferedImage coinImg, BufferedImage coinPartialImg, MazeGame g) {
 		setMazeImg(mazeImg);
 		this.coinImg = coinImg;
 		this.coinPartialImg = coinPartialImg;

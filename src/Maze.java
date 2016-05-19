@@ -46,23 +46,14 @@ public abstract class Maze {
 	}
 	
 	/**
-	 * Creates a new maze using a randomised depth-first search.
-	 * 
-	 * This method works by creating a tile at the entry point. Then, each
-	 * side is checked in a random order. If the side doesn't exist, then
-	 * it is created and checked next (added to a stack). When a dead-end
-	 * is reached and all the sides are made, then it pops off the stack
-	 * to a point where it can go again. This will fill the entire map area
-	 * with no holes, and every place is connected. However, a preset end
-	 * location may not always be in a dead-end (but sometimes it can).
-	 * 
+	 * Creates a new maze using a randomised seed.
 	 */
 	public void generateMaze() {
 		generateMaze(new Random().nextLong());
 	}
 	
 	/**
-	 * Creates a new maze using a randomised depth-first search.
+	 * Creates a new maze using the strategy that has been implemented..
 	 * @param seed
 	 * A specific seed for the random generation (the same seed will give the
 	 * same results).
@@ -190,13 +181,29 @@ public abstract class Maze {
 		return seed;
 	}
 	
+	/**
+	 * Returns the strategy used by this maze.
+	 * @return
+	 * The strategy used by this maze.
+	 */
 	public MazeGenerationStrategy getStrategy() {
 		return strategy;
 	}
 	
+	/**
+	 * Returns an array of all the coins in this maze.
+	 * @return
+	 * An array of all the coins in the maze.
+	 */
 	public Coin[] getCoins() {
 		return coins.toArray(new Coin[coins.size()]);
 	}
 	
+	/**
+	 * Generates coins around the maze. This should place one coin for every
+	 * twenty spaces on the maze.
+	 * @param rand
+	 * The random number generator (should consistent with the same seed).
+	 */
 	protected abstract void placeCoins(Random rand);
 }

@@ -17,7 +17,7 @@ public class MazeProgram {
 	private Config cfg;
 	private MazeGame g;
 	private UI frame;
-	private UIKeyGetter keyGet;
+	private UIMazeKeyListener keyGet;
 	
 	private Timer refresh;
 	
@@ -34,7 +34,7 @@ public class MazeProgram {
 		// g will be null initially.
 		// frame will be null initially.
 		
-		keyGet = new UIKeyGetter(this);
+		keyGet = new UIMazeKeyListener(this);
 
 		refresh = new Timer(refreshTime, keyGet);
 		refresh.start();
@@ -68,21 +68,6 @@ public class MazeProgram {
 	}
 	
 	/**
-	 * Reads the program arguments and runs additional settings.
-	 * @param args
-	 * The program arguments.
-	 */
-	public void parseInputs(String[] args) {
-		for (String arg : args) {
-			if (arg.equals("-cfg")) {
-				cfg.loadConfig();
-				cfg.editConfig();
-				cfg.saveConfig();
-			}
-		}
-	}
-	
-	/**
 	 * Responds to a KeyEvent.
 	 * @param ke
 	 * The key event.
@@ -94,25 +79,25 @@ public class MazeProgram {
 			int keyCode = ke.getKeyCode();
 			try {
 				if (players.length >= 1 && !players[0].isFinished()) {
-					if (keyCode == cfg.getPlayer1Up()) {
+					if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER1UP)) {
 						players[0].move(Direction.UP);
-					} else if (keyCode == cfg.getPlayer1Right()) {
+					} else if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER1RIGHT)) {
 						players[0].move(Direction.RIGHT);
-					} else if (keyCode == cfg.getPlayer1Down()) {
+					} else if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER1DOWN)) {
 						players[0].move(Direction.DOWN);
-					} else if (keyCode == cfg.getPlayer1Left()) {
+					} else if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER1LEFT)) {
 						players[0].move(Direction.LEFT);
 					}
 				}
 				
 				if (players.length >= 2 && !players[1].isFinished()) {
-					if (keyCode == cfg.getPlayer2Up()) {
+					if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER2UP)) {
 						players[1].move(Direction.UP);
-					} else if (keyCode == cfg.getPlayer2Right()) {
+					} else if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER1RIGHT)) {
 						players[1].move(Direction.RIGHT);
-					} else if (keyCode == cfg.getPlayer2Down()) {
+					} else if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER2DOWN)) {
 						players[1].move(Direction.DOWN);
-					} else if (keyCode == cfg.getPlayer2Left()) {
+					} else if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER2LEFT)) {
 						players[1].move(Direction.LEFT);
 					}
 				}
@@ -246,7 +231,6 @@ public class MazeProgram {
 	
 	public static void main(String[] args) {
 		MazeProgram p = new MazeProgram();
-		p.parseInputs(args);
 		p.run();
 	}
 

@@ -1,16 +1,32 @@
 import java.util.Random;
 import java.util.Stack;
 
+/**
+ * Implements the maze generation strategy as a randomised depth first search.
+ *
+ */
 public class DepthFirstSearchMaze extends Maze {
+	
+	/**
+	 * Creates a new maze using the Depth First Search strategy.
+	 * @param width
+	 * The width of the maze.
+	 * @param height
+	 * The height of the maze.
+	 */
 	public DepthFirstSearchMaze(int width, int height) {
 		super(width, height);
 		strategy = MazeGenerationStrategy.DEPTHFIRSTSEARCH;
 	}
-	
-	/**
-	 * The process to creating a maze using a randomised depth-first search.
-	 * @param rand
-	 * The random generator.
+
+	/* 
+	 * This method works by creating a tile at the entry point. Then, each
+	 * side is checked in a random order. If the side doesn't exist, then
+	 * it is created and checked next (added to a stack). When a dead-end
+	 * is reached and all the sides are made, then it pops off the stack
+	 * to a point where it can go again. This will fill the entire map area
+	 * with no holes, and every place is connected. However, a preset end
+	 * location may not always be in a dead-end (but sometimes it can).
 	 */
 	public void generateMaze(long seed) {
 		this.seed = seed;
@@ -121,7 +137,7 @@ public class DepthFirstSearchMaze extends Maze {
 			return Direction.LEFT;
 		}
 	}
-
+	
 	protected void placeCoins(Random rand) {
 		int totalCoins = width * height / 20;
 		

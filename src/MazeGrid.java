@@ -1,9 +1,8 @@
 
-// TODO: Formally decide what this class is.
-// Thomas: I'm using this more as a struct than a class.
 /**
  * A basic class that stores whether a space is connected in any direction.
  * It is all that is necessary to define the maze.
+ * It shoud be used more as a copyable struct rather than a class.
  *
  */
 public class MazeGrid {
