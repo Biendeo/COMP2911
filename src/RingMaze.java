@@ -52,17 +52,50 @@ public class RingMaze extends Maze {
 					maze[x][y].top = true;
 					maze[x][y].bottom = true;
 				}
-				
-				if (x + 1 == width / 2) {
-					if (y % 2 == 0) {
-						maze[x][y].right = false;
-						maze[x + 1][y].left = false;
-					}
-				} else if (y + 1 == height / 2) {
-					if (x % 2 == 1) {
-						maze[x][y].bottom = false;
-						maze[x][y + 1].top = false;
-					}
+			}
+		}
+		
+		// Add in the set boundaries on each ring.
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (x + 1 == width / 2 && y < height / 2 && y % 2 == 0) {
+					maze[x][y].right = false;
+					maze[x + 1][y].left = false;
+				} else if (x + 1 == width / 2 && y >= height / 2 && (height - y - 1) % 2 == 0) {
+					maze[x][y].right = false;
+					maze[x + 1][y].left = false;
+				} else if (y + 1 == height / 2 && x < width / 2 && x % 2 == 1) {
+					maze[x][y].bottom = false;
+					maze[x][y + 1].top = false;
+				} else if (y + 1 == height / 2 && x >= width / 2 && (width - x - 1) % 2 == 1) {
+					maze[x][y].bottom = false;
+					maze[x][y + 1].top = false;
+				}
+			}
+		}
+		
+		// Then go through a random process to create pathways.
+		int rings = 0;
+		if (width < height) {
+			rings = width - 1;
+		} else {
+			rings = height - 1;
+		}
+		
+		Coord c = new Coord(0, 0);
+		
+		for (int i = 0; i < rings; i++) {
+			if (i % 2 == 0) {
+				c.x = i;
+				if (i < rings / 2) {
+					c.y = i + rand.nextInt(height - (2 * i));
+				}
+				maze[c.x][c.y].right = true;
+				maze[c.x + 1][c.y].left = true;
+			} else {
+				c.y = i;
+				if (i < rings / 2) {
+					c.x = i + rand.nextInt(width - (2 * i));
 				}
 			}
 		}
