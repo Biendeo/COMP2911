@@ -880,6 +880,7 @@ public class UI extends JFrame {
 					break;
 				case PRIMS:
 					customGameSetupPrimsRadio.setSelected(true);
+					break;
 				default:
 					break;
 				}

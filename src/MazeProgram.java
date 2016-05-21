@@ -1,6 +1,7 @@
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -103,6 +104,12 @@ public class MazeProgram {
 				// Do nothing.
 			}
 			
+			ArrayList<Boolean> hasFinished = new ArrayList<Boolean>();
+			
+			for (Player p : players) {
+				hasFinished.add(new Boolean(p.isFinished()));
+			}
+			
 			g.autoFinishPlayers();
 			
 			for (int i = 0; i < players.length; i++) {
@@ -123,14 +130,6 @@ public class MazeProgram {
 				g.setPlaying(false);
 			}
 			
-			// TODO: This needs to work much better with more than one player.
-			if (g.getPlayersAtGoal() > 0) {
-				JOptionPane.showMessageDialog(null, "You won! You're awesome!", "Winner winner chicken dinner", JOptionPane.PLAIN_MESSAGE);
-				cfg.addLeaderboardEntry(g.getMaze().getWidth(), g.getMaze().getHeight(), g.getSeed(), g.getGenerationStrategy(), g.getPlayers()[0].getMillisecondsTaken(), g.getPlayers()[0].getTotalMoves(), g.getPlayers()[0].getCoinsCollected());
-				// TODO: This line is not very good.
-				frame.addLeaderboardRow(cfg.getLeaderboardTable()[cfg.getLeaderboardTable().length - 1]);
-			}
-			
 			if (players[0].getTotalMoves() == 1) {
 				frame.setMoveText(Integer.toString(players[0].getTotalMoves()) + " move");
 			} else {
@@ -143,6 +142,21 @@ public class MazeProgram {
 				frame.setCoinText(Integer.toString(players[0].getCoinsCollected()) + " coins");
 			}
 			frame.repaint();
+			
+			for (int i = 0; i < players.length; i++) {
+				if (!hasFinished.get(i).equals(players[i].isFinished())) {
+					if (players.length == 1) {
+						JOptionPane.showMessageDialog(null, "You won!", "Winner!", JOptionPane.PLAIN_MESSAGE);
+					} else if (i == 0) {
+						JOptionPane.showMessageDialog(null, "Player 1 has finished!", "Winner!", JOptionPane.PLAIN_MESSAGE);
+					} else if (i == 1) {
+						JOptionPane.showMessageDialog(null, "Player 2 has finished!", "Winner!", JOptionPane.PLAIN_MESSAGE);
+					}
+					
+					cfg.addLeaderboardEntry(g.getMaze().getWidth(), g.getMaze().getHeight(), g.getSeed(), g.getGenerationStrategy(), players[i].getMillisecondsTaken(), players[i].getTotalMoves(), players[i].getCoinsCollected());
+					frame.addLeaderboardRow(cfg.getLeaderboardTable()[cfg.getLeaderboardTable().length - 1]);
+				}
+			}
 		}
 	}
 	
