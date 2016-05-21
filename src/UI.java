@@ -67,45 +67,19 @@ public class UI extends JFrame {
 	
 	// The size of tiles used in the program (both width and height).
 	private int tileSize;
-	
-	// A tonne of JComponents for the UI. They're all named appropriately.
-	private JPanel mazeViewLeftPanel;
-	private JPanel mazeViewRightPanel;
 	private JLabel timeLabel;
 	private JLabel moveLabel;
 	private UIMazeViewComponent mazeViewImageComponent;
-	private JPanel mazeViewButtonPanel;
-	private JButton mazeViewQuitButton;
-	private JPanel mainMenuPanel;
-	private JPanel mainMenuContentPanel;
-	private JButton mainMenuExitButton;
 	private JPanel mainPanel;
-	private JPanel mazeViewPanel;
-	private JButton mainMenuUserSettingsButton;
-	private JButton mainMenuCustomGameButton;
-	private JButton mainMenuInstantActionButton;
-	private JPanel mainMenuButtonPanelCentral;
-	private JLabel mainMenuTitleLabel;
-	private JPanel mainMenuButtonPanel;
 	private CardLayout mainPanelCardLayout;
 	private JLabel mazeViewPauseLabel;
-	private JPanel customGameSetupPanel;
 	private JTextField customGameSetupSeedField;
 	private JTextField customGameSetupSizeXField;
 	private JTextField customGameSetupSizeYField;
-	private JLabel customGameSetupSizeLabel;
-	private JPanel customGameSetupPlayerPanel;
-	private JPanel customGameSetupDefaultPanel;
-	private JPanel customGameSetupButtonPanel;
 	private JLabel seedLabel;
-	private JLabel customGameSetupDifficultyLabel;
-	private JRadioButton customGameSetupDifficultyEasyRadio;
-	private JRadioButton customGameSetupDifficultyMediumRadio;
-	private JRadioButton customGameSetupDifficultyHardRadio;
 	private JRadioButton customGameSetupDiffcultyCustomRadio;
 	private JRadioButton customGameSetupPlayers1Radio;
 	private JRadioButton customGameSetupPlayers2Radio;
-	private JPanel userSettingsPanel;
 	private JButton userSettingsPlayer1LeftButton;
 	private JButton userSettingsPlayer1DownButton;
 	private JButton userSettingsPlayer1RightButton;
@@ -113,33 +87,17 @@ public class UI extends JFrame {
 	private JLabel changeKeyBindingChangeLabel;
 	private JLabel changeKeyBindingPreviousLabel;
 	private JButton userSettingsPlayer1UpButton;
-	private JPanel userSettingsButtonPanel;
-	private JButton userSettingsBackButton;
-	private JPanel userSettingsPlayer2Panel;
 	private JButton userSettingsPlayer2UpButton;
 	private JButton userSettingsPlayer2LeftButton;
 	private JButton userSettingsPlayer2DownButton;
 	private JButton userSettingsPlayer2RightButton;
-	private JPanel userSettingsPlayer1ImagePanel;
 	private JComponent userSettingsPlayer1Image;
-	private JButton userSettingsPlayer1ImageChooseButton;
-	private JButton userSettingsPlayer1ImageRandomiseButton;
-	private JPanel userSettingsPlayer2ImagePanel;
 	private JComponent userSettingsPlayer2Image;
-	private JButton userSettingsPlayer2ImageChooseButton;
-	private JButton userSettingsPlayer2ImageRandomiseButton;
-	private JPanel customGameSetupStrategyPanel;
-	private JLabel customGameSetupStrategyLabel;
 	private JRadioButton customGameSetupDFSRadio;
 	private JRadioButton customGameSetupPrimsRadio;
 	private JLabel coinLabel;
 	private JRadioButton customGameSetupRingRadio;
-	private JButton mainMenuLeaderboardButton;
-	private JPanel leaderboardPanel;
 	private JTable leaderboardDataTable;
-	private JScrollPane leaderboardDataPanel;
-	private JPanel leaderboardButtonPanel;
-	private JButton leaderboardBackButton;
 	private JButton leaderboardChallengeButton;
 	private JButton leaderboardDeleteEntryButton;
 	
@@ -172,12 +130,12 @@ public class UI extends JFrame {
 		mainPanelCardLayout = new CardLayout(0, 0);
 		mainPanel.setLayout(mainPanelCardLayout);
 		
-		mazeViewPanel = new JPanel();
+		JPanel mazeViewPanel = new JPanel();
 		mainPanel.add(mazeViewPanel, "mazeViewPanel");
 		SpringLayout sl_mazeViewPanel = new SpringLayout();
 		mazeViewPanel.setLayout(sl_mazeViewPanel);
 		
-		mazeViewLeftPanel = new JPanel();
+		JPanel mazeViewLeftPanel = new JPanel();
 		sl_mazeViewPanel.putConstraint(SpringLayout.NORTH, mazeViewLeftPanel, 10, SpringLayout.NORTH, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.WEST, mazeViewLeftPanel, 10, SpringLayout.WEST, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.SOUTH, mazeViewLeftPanel, -10, SpringLayout.SOUTH, mazeViewPanel);
@@ -193,7 +151,7 @@ public class UI extends JFrame {
 		sl_mazeViewLeftPanel.putConstraint(SpringLayout.EAST, mazeViewImageComponent, 0, SpringLayout.EAST, mazeViewLeftPanel);
 		mazeViewLeftPanel.add(mazeViewImageComponent);
 		
-		mazeViewRightPanel = new JPanel();
+		JPanel mazeViewRightPanel = new JPanel();
 		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, mazeViewRightPanel, -10, SpringLayout.EAST, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.EAST, mazeViewLeftPanel, -10, SpringLayout.WEST, mazeViewRightPanel);
 		
@@ -232,7 +190,7 @@ public class UI extends JFrame {
 		seedLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		mazeViewRightPanel.add(seedLabel);
 		
-		mazeViewButtonPanel = new JPanel();
+		JPanel mazeViewButtonPanel = new JPanel();
 		mazeViewRightPanel.add(mazeViewButtonPanel);
 		mazeViewButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -245,7 +203,7 @@ public class UI extends JFrame {
 			}
 		});
 		
-		mazeViewQuitButton = new JButton("Quit");
+		JButton mazeViewQuitButton = new JButton("Quit");
 		mazeViewQuitButton.setToolTipText("Quits back to the main menu.");
 		mazeViewButtonPanel.add(mazeViewQuitButton);
 		
@@ -258,12 +216,12 @@ public class UI extends JFrame {
 			}
 		});
 		
-		mainMenuPanel = new JPanel();
+		JPanel mainMenuPanel = new JPanel();
 		mainPanel.add(mainMenuPanel, "mainMenuPanel");
 		SpringLayout sl_mainMenuPanel = new SpringLayout();
 		mainMenuPanel.setLayout(sl_mainMenuPanel);
 		
-		mainMenuContentPanel = new JPanel();
+		JPanel mainMenuContentPanel = new JPanel();
 		sl_mainMenuPanel.putConstraint(SpringLayout.NORTH, mainMenuContentPanel, 10, SpringLayout.NORTH, mainMenuPanel);
 		sl_mainMenuPanel.putConstraint(SpringLayout.WEST, mainMenuContentPanel, 10, SpringLayout.WEST, mainMenuPanel);
 		sl_mainMenuPanel.putConstraint(SpringLayout.SOUTH, mainMenuContentPanel, -10, SpringLayout.SOUTH, mainMenuPanel);
@@ -272,7 +230,7 @@ public class UI extends JFrame {
 		SpringLayout sl_mainMenuContentPanel = new SpringLayout();
 		mainMenuContentPanel.setLayout(sl_mainMenuContentPanel);
 		
-		mainMenuButtonPanel = new JPanel();
+		JPanel mainMenuButtonPanel = new JPanel();
 		sl_mainMenuContentPanel.putConstraint(SpringLayout.NORTH, mainMenuButtonPanel, -150, SpringLayout.SOUTH, mainMenuContentPanel);
 		sl_mainMenuContentPanel.putConstraint(SpringLayout.WEST, mainMenuButtonPanel, 0, SpringLayout.WEST, mainMenuContentPanel);
 		sl_mainMenuContentPanel.putConstraint(SpringLayout.SOUTH, mainMenuButtonPanel, 0, SpringLayout.SOUTH, mainMenuContentPanel);
@@ -280,11 +238,11 @@ public class UI extends JFrame {
 		mainMenuContentPanel.add(mainMenuButtonPanel);
 		mainMenuButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		mainMenuButtonPanelCentral = new JPanel();
+		JPanel mainMenuButtonPanelCentral = new JPanel();
 		mainMenuButtonPanel.add(mainMenuButtonPanelCentral);
 		mainMenuButtonPanelCentral.setLayout(new GridLayout(5, 1, 0, 0));
 		
-		mainMenuInstantActionButton = new JButton("Instant Action");
+		JButton mainMenuInstantActionButton = new JButton("Instant Action");
 		mainMenuButtonPanelCentral.add(mainMenuInstantActionButton);
 		mainMenuInstantActionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -292,7 +250,7 @@ public class UI extends JFrame {
 			}
 		});
 		
-		mainMenuCustomGameButton = new JButton("Custom Game");
+		JButton mainMenuCustomGameButton = new JButton("Custom Game");
 		mainMenuButtonPanelCentral.add(mainMenuCustomGameButton);
 		mainMenuCustomGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -300,10 +258,10 @@ public class UI extends JFrame {
 			}
 		});
 		
-		mainMenuUserSettingsButton = new JButton("User Settings");
+		JButton mainMenuUserSettingsButton = new JButton("User Settings");
 		mainMenuButtonPanelCentral.add(mainMenuUserSettingsButton);
 		
-		mainMenuLeaderboardButton = new JButton("Leaderboard");
+		JButton mainMenuLeaderboardButton = new JButton("Leaderboard");
 		mainMenuButtonPanelCentral.add(mainMenuLeaderboardButton);
 		mainMenuLeaderboardButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -311,10 +269,10 @@ public class UI extends JFrame {
 			}
 		});
 		
-		mainMenuExitButton = new JButton("Exit");
+		JButton mainMenuExitButton = new JButton("Exit");
 		mainMenuButtonPanelCentral.add(mainMenuExitButton);
 		
-		mainMenuTitleLabel = new JLabel("Maze Game");
+		JLabel mainMenuTitleLabel = new JLabel("Maze Game");
 		sl_mainMenuContentPanel.putConstraint(SpringLayout.NORTH, mainMenuTitleLabel, 0, SpringLayout.NORTH, mainMenuContentPanel);
 		sl_mainMenuContentPanel.putConstraint(SpringLayout.WEST, mainMenuTitleLabel, 0, SpringLayout.WEST, mainMenuContentPanel);
 		sl_mainMenuContentPanel.putConstraint(SpringLayout.SOUTH, mainMenuTitleLabel, 0, SpringLayout.NORTH, mainMenuButtonPanel);
@@ -335,12 +293,12 @@ public class UI extends JFrame {
 			
 		});
 		
-		customGameSetupPanel = new JPanel();
+		JPanel customGameSetupPanel = new JPanel();
 		mainPanel.add(customGameSetupPanel, "customGameSetupPanel");
 		SpringLayout sl_customGameSetupPanel = new SpringLayout();
 		customGameSetupPanel.setLayout(sl_customGameSetupPanel);
 		
-		customGameSetupDefaultPanel = new JPanel();
+		JPanel customGameSetupDefaultPanel = new JPanel();
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupDefaultPanel, 10, SpringLayout.NORTH, customGameSetupPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupDefaultPanel, 10, SpringLayout.WEST, customGameSetupPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupDefaultPanel, 50, SpringLayout.NORTH, customGameSetupPanel);
@@ -349,10 +307,10 @@ public class UI extends JFrame {
 		
 		ButtonGroup customGameDifficultyGroup = new ButtonGroup();
 		
-		customGameSetupDifficultyLabel = new JLabel("Difficulty:");
+		JLabel customGameSetupDifficultyLabel = new JLabel("Difficulty:");
 		customGameSetupDefaultPanel.add(customGameSetupDifficultyLabel);
 		
-		customGameSetupDifficultyEasyRadio = new JRadioButton("Easy");
+		JRadioButton customGameSetupDifficultyEasyRadio = new JRadioButton("Easy");
 		customGameSetupDifficultyEasyRadio.setSelected(true);
 		customGameSetupDefaultPanel.add(customGameSetupDifficultyEasyRadio);
 		customGameDifficultyGroup.add(customGameSetupDifficultyEasyRadio);
@@ -371,7 +329,7 @@ public class UI extends JFrame {
 			}
 		});
 		
-		customGameSetupDifficultyMediumRadio = new JRadioButton("Medium");
+		JRadioButton customGameSetupDifficultyMediumRadio = new JRadioButton("Medium");
 		customGameSetupDefaultPanel.add(customGameSetupDifficultyMediumRadio);
 		customGameDifficultyGroup.add(customGameSetupDifficultyMediumRadio);
 		customGameSetupDifficultyMediumRadio.addActionListener(new ActionListener() {
@@ -389,7 +347,7 @@ public class UI extends JFrame {
 			}
 		});
 		
-		customGameSetupDifficultyHardRadio = new JRadioButton("Hard");
+		JRadioButton customGameSetupDifficultyHardRadio = new JRadioButton("Hard");
 		customGameSetupDefaultPanel.add(customGameSetupDifficultyHardRadio);
 		customGameDifficultyGroup.add(customGameSetupDifficultyHardRadio);
 		customGameSetupDifficultyHardRadio.addActionListener(new ActionListener() {
@@ -416,7 +374,6 @@ public class UI extends JFrame {
 				customGameSetupSizeYField.setEnabled(true);
 				customGameSetupDFSRadio.setEnabled(true);
 				customGameSetupRingRadio.setEnabled(true);
-				customGameSetupPrimsRadio.setSelected(true);
 				customGameSetupPrimsRadio.setEnabled(true);
 			}
 		});
@@ -429,7 +386,7 @@ public class UI extends JFrame {
 		customGameSetupPanel.add(customGameSetupSizePanel);
 		customGameSetupSizePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		customGameSetupSizeLabel = new JLabel("Size:");
+		JLabel customGameSetupSizeLabel = new JLabel("Size:");
 		customGameSetupSizePanel.add(customGameSetupSizeLabel);
 		
 		customGameSetupSizeXField = new JTextField();
@@ -447,7 +404,7 @@ public class UI extends JFrame {
 		customGameSetupSizePanel.add(customGameSetupSizeYField);
 		customGameSetupSizeYField.setColumns(5);
 		
-		customGameSetupStrategyPanel = new JPanel();
+		JPanel customGameSetupStrategyPanel = new JPanel();
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupStrategyPanel, 10, SpringLayout.SOUTH, customGameSetupSizePanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupStrategyPanel, 10, SpringLayout.WEST, customGameSetupPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupStrategyPanel, 50, SpringLayout.SOUTH, customGameSetupSizePanel);
@@ -462,7 +419,7 @@ public class UI extends JFrame {
 		
 		ButtonGroup customGameStrategyGroup = new ButtonGroup();
 		
-		customGameSetupStrategyLabel = new JLabel("Strategy:");
+		JLabel customGameSetupStrategyLabel = new JLabel("Strategy:");
 		customGameSetupStrategyPanel.add(customGameSetupStrategyLabel);
 		
 		customGameSetupDFSRadio = new JRadioButton("DFS");
@@ -491,7 +448,7 @@ public class UI extends JFrame {
 		customGameSetupSeedPanel.add(customGameSetupSeedField);
 		customGameSetupSeedField.setColumns(10);
 		
-		customGameSetupPlayerPanel = new JPanel();
+		JPanel customGameSetupPlayerPanel = new JPanel();
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupPlayerPanel, 10, SpringLayout.SOUTH, customGameSetupSeedPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupPlayerPanel, 10, SpringLayout.WEST, customGameSetupPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupPlayerPanel, 50, SpringLayout.SOUTH, customGameSetupSeedPanel);
@@ -512,7 +469,7 @@ public class UI extends JFrame {
 		customGameSetupPlayerPanel.add(customGameSetupPlayers2Radio);
 		customGamePlayerButtonGroup.add(customGameSetupPlayers2Radio);
 		
-		customGameSetupButtonPanel = new JPanel();
+		JPanel customGameSetupButtonPanel = new JPanel();
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupButtonPanel, -50, SpringLayout.SOUTH, customGameSetupPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupButtonPanel, 10, SpringLayout.WEST, customGameSetupPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupButtonPanel, -10, SpringLayout.SOUTH, customGameSetupPanel);
@@ -561,7 +518,7 @@ public class UI extends JFrame {
 		
 		sl_customGameSetupPanel.putConstraint(SpringLayout.NORTH, customGameSetupPlayButton, 0, SpringLayout.NORTH, customGameSetupBackButton);
 		
-		userSettingsPanel = new JPanel();
+		JPanel userSettingsPanel = new JPanel();
 		mainPanel.add(userSettingsPanel, "userSettingsPanel");
 		SpringLayout sl_userSettingsPanel = new SpringLayout();
 		userSettingsPanel.setLayout(sl_userSettingsPanel);
@@ -625,14 +582,14 @@ public class UI extends JFrame {
 			}
 		});
 		
-		userSettingsPlayer1ImagePanel = new JPanel();
+		JPanel userSettingsPlayer1ImagePanel = new JPanel();
 		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsPlayer1ImagePanel, 10, SpringLayout.SOUTH, userSettingsPlayer1Panel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsPlayer1ImagePanel, 10, SpringLayout.WEST, userSettingsPanel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer1ImagePanel, 50, SpringLayout.SOUTH, userSettingsPlayer1Panel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.EAST, userSettingsPlayer1ImagePanel, -10, SpringLayout.EAST, userSettingsPanel);
 		userSettingsPanel.add(userSettingsPlayer1ImagePanel);
 		
-		userSettingsPlayer2Panel = new JPanel();
+		JPanel userSettingsPlayer2Panel = new JPanel();
 		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsPlayer2Panel, 10, SpringLayout.SOUTH, userSettingsPlayer1ImagePanel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsPlayer2Panel, 10, SpringLayout.WEST, userSettingsPanel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer2Panel, 80, SpringLayout.SOUTH, userSettingsPlayer1ImagePanel);
@@ -649,7 +606,7 @@ public class UI extends JFrame {
 		userSettingsPlayer1Image.setPreferredSize(new Dimension(14, 14));
 		userSettingsPlayer1ImagePanel.add(userSettingsPlayer1Image);
 		
-		userSettingsPlayer1ImageChooseButton = new JButton("Choose");
+		JButton userSettingsPlayer1ImageChooseButton = new JButton("Choose");
 		userSettingsPlayer1ImagePanel.add(userSettingsPlayer1ImageChooseButton);
 		userSettingsPlayer1ImageChooseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -664,7 +621,7 @@ public class UI extends JFrame {
 			}
 		});
 		
-		userSettingsPlayer1ImageRandomiseButton = new JButton("Randomise");
+		JButton userSettingsPlayer1ImageRandomiseButton = new JButton("Randomise");
 		userSettingsPlayer1ImagePanel.add(userSettingsPlayer1ImageRandomiseButton);
 		sl_userSettingsPanel.putConstraint(SpringLayout.EAST, userSettingsPlayer2Panel, -10, SpringLayout.EAST, userSettingsPanel);
 		userSettingsPanel.add(userSettingsPlayer2Panel);
@@ -726,7 +683,7 @@ public class UI extends JFrame {
 			}
 		});
 		
-		userSettingsPlayer2ImagePanel = new JPanel();
+		JPanel userSettingsPlayer2ImagePanel = new JPanel();
 		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsPlayer2ImagePanel, 10, SpringLayout.SOUTH, userSettingsPlayer2Panel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsPlayer2ImagePanel, 10, SpringLayout.WEST, userSettingsPanel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsPlayer2ImagePanel, 50, SpringLayout.SOUTH, userSettingsPlayer2Panel);
@@ -745,7 +702,7 @@ public class UI extends JFrame {
 		userSettingsPlayer2Image.setPreferredSize(new Dimension(14, 14));
 		userSettingsPlayer2ImagePanel.add(userSettingsPlayer2Image);
 		
-		userSettingsPlayer2ImageChooseButton = new JButton("Choose");
+		JButton userSettingsPlayer2ImageChooseButton = new JButton("Choose");
 		userSettingsPlayer2ImagePanel.add(userSettingsPlayer2ImageChooseButton);
 		userSettingsPlayer2ImageChooseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -761,7 +718,7 @@ public class UI extends JFrame {
 			}
 		});
 		
-		userSettingsPlayer2ImageRandomiseButton = new JButton("Randomise");
+		JButton userSettingsPlayer2ImageRandomiseButton = new JButton("Randomise");
 		userSettingsPlayer2ImagePanel.add(userSettingsPlayer2ImageRandomiseButton);
 		userSettingsPlayer2ImageRandomiseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -770,7 +727,7 @@ public class UI extends JFrame {
 			}
 		});
 		
-		userSettingsButtonPanel = new JPanel();
+		JPanel userSettingsButtonPanel = new JPanel();
 		sl_userSettingsPanel.putConstraint(SpringLayout.NORTH, userSettingsButtonPanel, -50, SpringLayout.SOUTH, userSettingsPanel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.WEST, userSettingsButtonPanel, 10, SpringLayout.WEST, userSettingsPanel);
 		sl_userSettingsPanel.putConstraint(SpringLayout.SOUTH, userSettingsButtonPanel, -10, SpringLayout.SOUTH, userSettingsPanel);
@@ -778,7 +735,7 @@ public class UI extends JFrame {
 		userSettingsPanel.add(userSettingsButtonPanel);
 		userSettingsButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		userSettingsBackButton = new JButton("Back");
+		JButton userSettingsBackButton = new JButton("Back");
 		userSettingsButtonPanel.add(userSettingsBackButton);
 		userSettingsBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -809,18 +766,18 @@ public class UI extends JFrame {
 		sl_changeKeyBindingPanel.putConstraint(SpringLayout.EAST, changeKeyBindingPreviousLabel, -10, SpringLayout.EAST, changeKeyBindingPanel);
 		changeKeyBindingPanel.add(changeKeyBindingPreviousLabel);
 		
-		leaderboardPanel = new JPanel();
+		JPanel leaderboardPanel = new JPanel();
 		mainPanel.add(leaderboardPanel, "leaderboardPanel");
 		SpringLayout sl_leaderboardPanel = new SpringLayout();
 		leaderboardPanel.setLayout(sl_leaderboardPanel);
 		
-		leaderboardDataPanel = new JScrollPane();
+		JScrollPane leaderboardDataPanel = new JScrollPane();
 		sl_leaderboardPanel.putConstraint(SpringLayout.NORTH, leaderboardDataPanel, 10, SpringLayout.NORTH, leaderboardPanel);
 		sl_leaderboardPanel.putConstraint(SpringLayout.WEST, leaderboardDataPanel, 10, SpringLayout.WEST, leaderboardPanel);
 		sl_leaderboardPanel.putConstraint(SpringLayout.EAST, leaderboardDataPanel, -10, SpringLayout.EAST, leaderboardPanel);
 		leaderboardPanel.add(leaderboardDataPanel);
 		
-		leaderboardButtonPanel = new JPanel();
+		JPanel leaderboardButtonPanel = new JPanel();
 		sl_leaderboardPanel.putConstraint(SpringLayout.NORTH, leaderboardButtonPanel, -50, SpringLayout.SOUTH, leaderboardPanel);
 		sl_leaderboardPanel.putConstraint(SpringLayout.SOUTH, leaderboardDataPanel, -10, SpringLayout.NORTH, leaderboardButtonPanel);
 		
@@ -851,7 +808,7 @@ public class UI extends JFrame {
 		leaderboardPanel.add(leaderboardButtonPanel);
 		leaderboardButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		leaderboardBackButton = new JButton("Back");
+		JButton leaderboardBackButton = new JButton("Back");
 		leaderboardButtonPanel.add(leaderboardBackButton);
 		leaderboardBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
