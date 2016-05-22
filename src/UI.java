@@ -423,6 +423,7 @@ public class UI extends JFrame {
 		customGameSetupStrategyPanel.add(customGameSetupStrategyLabel);
 		
 		customGameSetupDFSRadio = new JRadioButton("DFS");
+		customGameSetupDFSRadio.setToolTipText("A basic randomised maze.");
 		customGameSetupDFSRadio.setSelected(true);
 		customGameSetupStrategyPanel.add(customGameSetupDFSRadio);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupSeedPanel, -10, SpringLayout.EAST, customGameSetupPanel);
@@ -432,11 +433,13 @@ public class UI extends JFrame {
 		customGameSetupDFSRadio.setEnabled(false);
 		
 		customGameSetupPrimsRadio = new JRadioButton("Prims");
+		customGameSetupPrimsRadio.setToolTipText("A complex maze.");
 		customGameSetupStrategyPanel.add(customGameSetupPrimsRadio);
 		customGameStrategyGroup.add(customGameSetupPrimsRadio);
 		customGameSetupPrimsRadio.setEnabled(false);
 		
-		customGameSetupRingRadio = new JRadioButton("Ring (NOT FINISHED)");
+		customGameSetupRingRadio = new JRadioButton("Ring");
+		customGameSetupRingRadio.setToolTipText("A unique ringed maze that journeys in and out of the centre.");
 		customGameSetupStrategyPanel.add(customGameSetupRingRadio);
 		customGameStrategyGroup.add(customGameSetupRingRadio);
 		customGameSetupRingRadio.setEnabled(false);

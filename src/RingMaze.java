@@ -27,28 +27,28 @@ public class RingMaze extends Maze {
 		
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				if (x == y && (x < width / 2 || y < height / 2)) {
+				if (x == y && (x < width / 2 && y < height / 2)) {
 					maze[x][y].bottom = true;
 					maze[x][y].right = true;
-				} else if (width - x - 1 == y && (x >= width / 2 || y < height / 2)) {
+				} else if (width - x - 1 == y && (x >= width / 2 && y < height / 2)) {
 					maze[x][y].bottom = true;
 					maze[x][y].left = true;
-				} else if (x == height - y - 1 && (x < width / 2 || y >= height / 2)) {
+				} else if (x == height - y - 1 && (x < width / 2 && y >= height / 2)) {
 					maze[x][y].top = true;
 					maze[x][y].right = true;
-				} else if (width - x - 1 == height - y - 1 && (x >= width / 2 || y >= height / 2)) {
+				} else if (width - x - 1 == height - y - 1 && (x >= width / 2 && y >= height / 2)) {
 					maze[x][y].top = true;
 					maze[x][y].left = true;
 				} else if (x > y && width - x - 1 > y) {
 					maze[x][y].left = true;
 					maze[x][y].right = true;
-				} else if (x < y && width - x - 1 < y) {
+				} else if (height - y - 1 < width - x - 1 && height - y - 1 < x) {
 					maze[x][y].left = true;
 					maze[x][y].right = true;
-				} else if (x > y && width - x - 1 < y) {
+				} else if (y > x) {
 					maze[x][y].top = true;
 					maze[x][y].bottom = true;
-				} else if (x < y && width - x - 1 > y) {
+				} else if (y > width - x - 1) {
 					maze[x][y].top = true;
 					maze[x][y].bottom = true;
 				}
@@ -77,28 +77,132 @@ public class RingMaze extends Maze {
 		// Then go through a random process to create pathways.
 		int rings = 0;
 		if (width < height) {
-			rings = width - 1;
+			rings = (width + 1) / 2;
 		} else {
-			rings = height - 1;
+			rings = (height + 1) / 2;
 		}
 		
 		Coord c = new Coord(0, 0);
 		
+		Stack<Boolean> topOrLeftPreviously = new Stack<Boolean>();
+		
 		for (int i = 0; i < rings; i++) {
 			if (i % 2 == 0) {
-				c.x = i;
-				if (i < rings / 2) {
-					c.y = i + rand.nextInt(height - (2 * i));
+				int availablePlaces = 2 * (width / 2 - i - 1) + height - (2 * i);
+				int randomInt = rand.nextInt(availablePlaces);
+				
+				if (randomInt < (width / 2 - i - 1)) {
+					c.x = i + randomInt + 1;
+					c.y = i;
+					maze[c.x][c.y].bottom = true;
+					maze[c.x][c.y + 1].top = true;
+					c.x = width - c.x - 1;
+					c.y = height - c.y - 1;
+					maze[c.x][c.y].top = true;
+					maze[c.x][c.y - 1].bottom = true;
+				} else if (randomInt < (width / 2 - i - 1) + height - (2 * i)) {
+					c.x = i;
+					c.y = i + randomInt - (width / 2 - i - 1);
+					maze[c.x][c.y].right = true;
+					maze[c.x + 1][c.y].left = true;
+					c.x = width - c.x - 1;
+					c.y = height - c.y - 1;
+					maze[c.x][c.y].left = true;
+					maze[c.x - 1][c.y].right = true;
+				} else {
+					c.x = i + randomInt - (width / 2 - i) - height + (2 * i);
+					c.y = height - i - 1;
+					maze[c.x][c.y].top = true;
+					maze[c.x][c.y - 1].bottom = true;
+					c.x = width - c.x - 1;
+					c.y = height - c.y - 1;
+					maze[c.x][c.y].bottom = true;
+					maze[c.x][c.y + 1].top = true;
 				}
-				maze[c.x][c.y].right = true;
-				maze[c.x + 1][c.y].left = true;
+				
+				if (c.y < height / 2) {
+					topOrLeftPreviously.push(new Boolean(true));
+				} else {
+					topOrLeftPreviously.push(new Boolean(false));
+				}
 			} else {
-				c.y = i;
-				if (i < rings / 2) {
-					c.x = i + rand.nextInt(width - (2 * i));
+				int availablePlaces = 2 * (height / 2 - i - 1) + width - (2 * i);
+				int randomInt = rand.nextInt(availablePlaces);
+				
+				if (randomInt < (height / 2 - i - 1)) {
+					c.x = i;
+					c.y = i + randomInt + 1;
+					maze[c.x][c.y].right = true;
+					maze[c.x + 1][c.y].left = true;
+					c.x = width - c.x - 1;
+					c.y = height - c.y - 1;
+					maze[c.x][c.y].left = true;
+					maze[c.x - 1][c.y].right = true;
+				} else if (randomInt < (height / 2 - i - 1) + width - (2 * i)) {
+					c.x = i + randomInt - (height / 2 - i - 1);
+					c.y = i;
+					maze[c.x][c.y].bottom = true;
+					maze[c.x][c.y + 1].top = true;
+					c.x = width - c.x - 1;
+					c.y = height - c.y - 1;
+					maze[c.x][c.y].top = true;
+					maze[c.x][c.y - 1].bottom = true;
+				} else {
+					c.x = width - i - 1;
+					c.y = i + randomInt - (height / 2 - i) - width + (2 * i);
+					maze[c.x][c.y].left = true;
+					maze[c.x - 1][c.y].right = true;
+					c.x = width - c.x - 1;
+					c.y = height - c.y - 1;
+					maze[c.x][c.y].right = true;
+					maze[c.x + 1][c.y].left = true;
+				}
+				
+				if (c.x < width / 2) {
+					topOrLeftPreviously.push(new Boolean(true));
+				} else {
+					topOrLeftPreviously.push(new Boolean(false));
 				}
 			}
 		}
+		
+		// TODO: Do a truely random opposite side.
+		/*
+		for (int i = rings - 1; i >= 0; i--) {
+			if (i % 2 == 0) {
+				if (topOrLeftPreviously.peek().booleanValue()) {
+					int availablePlaces = 2 * (width / 2 - i - 1) + height - (2 * i);
+					int randomInt = rand.nextInt(availablePlaces);
+					
+					if (randomInt < (width / 2 - i - 1)) {
+						c.x = i + randomInt + 1;
+						c.y = i;
+						maze[c.x][c.y].bottom = true;
+						maze[c.x][c.y + 1].top = true;
+					} else if (randomInt < (width / 2 - i - 1) + height - (2 * i)) {
+						c.x = i;
+						c.y = i + randomInt - (width / 2 - i - 1);
+						maze[c.x][c.y].right = true;
+						maze[c.x + 1][c.y].left = true;
+					} else {
+						c.x = i + randomInt - (width / 2 - i) - height + (2 * i);
+						c.y = height - i - 1;
+						maze[c.x][c.y].top = true;
+						maze[c.x][c.y - 1].bottom = true;
+					}
+				} else {
+					
+				}
+			} else {
+				if (topOrLeftPreviously.peek().booleanValue()) {
+					
+				} else {
+					
+				}
+			}
+			topOrLeftPreviously.pop();
+		}
+		*/
 		
 		placeCoins(rand);
 	}
