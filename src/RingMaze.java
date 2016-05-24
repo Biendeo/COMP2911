@@ -13,17 +13,18 @@ public class RingMaze extends Maze {
 	 * @param rand
 	 * The random generator.
 	 */
-	// TODO: This function.
 	public void generateMaze(long seed) {
 		this.seed = seed;
 		Random rand = new Random(seed);
 		
+		// The maze is filled out.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				maze[x][y] = new MazeGrid();
 			}
 		}
 		
+		// The rings themselves are generated.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				if (x == y && (x < width / 2 && y < height / 2)) {
@@ -54,7 +55,7 @@ public class RingMaze extends Maze {
 			}
 		}
 		
-		// Add in the set boundaries on each ring.
+		// Add in the halfway boundaries on each ring.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				if (x + 1 == width / 2 && y < height / 2 && y % 2 == 0) {
@@ -81,133 +82,59 @@ public class RingMaze extends Maze {
 			rings = (height + 1) / 2;
 		}
 		
-		Coord c = new Coord(0, 0);
-		
 		Stack<Boolean> topOrLeftPreviously = new Stack<Boolean>();
 		
 		for (int i = 0; i < rings; i++) {
 			if (i % 2 == 0) {
-				int availablePlaces = 2 * (width / 2 - i - 1) + height - (2 * (i + 1));
-				if (availablePlaces <= 0) {
-					continue;
-				}
-				int randomInt = rand.nextInt(availablePlaces);
-				
-				if (randomInt < (width / 2 - i - 1)) {
-					c.x = i + randomInt + 1;
-					c.y = i;
-					maze[c.x][c.y].bottom = true;
-					maze[c.x][c.y + 1].top = true;
-					c.x = width - c.x - 1;
-					c.y = height - c.y - 1;
-					maze[c.x][c.y].top = true;
-					maze[c.x][c.y - 1].bottom = true;
-				} else if (randomInt < (width / 2 - i - 1) + height - (2 * (i + 1))) {
-					c.x = i;
-					c.y = i + randomInt - (width / 2 - i - 1);
+				ArrayList<Coord> availablePlaces = getCoordsInRingQuadrant(i, true, true, false);
+				availablePlaces.addAll(getCoordsInRingQuadrant(i, false, true, false));
+				int randomInt = rand.nextInt(availablePlaces.size());
+				Coord c = availablePlaces.get(randomInt);
+				if (maze[c.x][c.y].bottom == true) {
 					maze[c.x][c.y].right = true;
 					maze[c.x + 1][c.y].left = true;
-					c.x = width - c.x - 1;
-					c.y = height - c.y - 1;
-					maze[c.x][c.y].left = true;
-					maze[c.x - 1][c.y].right = true;
+					maze[width - c.x - 1][height - c.y - 1].left = true;
+					maze[width - c.x - 2][height - c.y - 1].right = true;
 				} else {
-					c.x = i + randomInt - (width / 2 - i) - height + (2 * (i + 1)) + 1;
-					c.y = height - i - 1;
-					maze[c.x][c.y].top = true;
-					maze[c.x][c.y - 1].bottom = true;
-					c.x = width - c.x - 1;
-					c.y = height - c.y - 1;
-					maze[c.x][c.y].bottom = true;
-					maze[c.x][c.y + 1].top = true;
-				}
-				
-				if (c.y < height / 2) {
-					topOrLeftPreviously.push(new Boolean(true));
-				} else {
-					topOrLeftPreviously.push(new Boolean(false));
+					if (isCoordInTopHalf(c)) {
+						maze[c.x][c.y].bottom = true;
+						maze[c.x][c.y + 1].top = true;
+						maze[width - c.x - 1][height - c.y - 1].top = true;
+						maze[width - c.x - 1][height - c.y - 2].bottom = true;
+					} else {
+						maze[c.x][c.y].top = true;
+						maze[c.x][c.y - 1].bottom = true;
+						maze[width - c.x - 1][height - c.y - 1].bottom = true;
+						maze[width - c.x - 1][height - c.y].top = true;
+					}
 				}
 			} else {
-				int availablePlaces = 2 * (height / 2 - i - 1) + width - (2 * (i + 1));
-				if (availablePlaces <= 0) {
-					continue;
-				}
-				int randomInt = rand.nextInt(availablePlaces);
-				
-				if (randomInt < (height / 2 - i - 1)) {
-					c.x = i;
-					c.y = i + randomInt + 1;
-					maze[c.x][c.y].right = true;
-					maze[c.x + 1][c.y].left = true;
-					c.x = width - c.x - 1;
-					c.y = height - c.y - 1;
-					maze[c.x][c.y].left = true;
-					maze[c.x - 1][c.y].right = true;
-				} else if (randomInt < (height / 2 - i - 1) + width - (2 * (i + 1))) {
-					c.x = i + randomInt - (height / 2 - i - 1);
-					c.y = i;
+				ArrayList<Coord> availablePlaces = getCoordsInRingQuadrant(i, true, true, false);
+				availablePlaces.addAll(getCoordsInRingQuadrant(i, true, false, false));
+				int randomInt = rand.nextInt(availablePlaces.size());
+				Coord c = availablePlaces.get(randomInt);
+				if (maze[c.x][c.y].right == true) {
 					maze[c.x][c.y].bottom = true;
 					maze[c.x][c.y + 1].top = true;
-					c.x = width - c.x - 1;
-					c.y = height - c.y - 1;
-					maze[c.x][c.y].top = true;
-					maze[c.x][c.y - 1].bottom = true;
+					maze[width - c.x - 1][height - c.y - 1].top = true;
+					maze[width - c.x - 1][height - c.y - 2].bottom = true;
 				} else {
-					c.x = width - i - 1;
-					c.y = i + randomInt - (height / 2 - i) - width + (2 * (i + 1)) + 1;
-					maze[c.x][c.y].left = true;
-					maze[c.x - 1][c.y].right = true;
-					c.x = width - c.x - 1;
-					c.y = height - c.y - 1;
-					maze[c.x][c.y].right = true;
-					maze[c.x + 1][c.y].left = true;
-				}
-				
-				if (c.x < width / 2) {
-					topOrLeftPreviously.push(new Boolean(true));
-				} else {
-					topOrLeftPreviously.push(new Boolean(false));
+					if (isCoordInLeftHalf(c)) {
+						maze[c.x][c.y].right = true;
+						maze[c.x + 1][c.y].left = true;
+						maze[width - c.x - 1][height - c.y - 1].left = true;
+						maze[width - c.x - 2][height - c.y - 1].right = true;
+					} else {
+						maze[c.x][c.y].left = true;
+						maze[c.x - 1][c.y].right = true;
+						maze[width - c.x - 1][height - c.y - 1].right = true;
+						maze[width - c.x][height - c.y - 1].left = true;
+					}
 				}
 			}
 		}
 		
 		// TODO: Do a truely random opposite side.
-		/*
-		for (int i = rings - 1; i >= 0; i--) {
-			if (i % 2 == 0) {
-				if (topOrLeftPreviously.peek().booleanValue()) {
-					int availablePlaces = 2 * (width / 2 - i - 1) + height - (2 * i);
-					int randomInt = rand.nextInt(availablePlaces);
-					
-					if (randomInt < (width / 2 - i - 1)) {
-						c.x = i + randomInt + 1;
-						c.y = i;
-						maze[c.x][c.y].bottom = true;
-						maze[c.x][c.y + 1].top = true;
-					} else if (randomInt < (width / 2 - i - 1) + height - (2 * i)) {
-						c.x = i;
-						c.y = i + randomInt - (width / 2 - i - 1);
-						maze[c.x][c.y].right = true;
-						maze[c.x + 1][c.y].left = true;
-					} else {
-						c.x = i + randomInt - (width / 2 - i) - height + (2 * i);
-						c.y = height - i - 1;
-						maze[c.x][c.y].top = true;
-						maze[c.x][c.y - 1].bottom = true;
-					}
-				} else {
-					
-				}
-			} else {
-				if (topOrLeftPreviously.peek().booleanValue()) {
-					
-				} else {
-					
-				}
-			}
-			topOrLeftPreviously.pop();
-		}
-		*/
 		
 		placeCoins(rand);
 	}
