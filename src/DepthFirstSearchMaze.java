@@ -42,7 +42,6 @@ public class DepthFirstSearchMaze extends Maze {
 			current = currentPath.peek();
 			
 			boolean checkedSide = false;
-			// TODO: This is really ugly.
 			boolean checkedUp = false;
 			boolean checkedRight = false;
 			boolean checkedDown = false;

@@ -244,6 +244,7 @@ public class UI extends JFrame {
 		mainMenuButtonPanelCentral.setLayout(new GridLayout(5, 1, 0, 0));
 		
 		JButton mainMenuInstantActionButton = new JButton("Instant Action");
+		mainMenuInstantActionButton.setToolTipText("Jumps right into a random DFS medium difficulty maze for one player.");
 		mainMenuButtonPanelCentral.add(mainMenuInstantActionButton);
 		mainMenuInstantActionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -252,6 +253,7 @@ public class UI extends JFrame {
 		});
 		
 		JButton mainMenuCustomGameButton = new JButton("Custom Game");
+		mainMenuCustomGameButton.setToolTipText("Modify settings for a game, then jump into one.");
 		mainMenuButtonPanelCentral.add(mainMenuCustomGameButton);
 		mainMenuCustomGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -260,9 +262,11 @@ public class UI extends JFrame {
 		});
 		
 		JButton mainMenuUserSettingsButton = new JButton("User Settings");
+		mainMenuUserSettingsButton.setToolTipText("Change the controls and visual look of the players.");
 		mainMenuButtonPanelCentral.add(mainMenuUserSettingsButton);
 		
 		JButton mainMenuLeaderboardButton = new JButton("Leaderboard");
+		mainMenuLeaderboardButton.setToolTipText("See past records and challenge them.");
 		mainMenuButtonPanelCentral.add(mainMenuLeaderboardButton);
 		mainMenuLeaderboardButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -271,6 +275,7 @@ public class UI extends JFrame {
 		});
 		
 		JButton mainMenuExitButton = new JButton("Exit");
+		mainMenuExitButton.setToolTipText("Close the program.");
 		mainMenuButtonPanelCentral.add(mainMenuExitButton);
 		
 		JLabel mainMenuTitleLabel = new JLabel("Maze Game");
@@ -390,6 +395,7 @@ public class UI extends JFrame {
 		customGameSetupSizePanel.add(customGameSetupSizeLabel);
 		
 		customGameSetupSizeXField = new JTextField();
+		customGameSetupSizeXField.setToolTipText("The width of the maze.");
 		customGameSetupSizeXField.setEnabled(false);
 		customGameSetupSizeXField.setText("10");
 		customGameSetupSizePanel.add(customGameSetupSizeXField);
@@ -399,6 +405,7 @@ public class UI extends JFrame {
 		customGameSetupSizePanel.add(customGameSetupSizeByLabel);
 		
 		customGameSetupSizeYField = new JTextField();
+		customGameSetupSizeYField.setToolTipText("The height of the maze.");
 		customGameSetupSizeYField.setEnabled(false);
 		customGameSetupSizeYField.setText("10");
 		customGameSetupSizePanel.add(customGameSetupSizeYField);
@@ -433,7 +440,7 @@ public class UI extends JFrame {
 		customGameSetupDFSRadio.setEnabled(false);
 		
 		customGameSetupPrimsRadio = new JRadioButton("Prims");
-		customGameSetupPrimsRadio.setToolTipText("A complex maze.");
+		customGameSetupPrimsRadio.setToolTipText("A complex maze with convuluted sidecuts.");
 		customGameSetupStrategyPanel.add(customGameSetupPrimsRadio);
 		customGameStrategyGroup.add(customGameSetupPrimsRadio);
 		customGameSetupPrimsRadio.setEnabled(false);
@@ -448,6 +455,7 @@ public class UI extends JFrame {
 		customGameSetupSeedPanel.add(customGameSetupSeedLabel);
 		
 		customGameSetupSeedField = new JTextField();
+		customGameSetupSeedField.setToolTipText("This number determines what randomness is used to create the maze. Two similar maps with the same seed will be identical.");
 		customGameSetupSeedPanel.add(customGameSetupSeedField);
 		customGameSetupSeedField.setColumns(10);
 		
@@ -480,16 +488,17 @@ public class UI extends JFrame {
 		customGameSetupPanel.add(customGameSetupButtonPanel);
 		
 		JButton customGameSetupBackButton = new JButton("Back");
+		customGameSetupBackButton.setToolTipText("Back to the main menu.");
 		customGameSetupButtonPanel.add(customGameSetupBackButton);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.SOUTH, customGameSetupBackButton, -79, SpringLayout.SOUTH, customGameSetupPanel);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.WEST, customGameSetupBackButton, 0, SpringLayout.WEST, customGameSetupSeedPanel);
 		
 		JButton customGameSetupPlayButton = new JButton("Play");
+		customGameSetupPlayButton.setToolTipText("Confirm the settings and play.");
 		customGameSetupButtonPanel.add(customGameSetupPlayButton);
 		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupPlayButton, 0, SpringLayout.EAST, customGameSetupSeedPanel);
 		customGameSetupPlayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Handle the exceptions here.
 				try {
 					int width = Integer.parseInt(customGameSetupSizeXField.getText());
 					int height = Integer.parseInt(customGameSetupSizeYField.getText());
@@ -748,6 +757,7 @@ public class UI extends JFrame {
 		userSettingsButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton userSettingsBackButton = new JButton("Back");
+		userSettingsBackButton.setToolTipText("Back to the main menu.");
 		userSettingsButtonPanel.add(userSettingsBackButton);
 		userSettingsBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -821,6 +831,7 @@ public class UI extends JFrame {
 		leaderboardButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton leaderboardBackButton = new JButton("Back");
+		leaderboardBackButton.setToolTipText("Back to the main menu.");
 		leaderboardButtonPanel.add(leaderboardBackButton);
 		leaderboardBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -829,6 +840,7 @@ public class UI extends JFrame {
 		});
 		
 		leaderboardChallengeButton = new JButton("Challenge");
+		leaderboardChallengeButton.setToolTipText("Head to the Custom Game screen with this map set up.");
 		leaderboardButtonPanel.add(leaderboardChallengeButton);
 		leaderboardChallengeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -863,10 +875,10 @@ public class UI extends JFrame {
 		leaderboardChallengeButton.setEnabled(false);
 		
 		leaderboardDeleteEntryButton = new JButton("Delete Entry");
+		leaderboardDeleteEntryButton.setToolTipText("Remove this entry from the leaderboard. No undos. :(");
 		leaderboardButtonPanel.add(leaderboardDeleteEntryButton);
 		leaderboardDeleteEntryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Add a confirmation box.
 				config.deleteLeaderboardEntry(leaderboardDataTable.getSelectedRow());
 				((DefaultTableModel)leaderboardDataTable.getModel()).removeRow(leaderboardDataTable.getSelectedRow());
 			}
@@ -906,7 +918,6 @@ public class UI extends JFrame {
 		Color start = new Color(200, 200, 255);
 		Color end = new Color(255, 200, 200);
 		
-		// TODO: This needs to be refactored, it's too copy-paste.
 		// x and y are the map co-ordinates, a and b are the current tile pixel position.
 		for (int y = 0; y < m.getHeight(); y++) {
 			for (int x = 0; x < m.getWidth(); x++) {

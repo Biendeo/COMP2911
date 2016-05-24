@@ -72,7 +72,6 @@ public class PrimsMaze extends Maze {
 
 			created++;
 			boolean checkedSide = false;
-			// TODO: This is really ugly.
 			boolean checkedUp = false;
 			boolean checkedRight = false;
 			boolean checkedDown = false;
@@ -82,7 +81,6 @@ public class PrimsMaze extends Maze {
 			// checked every side, or it's found a side which has an unchecked
 			// tile.
 			while (!checkedSide) {
-				// TODO: Delegate this to a function, and return the enum instead.
 				Direction randomDirection = getRandomDirection(rand);
 				
 				// 0 is up, 1 is right, 2 is down, 3 is left.
