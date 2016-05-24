@@ -21,6 +21,7 @@ import java.awt.event.KeyListener;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
@@ -279,7 +280,6 @@ public class UI extends JFrame {
 		sl_mainMenuContentPanel.putConstraint(SpringLayout.EAST, mainMenuTitleLabel, 0, SpringLayout.EAST, mainMenuContentPanel);
 		mainMenuTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		mainMenuTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		//mainMenuTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		mainMenuContentPanel.add(mainMenuTitleLabel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.NORTH, mainMenuPanel, 0, SpringLayout.NORTH, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.WEST, mainMenuPanel, 0, SpringLayout.WEST, mazeViewPanel);
@@ -490,32 +490,36 @@ public class UI extends JFrame {
 		customGameSetupPlayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO: Handle the exceptions here.
-				int width = Integer.parseInt(customGameSetupSizeXField.getText());
-				int height = Integer.parseInt(customGameSetupSizeYField.getText());
-				long seed = 0;
-				
-				if (customGameSetupSeedField.getText().equals("")) {
-					seed = 0;
-				} else {
-					seed = Long.parseLong(customGameSetupSeedField.getText());
+				try {
+					int width = Integer.parseInt(customGameSetupSizeXField.getText());
+					int height = Integer.parseInt(customGameSetupSizeYField.getText());
+					long seed = 0;
+					
+					if (customGameSetupSeedField.getText().equals("")) {
+						seed = 0;
+					} else {
+						seed = Long.parseLong(customGameSetupSeedField.getText());
+					}
+					
+					MazeGenerationStrategy strategy = MazeGenerationStrategy.NONE;
+					if (customGameSetupDFSRadio.isSelected()) {
+						strategy = MazeGenerationStrategy.DEPTHFIRSTSEARCH;
+					} else if (customGameSetupRingRadio.isSelected()) {
+						strategy = MazeGenerationStrategy.RING;
+					} else if (customGameSetupPrimsRadio.isSelected()) {
+						strategy = MazeGenerationStrategy.PRIMS;
+					}
+					
+					int players = 0;
+					if (customGameSetupPlayers1Radio.isSelected()) {
+						players = 1;
+					} else if (customGameSetupPlayers2Radio.isSelected()) {
+						players = 2;
+					}
+					program.customGameSetup(width, height, strategy, seed, players);
+				} catch (Exception exc) {
+					
 				}
-				
-				MazeGenerationStrategy strategy = MazeGenerationStrategy.NONE;
-				if (customGameSetupDFSRadio.isSelected()) {
-					strategy = MazeGenerationStrategy.DEPTHFIRSTSEARCH;
-				} else if (customGameSetupRingRadio.isSelected()) {
-					strategy = MazeGenerationStrategy.RING;
-				} else if (customGameSetupPrimsRadio.isSelected()) {
-					strategy = MazeGenerationStrategy.PRIMS;
-				}
-				
-				int players = 0;
-				if (customGameSetupPlayers1Radio.isSelected()) {
-					players = 1;
-				} else if (customGameSetupPlayers2Radio.isSelected()) {
-					players = 2;
-				}
-				program.customGameSetup(width, height, strategy, seed, players);
 			}
 		});
 		
@@ -614,9 +618,12 @@ public class UI extends JFrame {
 		userSettingsPlayer1ImageChooseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "gif", "png", "bmp"));
 				fileChooser.showOpenDialog(null);
 				try {
-					config.setPlayer1Image(ImageIO.read(fileChooser.getSelectedFile()));
+					if (fileChooser.getSelectedFile() != null) {
+						config.setPlayer1Image(ImageIO.read(fileChooser.getSelectedFile()));
+					}
 				} catch (IOException e1) {
 					
 				}
@@ -710,10 +717,12 @@ public class UI extends JFrame {
 		userSettingsPlayer2ImageChooseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "gif", "png", "bmp"));
 				fileChooser.showOpenDialog(null);
-				// TODO: Handle exceptions.
 				try {
-					config.setPlayer2Image(ImageIO.read(fileChooser.getSelectedFile()));
+					if (fileChooser.getSelectedFile() != null) {
+						config.setPlayer2Image(ImageIO.read(fileChooser.getSelectedFile()));
+					}
 				} catch (IOException e1) {
 					
 				}

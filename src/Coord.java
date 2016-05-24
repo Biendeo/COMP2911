@@ -34,7 +34,9 @@ public class Coord {
 	 * @return
 	 * Whether they're equal.
 	 */
-	public boolean equals(Coord c) {
+	@Override
+	public boolean equals(Object m) {
+		Coord c = (Coord)m;
 		if (x == c.x && y == c.y) {
 			return true;
 		} else {

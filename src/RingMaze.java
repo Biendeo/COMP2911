@@ -16,8 +16,6 @@ public class RingMaze extends Maze {
 	public void generateMaze(long seed) {
 		this.seed = seed;
 		Random rand = new Random(seed);
-		Stack<Coord> currentPath = new Stack<Coord>();
-		Coord current = start.clone();
 		
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -88,7 +86,10 @@ public class RingMaze extends Maze {
 		
 		for (int i = 0; i < rings; i++) {
 			if (i % 2 == 0) {
-				int availablePlaces = 2 * (width / 2 - i - 1) + height - (2 * i);
+				int availablePlaces = 2 * (width / 2 - i - 1) + height - (2 * (i + 1));
+				if (availablePlaces <= 0) {
+					continue;
+				}
 				int randomInt = rand.nextInt(availablePlaces);
 				
 				if (randomInt < (width / 2 - i - 1)) {
@@ -100,7 +101,7 @@ public class RingMaze extends Maze {
 					c.y = height - c.y - 1;
 					maze[c.x][c.y].top = true;
 					maze[c.x][c.y - 1].bottom = true;
-				} else if (randomInt < (width / 2 - i - 1) + height - (2 * i)) {
+				} else if (randomInt < (width / 2 - i - 1) + height - (2 * (i + 1))) {
 					c.x = i;
 					c.y = i + randomInt - (width / 2 - i - 1);
 					maze[c.x][c.y].right = true;
@@ -110,7 +111,7 @@ public class RingMaze extends Maze {
 					maze[c.x][c.y].left = true;
 					maze[c.x - 1][c.y].right = true;
 				} else {
-					c.x = i + randomInt - (width / 2 - i) - height + (2 * i);
+					c.x = i + randomInt - (width / 2 - i) - height + (2 * (i + 1)) + 1;
 					c.y = height - i - 1;
 					maze[c.x][c.y].top = true;
 					maze[c.x][c.y - 1].bottom = true;
@@ -126,7 +127,10 @@ public class RingMaze extends Maze {
 					topOrLeftPreviously.push(new Boolean(false));
 				}
 			} else {
-				int availablePlaces = 2 * (height / 2 - i - 1) + width - (2 * i);
+				int availablePlaces = 2 * (height / 2 - i - 1) + width - (2 * (i + 1));
+				if (availablePlaces <= 0) {
+					continue;
+				}
 				int randomInt = rand.nextInt(availablePlaces);
 				
 				if (randomInt < (height / 2 - i - 1)) {
@@ -138,7 +142,7 @@ public class RingMaze extends Maze {
 					c.y = height - c.y - 1;
 					maze[c.x][c.y].left = true;
 					maze[c.x - 1][c.y].right = true;
-				} else if (randomInt < (height / 2 - i - 1) + width - (2 * i)) {
+				} else if (randomInt < (height / 2 - i - 1) + width - (2 * (i + 1))) {
 					c.x = i + randomInt - (height / 2 - i - 1);
 					c.y = i;
 					maze[c.x][c.y].bottom = true;
@@ -149,7 +153,7 @@ public class RingMaze extends Maze {
 					maze[c.x][c.y - 1].bottom = true;
 				} else {
 					c.x = width - i - 1;
-					c.y = i + randomInt - (height / 2 - i) - width + (2 * i);
+					c.y = i + randomInt - (height / 2 - i) - width + (2 * (i + 1)) + 1;
 					maze[c.x][c.y].left = true;
 					maze[c.x - 1][c.y].right = true;
 					c.x = width - c.x - 1;
