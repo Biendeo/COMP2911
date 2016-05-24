@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 
@@ -301,6 +302,39 @@ public class RingMaze extends Maze {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Returns an ArrayList of all the coords that are in a specific ring number, what quadrant they're in, and whether corners are included.
+	 * @param ringNumber
+	 * The ring number.
+	 * @param topHalf
+	 * Whether the coords are in the top half.
+	 * @param leftHalf
+	 * Whether the coords are in the left half.
+	 * @param includeCorner
+	 * Whether the corners are included.
+	 * @return
+	 * The ArrayList of all the appropriate coords.
+	 */
+	private ArrayList<Coord> getCoordsInRingQuadrant(int ringNumber, boolean topHalf, boolean leftHalf, boolean includeCorner) {
+		// Should this be more optimised?
+		ArrayList<Coord> returnList = new ArrayList<Coord>();
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				Coord c = new Coord(x, y);
+				if (ringNumber == ringNumber(c) && topHalf == isCoordInTopHalf(c) && leftHalf && isCoordInLeftHalf(c)) {
+					if (!includeCorner) {
+						if (!(x == y || width - x - 1 == y || x == height - y - 1 || width - x - 1 == height - y - 1)) {
+							returnList.add(c);
+						}
+					} else {
+						returnList.add(c);
+					}
+				}
+			}
+		}
+		return returnList;
 	}
 
 	protected void placeCoins(Random rand) {
