@@ -88,48 +88,66 @@ public class RingMaze extends Maze {
 			if (i % 2 == 0) {
 				ArrayList<Coord> availablePlaces = getCoordsInRingQuadrant(i, true, true, false);
 				availablePlaces.addAll(getCoordsInRingQuadrant(i, false, true, false));
-				int randomInt = rand.nextInt(availablePlaces.size());
-				Coord c = availablePlaces.get(randomInt);
-				if (maze[c.x][c.y].bottom == true) {
-					maze[c.x][c.y].right = true;
-					maze[c.x + 1][c.y].left = true;
-					maze[width - c.x - 1][height - c.y - 1].left = true;
-					maze[width - c.x - 2][height - c.y - 1].right = true;
-				} else {
-					if (isCoordInTopHalf(c)) {
-						maze[c.x][c.y].bottom = true;
-						maze[c.x][c.y + 1].top = true;
-						maze[width - c.x - 1][height - c.y - 1].top = true;
-						maze[width - c.x - 1][height - c.y - 2].bottom = true;
-					} else {
-						maze[c.x][c.y].top = true;
-						maze[c.x][c.y - 1].bottom = true;
-						maze[width - c.x - 1][height - c.y - 1].bottom = true;
-						maze[width - c.x - 1][height - c.y].top = true;
-					}
-				}
-			} else {
-				ArrayList<Coord> availablePlaces = getCoordsInRingQuadrant(i, true, true, false);
-				availablePlaces.addAll(getCoordsInRingQuadrant(i, true, false, false));
-				int randomInt = rand.nextInt(availablePlaces.size());
-				Coord c = availablePlaces.get(randomInt);
-				if (maze[c.x][c.y].right == true) {
-					maze[c.x][c.y].bottom = true;
-					maze[c.x][c.y + 1].top = true;
-					maze[width - c.x - 1][height - c.y - 1].top = true;
-					maze[width - c.x - 1][height - c.y - 2].bottom = true;
-				} else {
-					if (isCoordInLeftHalf(c)) {
+				if (availablePlaces.size() > 0) {
+					int randomInt = rand.nextInt(availablePlaces.size());
+					Coord c = availablePlaces.get(randomInt);
+					if (maze[c.x][c.y].bottom == true) {
 						maze[c.x][c.y].right = true;
 						maze[c.x + 1][c.y].left = true;
 						maze[width - c.x - 1][height - c.y - 1].left = true;
 						maze[width - c.x - 2][height - c.y - 1].right = true;
 					} else {
-						maze[c.x][c.y].left = true;
-						maze[c.x - 1][c.y].right = true;
-						maze[width - c.x - 1][height - c.y - 1].right = true;
-						maze[width - c.x][height - c.y - 1].left = true;
+						if (isCoordInTopHalf(c)) {
+							maze[c.x][c.y].bottom = true;
+							maze[c.x][c.y + 1].top = true;
+							maze[width - c.x - 1][height - c.y - 1].top = true;
+							maze[width - c.x - 1][height - c.y - 2].bottom = true;
+						} else {
+							maze[c.x][c.y].top = true;
+							maze[c.x][c.y - 1].bottom = true;
+							maze[width - c.x - 1][height - c.y - 1].bottom = true;
+							maze[width - c.x - 1][height - c.y].top = true;
+						}
 					}
+				} else {
+					availablePlaces = getCoordsInRingQuadrant(i, true, true, true);
+					availablePlaces.addAll(getCoordsInRingQuadrant(i, false, true, true));
+					int randomInt = rand.nextInt(availablePlaces.size());
+					Coord c = availablePlaces.get(randomInt);
+					maze[c.x][c.y].right = true;
+					maze[c.x + 1][c.y].left = true;
+				}
+			} else {
+				ArrayList<Coord> availablePlaces = getCoordsInRingQuadrant(i, true, true, false);
+				availablePlaces.addAll(getCoordsInRingQuadrant(i, true, false, false));
+				if (availablePlaces.size() > 0) {
+					int randomInt = rand.nextInt(availablePlaces.size());
+					Coord c = availablePlaces.get(randomInt);
+					if (maze[c.x][c.y].right == true) {
+						maze[c.x][c.y].bottom = true;
+						maze[c.x][c.y + 1].top = true;
+						maze[width - c.x - 1][height - c.y - 1].top = true;
+						maze[width - c.x - 1][height - c.y - 2].bottom = true;
+					} else {
+						if (isCoordInLeftHalf(c)) {
+							maze[c.x][c.y].right = true;
+							maze[c.x + 1][c.y].left = true;
+							maze[width - c.x - 1][height - c.y - 1].left = true;
+							maze[width - c.x - 2][height - c.y - 1].right = true;
+						} else {
+							maze[c.x][c.y].left = true;
+							maze[c.x - 1][c.y].right = true;
+							maze[width - c.x - 1][height - c.y - 1].right = true;
+							maze[width - c.x][height - c.y - 1].left = true;
+						}
+					}
+				} else {
+					availablePlaces = getCoordsInRingQuadrant(i, true, true, true);
+					availablePlaces.addAll(getCoordsInRingQuadrant(i, false, true, true));
+					int randomInt = rand.nextInt(availablePlaces.size());
+					Coord c = availablePlaces.get(randomInt);
+					maze[c.x][c.y].bottom = true;
+					maze[c.x][c.y + 1].top = true;
 				}
 			}
 		}
@@ -137,28 +155,6 @@ public class RingMaze extends Maze {
 		// TODO: Do a truely random opposite side.
 		
 		placeCoins(rand);
-	}
-
-	/**
-	 * Gets a random direction based on a random generator.
-	 * @param r
-	 * The random generator.
-	 * @return
-	 * The direction decided.
-	 */
-	private Direction getRandomDirection(Random r) {
-		int randomInt = r.nextInt(4);
-		switch(randomInt) {
-		case 0:
-		default:
-			return Direction.UP;
-		case 1:
-			return Direction.RIGHT;
-		case 2:
-			return Direction.DOWN;
-		case 3:
-			return Direction.LEFT;
-		}
 	}
 
 	
@@ -272,7 +268,7 @@ public class RingMaze extends Maze {
 			Coord coinPos = null;
 			while (!foundSpot) {
 				foundSpot = true;
-				coinPos = new Coord(rand.nextInt(width), rand.nextInt(height));
+				coinPos = new Coord(rand.nextInt(width - 2) + 1, rand.nextInt(height - 2) + 1);
 				if (!coinPos.equals(start) && !coinPos.equals(end)) {
 					for (Coin c : coins) {
 						if (coinPos.equals(c.getPos())) {
