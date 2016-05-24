@@ -233,6 +233,76 @@ public class RingMaze extends Maze {
 		}
 	}
 
+	
+	/**
+	 * Returns whether the coord is in the top half of the maze.
+	 * @param c
+	 * The coord in question.
+	 * @return
+	 * Whether it is in the left top of the maze.
+	 */
+	private boolean isCoordInTopHalf(Coord c) {
+		if (c.y < height / 2) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Returns whether the coord is in the left half of the maze.
+	 * @param c
+	 * The coord in question.
+	 * @return
+	 * Whether it is in the left half of the maze.
+	 */
+	private boolean isCoordInLeftHalf(Coord c) {
+		if (c.x < width / 2) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Returns what ring number a co-ordinate is in (0 is the outtermost ring, -1 is an invalid ring).
+	 * @param c
+	 * The coordinate to look for.
+	 * @return
+	 * The ring number.
+	 */
+	private int ringNumber(Coord c) {
+		if (c.x < 0 || c.x >= width || c.y < 0 || c.y >= height) {
+			return -1;
+		} else {
+			if (isCoordInTopHalf(c) && isCoordInLeftHalf(c)) {
+				if (c.x < c.y) {
+					return c.x;
+				} else {
+					return c.y;
+				}
+			} else if (!isCoordInTopHalf(c) && isCoordInLeftHalf(c)) {
+				if (c.x < height - c.y - 1) {
+					return c.x;
+				} else {
+					return height - c.y - 1;
+				}
+			} else if (isCoordInTopHalf(c) && isCoordInLeftHalf(c)) {
+				if (width - c.x - 1 < c.y) {
+					return width - c.x - 1;
+				} else {
+					return c.y;
+				}
+			} else {
+				if (width - c.x - 1 < c.y) {
+					return width - c.x - 1;
+				} else {
+					return height - c.y - 1;
+				}
+			}
+		}
+	}
+
 	protected void placeCoins(Random rand) {
 		int totalCoins = width * height / 20;
 		
