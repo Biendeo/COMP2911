@@ -92,7 +92,7 @@ public class MazeProgram {
 				if (players.length >= 2 && !players[1].isFinished()) {
 					if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER2UP)) {
 						players[1].move(Direction.UP);
-					} else if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER1RIGHT)) {
+					} else if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER2RIGHT)) {
 						players[1].move(Direction.RIGHT);
 					} else if (keyCode == cfg.getKeyBinding(ControlCode.PLAYER2DOWN)) {
 						players[1].move(Direction.DOWN);

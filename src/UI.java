@@ -499,36 +499,61 @@ public class UI extends JFrame {
 		sl_customGameSetupPanel.putConstraint(SpringLayout.EAST, customGameSetupPlayButton, 0, SpringLayout.EAST, customGameSetupSeedPanel);
 		customGameSetupPlayButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int width = 0;
+				int height = 0;
 				try {
-					int width = Integer.parseInt(customGameSetupSizeXField.getText());
-					int height = Integer.parseInt(customGameSetupSizeYField.getText());
-					long seed = 0;
-					
-					if (customGameSetupSeedField.getText().equals("")) {
-						seed = 0;
-					} else {
-						seed = Long.parseLong(customGameSetupSeedField.getText());
-					}
-					
-					MazeGenerationStrategy strategy = MazeGenerationStrategy.NONE;
-					if (customGameSetupDFSRadio.isSelected()) {
-						strategy = MazeGenerationStrategy.DEPTHFIRSTSEARCH;
-					} else if (customGameSetupRingRadio.isSelected()) {
-						strategy = MazeGenerationStrategy.RING;
-					} else if (customGameSetupPrimsRadio.isSelected()) {
-						strategy = MazeGenerationStrategy.PRIMS;
-					}
-					
-					int players = 0;
-					if (customGameSetupPlayers1Radio.isSelected()) {
-						players = 1;
-					} else if (customGameSetupPlayers2Radio.isSelected()) {
-						players = 2;
-					}
-					program.customGameSetup(width, height, strategy, seed, players);
-				} catch (Exception exc) {
-					
+					width = Integer.parseInt(customGameSetupSizeXField.getText());
+				} catch (NumberFormatException exc) {
+					JOptionPane.showMessageDialog(null, "Your width is not a whole number!", "Bad input!", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
+				try {
+					height = Integer.parseInt(customGameSetupSizeYField.getText());
+				} catch (NumberFormatException exc) {
+					JOptionPane.showMessageDialog(null, "Your height is not a whole number!", "Bad input!", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				long seed = 0;
+				
+				if (customGameSetupSeedField.getText().equals("")) {
+					seed = 0;
+				} else {
+					try {
+						seed = Long.parseLong(customGameSetupSeedField.getText());
+					} catch (NumberFormatException exc) {
+						JOptionPane.showMessageDialog(null, "Your seed is not a whole number!", "Bad input!", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+				}
+				
+				MazeGenerationStrategy strategy = MazeGenerationStrategy.NONE;
+				if (customGameSetupDFSRadio.isSelected()) {
+					strategy = MazeGenerationStrategy.DEPTHFIRSTSEARCH;
+				} else if (customGameSetupRingRadio.isSelected()) {
+					strategy = MazeGenerationStrategy.RING;
+				} else if (customGameSetupPrimsRadio.isSelected()) {
+					strategy = MazeGenerationStrategy.PRIMS;
+				}
+				
+				int players = 0;
+				if (customGameSetupPlayers1Radio.isSelected()) {
+					players = 1;
+				} else if (customGameSetupPlayers2Radio.isSelected()) {
+					players = 2;
+				}
+				
+				if (width < 2) {
+					JOptionPane.showMessageDialog(null, "The maze width cannot be that low. Try 2 or higher.", "Bad input!", JOptionPane.ERROR_MESSAGE);
+					return;
+				} else if (height < 2) {
+					JOptionPane.showMessageDialog(null, "The maze height cannot be that low. Try 2 or higher.", "Bad input!", JOptionPane.ERROR_MESSAGE);
+					return;
+				} else if (strategy == MazeGenerationStrategy.RING && (width % 2 == 1 || height % 2 == 1)) {
+					JOptionPane.showMessageDialog(null, "The width and height must be even numbers for the ring generation.", "Bad input!", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				program.customGameSetup(width, height, strategy, seed, players);
 			}
 		});
 		
@@ -781,12 +806,21 @@ public class UI extends JFrame {
 		
 		changeKeyBindingPreviousLabel = new JLabel("Previously: <OLD_KEY>");
 		sl_changeKeyBindingPanel.putConstraint(SpringLayout.NORTH, changeKeyBindingPreviousLabel, 10, SpringLayout.SOUTH, changeKeyBindingChangeLabel);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.SOUTH, changeKeyBindingPreviousLabel, -60, SpringLayout.SOUTH, changeKeyBindingPanel);
 		changeKeyBindingPreviousLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		changeKeyBindingPreviousLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		sl_changeKeyBindingPanel.putConstraint(SpringLayout.WEST, changeKeyBindingPreviousLabel, 10, SpringLayout.WEST, changeKeyBindingPanel);
-		sl_changeKeyBindingPanel.putConstraint(SpringLayout.SOUTH, changeKeyBindingPreviousLabel, -10, SpringLayout.SOUTH, changeKeyBindingPanel);
 		sl_changeKeyBindingPanel.putConstraint(SpringLayout.EAST, changeKeyBindingPreviousLabel, -10, SpringLayout.EAST, changeKeyBindingPanel);
 		changeKeyBindingPanel.add(changeKeyBindingPreviousLabel);
+		
+		JLabel changeKeyBindingUndoLabel = new JLabel("Press Escape to undo.");
+		changeKeyBindingUndoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		changeKeyBindingUndoLabel.setForeground(Color.GRAY);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.NORTH, changeKeyBindingUndoLabel, 10, SpringLayout.SOUTH, changeKeyBindingPreviousLabel);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.WEST, changeKeyBindingUndoLabel, 10, SpringLayout.WEST, changeKeyBindingPanel);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.SOUTH, changeKeyBindingUndoLabel, -10, SpringLayout.SOUTH, changeKeyBindingPanel);
+		sl_changeKeyBindingPanel.putConstraint(SpringLayout.EAST, changeKeyBindingUndoLabel, -10, SpringLayout.EAST, changeKeyBindingPanel);
+		changeKeyBindingPanel.add(changeKeyBindingUndoLabel);
 		
 		JPanel leaderboardPanel = new JPanel();
 		mainPanel.add(leaderboardPanel, "leaderboardPanel");
@@ -1047,6 +1081,7 @@ public class UI extends JFrame {
 			mazeViewImageComponent.setVisible(true);
 			mazeViewPauseLabel.setEnabled(false);
 			mazeViewPauseLabel.setVisible(false);
+			this.requestFocus();
 		}
 	}
 
