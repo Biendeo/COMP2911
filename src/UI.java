@@ -395,7 +395,7 @@ public class UI extends JFrame {
 		customGameSetupSizePanel.add(customGameSetupSizeLabel);
 		
 		customGameSetupSizeXField = new JTextField();
-		customGameSetupSizeXField.setToolTipText("The width of the maze.");
+		customGameSetupSizeXField.setToolTipText("The width of the maze (must be greater than 2).");
 		customGameSetupSizeXField.setEnabled(false);
 		customGameSetupSizeXField.setText("10");
 		customGameSetupSizePanel.add(customGameSetupSizeXField);
@@ -405,7 +405,7 @@ public class UI extends JFrame {
 		customGameSetupSizePanel.add(customGameSetupSizeByLabel);
 		
 		customGameSetupSizeYField = new JTextField();
-		customGameSetupSizeYField.setToolTipText("The height of the maze.");
+		customGameSetupSizeYField.setToolTipText("The height of the maze (must be greater than 2).");
 		customGameSetupSizeYField.setEnabled(false);
 		customGameSetupSizeYField.setText("10");
 		customGameSetupSizePanel.add(customGameSetupSizeYField);
@@ -446,7 +446,7 @@ public class UI extends JFrame {
 		customGameSetupPrimsRadio.setEnabled(false);
 		
 		customGameSetupRingRadio = new JRadioButton("Ring");
-		customGameSetupRingRadio.setToolTipText("A unique ringed maze that journeys in and out of the centre.");
+		customGameSetupRingRadio.setToolTipText("A unique ringed maze that journeys in and out of the centre. Must have even dimensions.");
 		customGameSetupStrategyPanel.add(customGameSetupRingRadio);
 		customGameStrategyGroup.add(customGameSetupRingRadio);
 		customGameSetupRingRadio.setEnabled(false);
@@ -455,7 +455,7 @@ public class UI extends JFrame {
 		customGameSetupSeedPanel.add(customGameSetupSeedLabel);
 		
 		customGameSetupSeedField = new JTextField();
-		customGameSetupSeedField.setToolTipText("This number determines what randomness is used to create the maze. Two similar maps with the same seed will be identical.");
+		customGameSetupSeedField.setToolTipText("This number determines what randomness is used to create the maze. Two similar maps with the same seed will be identical. Leave it blank for a random seed.");
 		customGameSetupSeedPanel.add(customGameSetupSeedField);
 		customGameSetupSeedField.setColumns(10);
 		
