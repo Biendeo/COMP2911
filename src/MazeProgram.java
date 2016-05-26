@@ -241,8 +241,15 @@ public class MazeProgram {
 	}
 	
 	public static void main(String[] args) {
-		MazeProgram p = new MazeProgram();
-		p.run();
+		if (GraphicsEnvironment.isHeadless()) {
+			System.out.println("No screen available, just generating a maze.");
+			MazeGame g  = new MazeGame(25, 20, MazeGenerationStrategy.DEPTHFIRSTSEARCH, 0);
+			UI.printMazeASCII(g.getMaze());
+			return;
+		} else {
+			MazeProgram p = new MazeProgram();
+			p.run();
+		}
 	}
 
 }
