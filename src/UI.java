@@ -548,12 +548,21 @@ public class UI extends JFrame {
 				} else if (height < 2) {
 					JOptionPane.showMessageDialog(null, "The maze height cannot be that low. Try 2 or higher.", "Bad input!", JOptionPane.ERROR_MESSAGE);
 					return;
-				} else if (strategy == MazeGenerationStrategy.RING && (width % 2 == 1 || height % 2 == 1)) {
-					JOptionPane.showMessageDialog(null, "The width and height must be even numbers for the ring generation.", "Bad input!", JOptionPane.ERROR_MESSAGE);
+				} else if (strategy == MazeGenerationStrategy.RING && ((width < 4 || height < 4) || (width % 2 == 1 || height % 2 == 1))) {
+					JOptionPane.showMessageDialog(null, "The width and height must be even numbers for the ring generation, and must be 4 or greater each.", "Bad input!", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				
-				program.customGameSetup(width, height, strategy, seed, players);
+				try {
+					program.customGameSetup(width, height, strategy, seed, players);
+				} catch (OutOfMemoryError exc) {
+					JOptionPane.showMessageDialog(null, "The maze is too large, and you've run out of computer memory. Try a smaller maze.", "Out of memory", JOptionPane.ERROR_MESSAGE);
+					return;
+				} catch (IllegalArgumentException exc) {
+					exc.printStackTrace();
+					JOptionPane.showMessageDialog(null, "The maze generation messed up and for some odd reason gave a non-positive integer for Random. If you see this, then something went wrong on our end.", "Random error.", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 			}
 		});
 		

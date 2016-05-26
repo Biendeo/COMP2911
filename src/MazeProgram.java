@@ -223,7 +223,7 @@ public class MazeProgram {
 		
 		frame.setGame(g);
 		
-		UI.printMazeASCII(g.getMaze());
+		//UI.printMazeASCII(g.getMaze());
 		
 		g.setPlaying(true);
 		
