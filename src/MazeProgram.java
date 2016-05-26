@@ -19,9 +19,8 @@ public class MazeProgram {
 	private UIMazeKeyListener keyGet;
 	
 	private Timer refresh;
-	
-	// If anyone complains about this line, just replace it with 60 (CSE computers are 50).
-	private static int refreshRate = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0].getDisplayMode().getRefreshRate();
+
+	private static int refreshRate = 60;
 	private static int refreshTime = (int)((float)1000 / refreshRate);
 	
 	/**
