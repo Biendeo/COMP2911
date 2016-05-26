@@ -6,7 +6,7 @@ public class PrimsMaze extends Maze {
 		super(width, height);
 		strategy = MazeGenerationStrategy.PRIMS;
 	}
-	
+
 	/**
 	 * The process to creating a maze using a randomised depth-first search.
 	 * @param rand
@@ -17,14 +17,14 @@ public class PrimsMaze extends Maze {
 		Random rand = new Random(seed);
 		//Stack<Coord> currentPath = new Stack<Coord>();
 		ArrayList<Coord> neighbours = new ArrayList<Coord>();
-		Coord current = end.clone();
-		
+		Coord current = new Coord(0,0);
+
 		//currentPath.push(current);
 		neighbours.add(current);
 		//int currIndex = 0;
 		//maze[current.x][current.y] = new MazeGrid();
 		int created = 0;
-		
+
 		// We run until we've run out of places to check (which should mean we've filled the whole maze).
 		while (!neighbours.isEmpty()) {
 			//current = currentPath.peek();
@@ -43,7 +43,7 @@ public class PrimsMaze extends Maze {
 			}else{
 				System.out.println("ITS NO?T THE SAME");
 			}
-			
+
 			//add neighbours to new neighbour list
 			if (!isOutOfBound(current.x, current.y - 1) && maze[current.x][current.y - 1] == null){
 				Coord coord =(new Coord(current.x, current.y - 1));
@@ -66,9 +66,9 @@ public class PrimsMaze extends Maze {
 				Coord coord = new Coord(current.x-1, current.y);
 				if(!neighbours.contains(coord)){
 					neighbours.add(coord);
-				}			
+				}
 			}
-			
+
 
 			created++;
 			boolean checkedSide = false;
@@ -76,16 +76,16 @@ public class PrimsMaze extends Maze {
 			boolean checkedRight = false;
 			boolean checkedDown = false;
 			boolean checkedLeft = false;
-			
+
 			// This inner loop keeps getting random sides until either it's
 			// checked every side, or it's found a side which has an unchecked
 			// tile.
 			while (!checkedSide) {
 				Direction randomDirection = getRandomDirection(rand);
-				
+
 				// 0 is up, 1 is right, 2 is down, 3 is left.
 				// This can be modified to add some interesting bias to the generation.
-				
+
 				//if direction exists, i.e. visited, break walls between current neighbour and direction
 				switch (randomDirection) {
 				case UP:
@@ -130,7 +130,7 @@ public class PrimsMaze extends Maze {
 					checkedLeft = true;
 					break;
 				}
-				
+
 				// If every side was checked and no spaces were found, then we pop this off.
 				if (checkedSide || (checkedLeft && checkedDown && checkedRight && checkedUp)) {
 					//currentPath.pop();
@@ -139,7 +139,7 @@ public class PrimsMaze extends Maze {
 				}
 			}
 		}
-		
+
 		placeCoins(rand);
 		System.out.println("created = " + created);
 		System.out.println("seed = " + seed);
@@ -175,7 +175,7 @@ public class PrimsMaze extends Maze {
 
 	protected void placeCoins(Random rand) {
 		int totalCoins = width * height / 20;
-		
+
 		for (int i = 0; i < totalCoins; i++) {
 			boolean foundSpot = false;
 			Coord coinPos = null;
@@ -192,7 +192,7 @@ public class PrimsMaze extends Maze {
 					foundSpot = false;
 				}
 			}
-			
+
 			if (foundSpot) {
 				coins.add(new Coin(coinPos));
 			}
