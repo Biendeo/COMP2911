@@ -938,7 +938,7 @@ public class UI extends JFrame {
 	/**
 	 * Draws the current game's maze.
 	 */
-	public void drawMazeSwingOne() {
+	public void drawMaze() {
 		// Modify this value to your liking.
 		final int wallSize = 1;
 		

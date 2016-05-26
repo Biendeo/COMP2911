@@ -227,7 +227,7 @@ public class MazeProgram {
 		
 		g.setPlaying(true);
 		
-		frame.drawMazeSwingOne();
+		frame.drawMaze();
 		
 		frame.showPause(false);
 		
