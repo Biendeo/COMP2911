@@ -24,8 +24,8 @@ import javax.swing.ImageIcon;
 public class Config implements Serializable {
 	private static final long serialVersionUID = -9101085459063432816L;
 
-	private static String configLocation = "dat/";
-	private static String configFileName = "settings.dat";
+	private  String configLocation = "dat/";
+	private  String configFileName = "settings.dat";
 
 	private int player1Up;
 	private int player1Right;
