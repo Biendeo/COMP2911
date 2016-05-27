@@ -223,7 +223,7 @@ public class MazeProgram {
 		
 		frame.setGame(g);
 		
-		//UI.printMazeASCII(g.getMaze());
+		g.printMazeASCII(g.getMaze());
 		
 		g.setPlaying(true);
 		
@@ -244,12 +244,14 @@ public class MazeProgram {
 		if (GraphicsEnvironment.isHeadless()) {
 			System.out.println("No screen available, just generating a maze.");
 			MazeGame g  = new MazeGame(25, 20, MazeGenerationStrategy.DEPTHFIRSTSEARCH, 0);
-			UI.printMazeASCII(g.getMaze());
+			g.printMazeASCII(g.getMaze());
 			return;
 		} else {
 			MazeProgram p = new MazeProgram();
 			p.run();
 		}
 	}
+	
+	
 
 }
