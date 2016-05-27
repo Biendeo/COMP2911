@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -277,14 +278,22 @@ public class UI extends JFrame {
 		mainMenuExitButton.setToolTipText("Close the program.");
 		mainMenuButtonPanelCentral.add(mainMenuExitButton);
 		
-		JLabel mainMenuTitleLabel = new JLabel("Maze Game");
-		sl_mainMenuContentPanel.putConstraint(SpringLayout.NORTH, mainMenuTitleLabel, 0, SpringLayout.NORTH, mainMenuContentPanel);
-		sl_mainMenuContentPanel.putConstraint(SpringLayout.WEST, mainMenuTitleLabel, 0, SpringLayout.WEST, mainMenuContentPanel);
-		sl_mainMenuContentPanel.putConstraint(SpringLayout.SOUTH, mainMenuTitleLabel, 0, SpringLayout.NORTH, mainMenuButtonPanel);
-		sl_mainMenuContentPanel.putConstraint(SpringLayout.EAST, mainMenuTitleLabel, 0, SpringLayout.EAST, mainMenuContentPanel);
-		mainMenuTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		mainMenuTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		mainMenuContentPanel.add(mainMenuTitleLabel);
+		JPanel panel = new JPanel() {
+			protected void paintComponent(Graphics g) {
+				BufferedImage bannerImg = null;
+				try {
+					bannerImg = ImageIO.read(new File("img/mainMenuHeader.png"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				g.drawImage(bannerImg, (int)(getSize().getWidth() - bannerImg.getWidth()) / 2, (int)(getSize().getHeight() - bannerImg.getHeight()) / 2, null);
+			}
+		};
+		sl_mainMenuContentPanel.putConstraint(SpringLayout.NORTH, panel, 0, SpringLayout.NORTH, mainMenuContentPanel);
+		sl_mainMenuContentPanel.putConstraint(SpringLayout.WEST, panel, 0, SpringLayout.WEST, mainMenuContentPanel);
+		sl_mainMenuContentPanel.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.NORTH, mainMenuButtonPanel);
+		sl_mainMenuContentPanel.putConstraint(SpringLayout.EAST, panel, 0, SpringLayout.EAST, mainMenuContentPanel);
+		mainMenuContentPanel.add(panel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.NORTH, mainMenuPanel, 0, SpringLayout.NORTH, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.WEST, mainMenuPanel, 0, SpringLayout.WEST, mazeViewPanel);
 		sl_mazeViewPanel.putConstraint(SpringLayout.SOUTH, mainMenuPanel, 0, SpringLayout.SOUTH, mazeViewPanel);
