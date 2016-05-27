@@ -20,8 +20,8 @@ public class MazeProgram {
 	
 	private Timer refresh;
 
-	private static int refreshRate = 60;
-	private static int refreshTime = (int)((float)1000 / refreshRate);
+	private int refreshRate = 60;
+	private int refreshTime = (int)((float)1000 / refreshRate);
 	
 	/**
 	 * Creates a new MazeProgram.
